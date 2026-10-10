@@ -1,0 +1,7 @@
+.work/
+build/
+*.class
+.idea/
+.vscode/
+*.pdf
+__pycache__/
