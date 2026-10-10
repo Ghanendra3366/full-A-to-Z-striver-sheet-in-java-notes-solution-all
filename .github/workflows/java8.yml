@@ -15,3 +15,5 @@ jobs:
       - run: python tools/build_catalog.py
       - run: git diff --exit-code
       - run: python tools/verify.py
+      - run: python tools/regression.py
+      - run: python tools/audit.py
