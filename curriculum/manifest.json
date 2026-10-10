@@ -1,0 +1,4085 @@
+[
+  {
+    "topic": "Beginner Problems",
+    "section": "Fundamentals of Programming",
+    "title": "Breaking The Myth",
+    "id": "A2Z-001",
+    "path": "topics/01-beginner-problems/fundamentals-of-programming/breaking-the-myth",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Fundamentals of Programming",
+    "title": "Programming and What Are Computers?",
+    "id": "A2Z-002",
+    "path": "topics/01-beginner-problems/fundamentals-of-programming/programming-and-what-are-computers",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Fundamentals of Programming",
+    "title": "How to Think Like a Programmer",
+    "id": "A2Z-003",
+    "path": "topics/01-beginner-problems/fundamentals-of-programming/how-to-think-like-a-programmer",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Fundamentals of Programming",
+    "title": "Flowcharts and Pseudocode",
+    "id": "A2Z-004",
+    "path": "topics/01-beginner-problems/fundamentals-of-programming/flowcharts-and-pseudocode",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Fundamentals of Programming",
+    "title": "Flowchart Problem-Solving",
+    "id": "A2Z-005",
+    "path": "topics/01-beginner-problems/fundamentals-of-programming/flowchart-problem-solving",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Fundamentals of Programming",
+    "title": "Dry Runs, Edge Cases and Debugging",
+    "id": "A2Z-006",
+    "path": "topics/01-beginner-problems/fundamentals-of-programming/dry-runs-edge-cases-and-debugging",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Fundamentals of Programming",
+    "title": "Programming Languages and Choosing a Path",
+    "id": "A2Z-007",
+    "path": "topics/01-beginner-problems/fundamentals-of-programming/programming-languages-and-choosing-a-path",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Language Basics",
+    "title": "Learn C++",
+    "id": "A2Z-008",
+    "path": "topics/01-beginner-problems/language-basics/learn-c",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Language Basics",
+    "title": "Learn Java",
+    "id": "A2Z-009",
+    "path": "topics/01-beginner-problems/language-basics/learn-java",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Language Basics",
+    "title": "Learn Python",
+    "id": "A2Z-010",
+    "path": "topics/01-beginner-problems/language-basics/learn-python",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Logic Building (Patterns)",
+    "title": "Easy and Medium",
+    "id": "A2Z-011",
+    "path": "topics/01-beginner-problems/logic-building-patterns/easy-and-medium",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Logic Building (Patterns)",
+    "title": "Hard",
+    "id": "A2Z-012",
+    "path": "topics/01-beginner-problems/logic-building-patterns/hard",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 1",
+    "id": "A2Z-013",
+    "path": "topics/01-beginner-problems/patterns/pattern-1",
+    "status": "implemented",
+    "expected": "* * * \n* * * \n* * *"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 2",
+    "id": "A2Z-014",
+    "path": "topics/01-beginner-problems/patterns/pattern-2",
+    "status": "implemented",
+    "expected": "* \n* * \n* * *"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 3",
+    "id": "A2Z-015",
+    "path": "topics/01-beginner-problems/patterns/pattern-3",
+    "status": "implemented",
+    "expected": "1 \n1 2 \n1 2 3"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 4",
+    "id": "A2Z-016",
+    "path": "topics/01-beginner-problems/patterns/pattern-4",
+    "status": "implemented",
+    "expected": "1 \n2 2 \n3 3 3"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 5",
+    "id": "A2Z-017",
+    "path": "topics/01-beginner-problems/patterns/pattern-5",
+    "status": "implemented",
+    "expected": "* * * \n* * \n*"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 6",
+    "id": "A2Z-018",
+    "path": "topics/01-beginner-problems/patterns/pattern-6",
+    "status": "implemented",
+    "expected": "1 2 3 \n1 2 \n1"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 7",
+    "id": "A2Z-019",
+    "path": "topics/01-beginner-problems/patterns/pattern-7",
+    "status": "implemented",
+    "expected": "  *\n ***\n*****"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 8",
+    "id": "A2Z-020",
+    "path": "topics/01-beginner-problems/patterns/pattern-8",
+    "status": "implemented",
+    "expected": "*****\n ***\n  *"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 9",
+    "id": "A2Z-021",
+    "path": "topics/01-beginner-problems/patterns/pattern-9",
+    "status": "implemented",
+    "expected": "  *\n ***\n*****\n*****\n ***\n  *"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 10",
+    "id": "A2Z-022",
+    "path": "topics/01-beginner-problems/patterns/pattern-10",
+    "status": "implemented",
+    "expected": "* \n* * \n* * * \n* * \n*"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 11",
+    "id": "A2Z-023",
+    "path": "topics/01-beginner-problems/patterns/pattern-11",
+    "status": "implemented",
+    "expected": "1 \n0 1 \n1 0 1"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 12",
+    "id": "A2Z-024",
+    "path": "topics/01-beginner-problems/patterns/pattern-12",
+    "status": "implemented",
+    "expected": "1    1\n12  21\n123321"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 13",
+    "id": "A2Z-025",
+    "path": "topics/01-beginner-problems/patterns/pattern-13",
+    "status": "implemented",
+    "expected": "1 \n2 3 \n4 5 6"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 14",
+    "id": "A2Z-026",
+    "path": "topics/01-beginner-problems/patterns/pattern-14",
+    "status": "implemented",
+    "expected": "A \nA B \nA B C"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 15",
+    "id": "A2Z-027",
+    "path": "topics/01-beginner-problems/patterns/pattern-15",
+    "status": "implemented",
+    "expected": "A B C \nA B \nA"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 16",
+    "id": "A2Z-028",
+    "path": "topics/01-beginner-problems/patterns/pattern-16",
+    "status": "implemented",
+    "expected": "A \nB B \nC C C"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 17",
+    "id": "A2Z-029",
+    "path": "topics/01-beginner-problems/patterns/pattern-17",
+    "status": "implemented",
+    "expected": "  A\n ABA\nABCBA"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 18",
+    "id": "A2Z-030",
+    "path": "topics/01-beginner-problems/patterns/pattern-18",
+    "status": "implemented",
+    "expected": "C \nB C \nA B C"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 19",
+    "id": "A2Z-031",
+    "path": "topics/01-beginner-problems/patterns/pattern-19",
+    "status": "implemented",
+    "expected": "******\n**  **\n*    *\n*    *\n**  **\n******"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 20",
+    "id": "A2Z-032",
+    "path": "topics/01-beginner-problems/patterns/pattern-20",
+    "status": "implemented",
+    "expected": "*    *\n**  **\n******\n**  **\n*    *"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 21",
+    "id": "A2Z-033",
+    "path": "topics/01-beginner-problems/patterns/pattern-21",
+    "status": "implemented",
+    "expected": "***\n* *\n***"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Patterns",
+    "title": "Pattern 22",
+    "id": "A2Z-034",
+    "path": "topics/01-beginner-problems/patterns/pattern-22",
+    "status": "implemented",
+    "expected": "3 3 3 3 3 \n3 2 2 2 3 \n3 2 1 2 3 \n3 2 2 2 3 \n3 3 3 3 3"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Time Complexity",
+    "title": "Theory with examples",
+    "id": "A2Z-035",
+    "path": "topics/01-beginner-problems/time-complexity/theory-with-examples",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Standard Libraries & Collections",
+    "title": "STL",
+    "id": "A2Z-036",
+    "path": "topics/01-beginner-problems/standard-libraries-collections/stl",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Standard Libraries & Collections",
+    "title": "Java Collections",
+    "id": "A2Z-037",
+    "path": "topics/01-beginner-problems/standard-libraries-collections/java-collections",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Standard Libraries & Collections",
+    "title": "Python Libraries Part 1",
+    "id": "A2Z-038",
+    "path": "topics/01-beginner-problems/standard-libraries-collections/python-libraries-part-1",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Standard Libraries & Collections",
+    "title": "Python Libraries Part 2",
+    "id": "A2Z-039",
+    "path": "topics/01-beginner-problems/standard-libraries-collections/python-libraries-part-2",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Concept Basics",
+    "title": "Basic Maths",
+    "id": "A2Z-040",
+    "path": "topics/01-beginner-problems/concept-basics/basic-maths",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Concept Basics",
+    "title": "Basic Arrays",
+    "id": "A2Z-041",
+    "path": "topics/01-beginner-problems/concept-basics/basic-arrays",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Concept Basics",
+    "title": "Basic Hashing",
+    "id": "A2Z-042",
+    "path": "topics/01-beginner-problems/concept-basics/basic-hashing",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Concept Basics",
+    "title": "Basic String",
+    "id": "A2Z-043",
+    "path": "topics/01-beginner-problems/concept-basics/basic-string",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Maths",
+    "title": "Count all Digits of a Number",
+    "id": "A2Z-044",
+    "path": "topics/01-beginner-problems/basic-maths/count-all-digits-of-a-number",
+    "status": "implemented",
+    "expected": "10"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Maths",
+    "title": "Count number of odd digits in a number",
+    "id": "A2Z-045",
+    "path": "topics/01-beginner-problems/basic-maths/count-number-of-odd-digits-in-a-number",
+    "status": "implemented",
+    "expected": "3"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Maths",
+    "title": "Reverse a number",
+    "id": "A2Z-046",
+    "path": "topics/01-beginner-problems/basic-maths/reverse-a-number",
+    "status": "implemented",
+    "expected": "-21"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Maths",
+    "title": "Palindrome Number",
+    "id": "A2Z-047",
+    "path": "topics/01-beginner-problems/basic-maths/palindrome-number",
+    "status": "implemented",
+    "expected": "true"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Maths",
+    "title": "Return the Largest Digit in a Number",
+    "id": "A2Z-048",
+    "path": "topics/01-beginner-problems/basic-maths/return-the-largest-digit-in-a-number",
+    "status": "implemented",
+    "expected": "9"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Maths",
+    "title": "Factorial of a given number",
+    "id": "A2Z-049",
+    "path": "topics/01-beginner-problems/basic-maths/factorial-of-a-given-number",
+    "status": "implemented",
+    "expected": "2432902008176640000"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Maths",
+    "title": "Check if the Number is Armstrong",
+    "id": "A2Z-050",
+    "path": "topics/01-beginner-problems/basic-maths/check-if-the-number-is-armstrong",
+    "status": "implemented",
+    "expected": "true"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Maths",
+    "title": "Check for Perfect Number",
+    "id": "A2Z-051",
+    "path": "topics/01-beginner-problems/basic-maths/check-for-perfect-number",
+    "status": "implemented",
+    "expected": "true"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Maths",
+    "title": "Check for Prime Number",
+    "id": "A2Z-052",
+    "path": "topics/01-beginner-problems/basic-maths/check-for-prime-number",
+    "status": "implemented",
+    "expected": "true"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Maths",
+    "title": "Count of Prime Numbers till N",
+    "id": "A2Z-053",
+    "path": "topics/01-beginner-problems/basic-maths/count-of-prime-numbers-till-n",
+    "status": "implemented",
+    "expected": "4"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Maths",
+    "title": "GCD of Two Numbers",
+    "id": "A2Z-054",
+    "path": "topics/01-beginner-problems/basic-maths/gcd-of-two-numbers",
+    "status": "implemented",
+    "expected": "6"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Maths",
+    "title": "LCM of two numbers",
+    "id": "A2Z-055",
+    "path": "topics/01-beginner-problems/basic-maths/lcm-of-two-numbers",
+    "status": "implemented",
+    "expected": "36"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Maths",
+    "title": "Divisors of a Number",
+    "id": "A2Z-056",
+    "path": "topics/01-beginner-problems/basic-maths/divisors-of-a-number",
+    "status": "implemented",
+    "expected": "[1, 2, 3, 4, 6, 9, 12, 18, 36]"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Arrays",
+    "title": "Sum of Array Elements",
+    "id": "A2Z-057",
+    "path": "topics/01-beginner-problems/basic-arrays/sum-of-array-elements",
+    "status": "implemented",
+    "expected": "6"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Arrays",
+    "title": "Count of odd numbers in Array",
+    "id": "A2Z-058",
+    "path": "topics/01-beginner-problems/basic-arrays/count-of-odd-numbers-in-array",
+    "status": "implemented",
+    "expected": "2"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Arrays",
+    "title": "Check if the Array is Sorted I",
+    "id": "A2Z-059",
+    "path": "topics/01-beginner-problems/basic-arrays/check-if-the-array-is-sorted-i",
+    "status": "implemented",
+    "expected": "true"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Arrays",
+    "title": "Reverse an array",
+    "id": "A2Z-060",
+    "path": "topics/01-beginner-problems/basic-arrays/reverse-an-array",
+    "status": "implemented",
+    "expected": "[3, 2, 1]"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Hashing",
+    "title": "Highest Occurring Element in an Array",
+    "id": "A2Z-061",
+    "path": "topics/01-beginner-problems/basic-hashing/highest-occurring-element-in-an-array",
+    "status": "implemented",
+    "expected": "2"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Hashing",
+    "title": "Second Highest Occurring Element",
+    "id": "A2Z-062",
+    "path": "topics/01-beginner-problems/basic-hashing/second-highest-occurring-element",
+    "status": "implemented",
+    "expected": "1"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Hashing",
+    "title": "Sum of Highest and Lowest Frequency",
+    "id": "A2Z-063",
+    "path": "topics/01-beginner-problems/basic-hashing/sum-of-highest-and-lowest-frequency",
+    "status": "implemented",
+    "expected": "4"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Strings",
+    "title": "Reverse a String II",
+    "id": "A2Z-064",
+    "path": "topics/01-beginner-problems/basic-strings/reverse-a-string-ii",
+    "status": "pending"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Strings",
+    "title": "Palindrome Check",
+    "id": "A2Z-065",
+    "path": "topics/01-beginner-problems/basic-strings/palindrome-check",
+    "status": "pending"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Strings",
+    "title": "Largest Odd Number in a String",
+    "id": "A2Z-066",
+    "path": "topics/01-beginner-problems/basic-strings/largest-odd-number-in-a-string",
+    "status": "pending"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Strings",
+    "title": "Longest Common Prefix",
+    "id": "A2Z-067",
+    "path": "topics/01-beginner-problems/basic-strings/longest-common-prefix",
+    "status": "pending"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Strings",
+    "title": "Isomorphic Strings",
+    "id": "A2Z-068",
+    "path": "topics/01-beginner-problems/basic-strings/isomorphic-strings",
+    "status": "pending"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Strings",
+    "title": "Rotate String",
+    "id": "A2Z-069",
+    "path": "topics/01-beginner-problems/basic-strings/rotate-string",
+    "status": "pending"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Strings",
+    "title": "Valid Anagram",
+    "id": "A2Z-070",
+    "path": "topics/01-beginner-problems/basic-strings/valid-anagram",
+    "status": "pending"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Strings",
+    "title": "Sort Characters by Frequency",
+    "id": "A2Z-071",
+    "path": "topics/01-beginner-problems/basic-strings/sort-characters-by-frequency",
+    "status": "pending"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Recursion",
+    "title": "Recursion Theory",
+    "id": "A2Z-072",
+    "path": "topics/01-beginner-problems/basic-recursion/recursion-theory",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Recursion",
+    "title": "Recursion Concepts with Parameters",
+    "id": "A2Z-073",
+    "path": "topics/01-beginner-problems/basic-recursion/recursion-concepts-with-parameters",
+    "status": "theory"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Recursion",
+    "title": "Sum of First N Numbers",
+    "id": "A2Z-074",
+    "path": "topics/01-beginner-problems/basic-recursion/sum-of-first-n-numbers",
+    "status": "implemented",
+    "expected": "15"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Recursion",
+    "title": "Factorial of a Given Number",
+    "id": "A2Z-075",
+    "path": "topics/01-beginner-problems/basic-recursion/factorial-of-a-given-number",
+    "status": "implemented",
+    "expected": "120"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Recursion",
+    "title": "Sum of Array Elements II",
+    "id": "A2Z-076",
+    "path": "topics/01-beginner-problems/basic-recursion/sum-of-array-elements-ii",
+    "status": "implemented",
+    "expected": "6"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Recursion",
+    "title": "Reverse a String I",
+    "id": "A2Z-077",
+    "path": "topics/01-beginner-problems/basic-recursion/reverse-a-string-i",
+    "status": "implemented",
+    "expected": "avaj"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Recursion",
+    "title": "Check if String is Palindrome or Not",
+    "id": "A2Z-078",
+    "path": "topics/01-beginner-problems/basic-recursion/check-if-string-is-palindrome-or-not",
+    "status": "implemented",
+    "expected": "true"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Recursion",
+    "title": "Check if a Number is Prime or Not",
+    "id": "A2Z-079",
+    "path": "topics/01-beginner-problems/basic-recursion/check-if-a-number-is-prime-or-not",
+    "status": "implemented",
+    "expected": "true"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Recursion",
+    "title": "Reverse an array 2",
+    "id": "A2Z-080",
+    "path": "topics/01-beginner-problems/basic-recursion/reverse-an-array-2",
+    "status": "implemented",
+    "expected": "[3, 2, 1]"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Recursion",
+    "title": "Check if the Array is Sorted II",
+    "id": "A2Z-081",
+    "path": "topics/01-beginner-problems/basic-recursion/check-if-the-array-is-sorted-ii",
+    "status": "implemented",
+    "expected": "true"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Recursion",
+    "title": "Sum of Digits in a Given Number",
+    "id": "A2Z-082",
+    "path": "topics/01-beginner-problems/basic-recursion/sum-of-digits-in-a-given-number",
+    "status": "implemented",
+    "expected": "6"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Basic Recursion",
+    "title": "Fibonacci Number",
+    "id": "A2Z-083",
+    "path": "topics/01-beginner-problems/basic-recursion/fibonacci-number",
+    "status": "implemented",
+    "expected": "55"
+  },
+  {
+    "topic": "Sorting",
+    "section": "Algorithms",
+    "title": "Selection Sort",
+    "id": "A2Z-084",
+    "path": "topics/02-sorting/algorithms/selection-sort",
+    "status": "implemented",
+    "expected": "[-1, 0, 2, 2, 5]"
+  },
+  {
+    "topic": "Sorting",
+    "section": "Algorithms",
+    "title": "Bubble Sort",
+    "id": "A2Z-085",
+    "path": "topics/02-sorting/algorithms/bubble-sort",
+    "status": "implemented",
+    "expected": "[-1, 0, 2, 2, 5]"
+  },
+  {
+    "topic": "Sorting",
+    "section": "Algorithms",
+    "title": "Insertion Sorting",
+    "id": "A2Z-086",
+    "path": "topics/02-sorting/algorithms/insertion-sorting",
+    "status": "implemented",
+    "expected": "[-1, 0, 2, 2, 5]"
+  },
+  {
+    "topic": "Sorting",
+    "section": "Algorithms",
+    "title": "Merge Sorting",
+    "id": "A2Z-087",
+    "path": "topics/02-sorting/algorithms/merge-sorting",
+    "status": "implemented",
+    "expected": "[-1, 0, 2, 2, 5]"
+  },
+  {
+    "topic": "Sorting",
+    "section": "Algorithms",
+    "title": "Quick Sorting",
+    "id": "A2Z-088",
+    "path": "topics/02-sorting/algorithms/quick-sorting",
+    "status": "implemented",
+    "expected": "[-1, 0, 2, 2, 5]"
+  },
+  {
+    "topic": "Sorting",
+    "section": "Algorithms",
+    "title": "Recursive Bubble Sort",
+    "id": "A2Z-089",
+    "path": "topics/02-sorting/algorithms/recursive-bubble-sort",
+    "status": "implemented",
+    "expected": "[-1, 0, 2, 2, 5]"
+  },
+  {
+    "topic": "Sorting",
+    "section": "Algorithms",
+    "title": "Recursive Insertion Sort",
+    "id": "A2Z-090",
+    "path": "topics/02-sorting/algorithms/recursive-insertion-sort",
+    "status": "implemented",
+    "expected": "[-1, 0, 2, 2, 5]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "Fundamentals",
+    "title": "Linear Search",
+    "id": "A2Z-091",
+    "path": "topics/03-arrays/fundamentals/linear-search",
+    "status": "implemented",
+    "expected": "0"
+  },
+  {
+    "topic": "Arrays",
+    "section": "Fundamentals",
+    "title": "Largest Element",
+    "id": "A2Z-092",
+    "path": "topics/03-arrays/fundamentals/largest-element",
+    "status": "implemented",
+    "expected": "-2"
+  },
+  {
+    "topic": "Arrays",
+    "section": "Fundamentals",
+    "title": "Second Largest Element",
+    "id": "A2Z-093",
+    "path": "topics/03-arrays/fundamentals/second-largest-element",
+    "status": "implemented",
+    "expected": "2"
+  },
+  {
+    "topic": "Arrays",
+    "section": "Fundamentals",
+    "title": "Maximum Consecutive Ones",
+    "id": "A2Z-094",
+    "path": "topics/03-arrays/fundamentals/maximum-consecutive-ones",
+    "status": "implemented",
+    "expected": "3"
+  },
+  {
+    "topic": "Arrays",
+    "section": "Fundamentals",
+    "title": "Left Rotate Array by One",
+    "id": "A2Z-095",
+    "path": "topics/03-arrays/fundamentals/left-rotate-array-by-one",
+    "status": "implemented",
+    "expected": "[2, 3, 1]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "Fundamentals",
+    "title": "Left Rotate Array by K Places",
+    "id": "A2Z-096",
+    "path": "topics/03-arrays/fundamentals/left-rotate-array-by-k-places",
+    "status": "implemented",
+    "expected": "[3, 4, 5, 1, 2]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "Logic Building",
+    "title": "Move Zeros to End",
+    "id": "A2Z-097",
+    "path": "topics/03-arrays/logic-building/move-zeros-to-end",
+    "status": "implemented",
+    "expected": "[1, 3, 2, 0, 0]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "Logic Building",
+    "title": "Remove duplicates from sorted array",
+    "id": "A2Z-098",
+    "path": "topics/03-arrays/logic-building/remove-duplicates-from-sorted-array",
+    "status": "implemented",
+    "expected": "[1, 2, 3]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "Logic Building",
+    "title": "Find missing number",
+    "id": "A2Z-099",
+    "path": "topics/03-arrays/logic-building/find-missing-number",
+    "status": "implemented",
+    "expected": "2"
+  },
+  {
+    "topic": "Arrays",
+    "section": "Logic Building",
+    "title": "Union of two sorted arrays",
+    "id": "A2Z-100",
+    "path": "topics/03-arrays/logic-building/union-of-two-sorted-arrays",
+    "status": "implemented",
+    "expected": "[1, 2, 3, 4]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "Logic Building",
+    "title": "Intersection of two sorted arrays",
+    "id": "A2Z-101",
+    "path": "topics/03-arrays/logic-building/intersection-of-two-sorted-arrays",
+    "status": "implemented",
+    "expected": "[2, 2]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Medium)",
+    "title": "Majority Element-I",
+    "id": "A2Z-102",
+    "path": "topics/03-arrays/faqs-medium/majority-element-i",
+    "status": "implemented",
+    "expected": "2"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Medium)",
+    "title": "Leaders in an Array",
+    "id": "A2Z-103",
+    "path": "topics/03-arrays/faqs-medium/leaders-in-an-array",
+    "status": "implemented",
+    "expected": "[17, 5, 2]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Medium)",
+    "title": "Rearrange array elements by sign",
+    "id": "A2Z-104",
+    "path": "topics/03-arrays/faqs-medium/rearrange-array-elements-by-sign",
+    "status": "implemented",
+    "expected": "[3, -2, 1, -5, 2, -4]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Medium)",
+    "title": "Print the matrix in spiral manner",
+    "id": "A2Z-105",
+    "path": "topics/03-arrays/faqs-medium/print-the-matrix-in-spiral-manner",
+    "status": "implemented",
+    "expected": "[1, 2, 3, 6, 9, 8, 7, 4, 5]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Medium)",
+    "title": "Pascal's Triangle I",
+    "id": "A2Z-106",
+    "path": "topics/03-arrays/faqs-medium/pascal-s-triangle-i",
+    "status": "implemented",
+    "expected": "6"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Medium)",
+    "title": "Pascal's Triangle II",
+    "id": "A2Z-107",
+    "path": "topics/03-arrays/faqs-medium/pascal-s-triangle-ii",
+    "status": "implemented",
+    "expected": "[1, 4, 6, 4, 1]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Medium)",
+    "title": "Pascal's Triangle III",
+    "id": "A2Z-108",
+    "path": "topics/03-arrays/faqs-medium/pascal-s-triangle-iii",
+    "status": "implemented",
+    "expected": "[[1], [1, 1], [1, 2, 1], [1, 3, 3, 1]]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Medium)",
+    "title": "Rotate matrix by 90 degrees",
+    "id": "A2Z-109",
+    "path": "topics/03-arrays/faqs-medium/rotate-matrix-by-90-degrees",
+    "status": "implemented",
+    "expected": "[[3, 1], [4, 2]]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Medium)",
+    "title": "Set Matrix Zeroes",
+    "id": "A2Z-110",
+    "path": "topics/03-arrays/faqs-medium/set-matrix-zeroes",
+    "status": "implemented",
+    "expected": "[[1, 0, 1], [0, 0, 0], [1, 0, 1]]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Medium)",
+    "title": "Two Sum",
+    "id": "A2Z-111",
+    "path": "topics/03-arrays/faqs-medium/two-sum",
+    "status": "implemented",
+    "expected": "[0, 1]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Medium)",
+    "title": "3 Sum",
+    "id": "A2Z-112",
+    "path": "topics/03-arrays/faqs-medium/3-sum",
+    "status": "implemented",
+    "expected": "[[-1, -1, 2], [-1, 0, 1]]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Medium)",
+    "title": "4 Sum",
+    "id": "A2Z-113",
+    "path": "topics/03-arrays/faqs-medium/4-sum",
+    "status": "implemented",
+    "expected": "[[-2, -1, 1, 2], [-2, 0, 0, 2], [-1, 0, 0, 1]]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Medium)",
+    "title": "Sort an array of 0's 1's and 2's",
+    "id": "A2Z-114",
+    "path": "topics/03-arrays/faqs-medium/sort-an-array-of-0-s-1-s-and-2-s",
+    "status": "implemented",
+    "expected": "[0, 0, 1, 1, 2, 2]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Medium)",
+    "title": "Kadane's Algorithm",
+    "id": "A2Z-115",
+    "path": "topics/03-arrays/faqs-medium/kadane-s-algorithm",
+    "status": "implemented",
+    "expected": "6"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Medium)",
+    "title": "Next Permutation",
+    "id": "A2Z-116",
+    "path": "topics/03-arrays/faqs-medium/next-permutation",
+    "status": "implemented",
+    "expected": "[1, 3, 2]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Hard)",
+    "title": "Majority Element-II",
+    "id": "A2Z-117",
+    "path": "topics/03-arrays/faqs-hard/majority-element-ii",
+    "status": "implemented",
+    "expected": "[1, 2]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Hard)",
+    "title": "Find the repeating and missing number",
+    "id": "A2Z-118",
+    "path": "topics/03-arrays/faqs-hard/find-the-repeating-and-missing-number",
+    "status": "implemented",
+    "expected": "[3, 4]"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Hard)",
+    "title": "Count Inversions",
+    "id": "A2Z-119",
+    "path": "topics/03-arrays/faqs-hard/count-inversions",
+    "status": "implemented",
+    "expected": "5"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Hard)",
+    "title": "Reverse Pairs",
+    "id": "A2Z-120",
+    "path": "topics/03-arrays/faqs-hard/reverse-pairs",
+    "status": "implemented",
+    "expected": "3"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Hard)",
+    "title": "Maximum Product Subarray in an Array",
+    "id": "A2Z-121",
+    "path": "topics/03-arrays/faqs-hard/maximum-product-subarray-in-an-array",
+    "status": "implemented",
+    "expected": "6"
+  },
+  {
+    "topic": "Arrays",
+    "section": "FAQs(Hard)",
+    "title": "Merge two sorted arrays without extra space",
+    "id": "A2Z-122",
+    "path": "topics/03-arrays/faqs-hard/merge-two-sorted-arrays-without-extra-space",
+    "status": "implemented",
+    "expected": "[1, 2, 3]\n[4, 8, 9]"
+  },
+  {
+    "topic": "Hashing",
+    "section": "Theory",
+    "title": "Basic Hashing",
+    "id": "A2Z-123",
+    "path": "topics/04-hashing/theory/basic-hashing",
+    "status": "theory"
+  },
+  {
+    "topic": "Hashing",
+    "section": "FAQs",
+    "title": "Longest Consecutive Sequence in an Array",
+    "id": "A2Z-124",
+    "path": "topics/04-hashing/faqs/longest-consecutive-sequence-in-an-array",
+    "status": "pending"
+  },
+  {
+    "topic": "Hashing",
+    "section": "FAQs",
+    "title": "Longest subarray with sum K",
+    "id": "A2Z-125",
+    "path": "topics/04-hashing/faqs/longest-subarray-with-sum-k",
+    "status": "pending"
+  },
+  {
+    "topic": "Hashing",
+    "section": "FAQs",
+    "title": "Largest Subarray with Sum 0",
+    "id": "A2Z-126",
+    "path": "topics/04-hashing/faqs/largest-subarray-with-sum-0",
+    "status": "pending"
+  },
+  {
+    "topic": "Hashing",
+    "section": "FAQs",
+    "title": "Count subarrays with given sum",
+    "id": "A2Z-127",
+    "path": "topics/04-hashing/faqs/count-subarrays-with-given-sum",
+    "status": "pending"
+  },
+  {
+    "topic": "Hashing",
+    "section": "FAQs",
+    "title": "Count subarrays with given xor K",
+    "id": "A2Z-128",
+    "path": "topics/04-hashing/faqs/count-subarrays-with-given-xor-k",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "Fundamentals",
+    "title": "Binary Search",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-129",
+    "path": "topics/05-binary-search/fundamentals/binary-search",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "Fundamentals",
+    "title": "Lower Bound",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-130",
+    "path": "topics/05-binary-search/fundamentals/lower-bound",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "Fundamentals",
+    "title": "Upper Bound",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-131",
+    "path": "topics/05-binary-search/fundamentals/upper-bound",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "Logic Building",
+    "title": "Search Insert Position",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-132",
+    "path": "topics/05-binary-search/logic-building/search-insert-position",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "Logic Building",
+    "title": "Floor and Ceil in Sorted Array",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-133",
+    "path": "topics/05-binary-search/logic-building/floor-and-ceil-in-sorted-array",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "Logic Building",
+    "title": "First and Last Occurrence",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-134",
+    "path": "topics/05-binary-search/logic-building/first-and-last-occurrence",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "Logic Building",
+    "title": "Count Occurrences in Sorted Array",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-135",
+    "path": "topics/05-binary-search/logic-building/count-occurrences-in-sorted-array",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "Logic Building",
+    "title": "Search in Rotated Sorted Array I",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-136",
+    "path": "topics/05-binary-search/logic-building/search-in-rotated-sorted-array-i",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "Logic Building",
+    "title": "Search in Rotated Sorted Array II",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-137",
+    "path": "topics/05-binary-search/logic-building/search-in-rotated-sorted-array-ii",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "Logic Building",
+    "title": "Minimum in Rotated Sorted Array",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-138",
+    "path": "topics/05-binary-search/logic-building/minimum-in-rotated-sorted-array",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "Logic Building",
+    "title": "Rotation Count",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-139",
+    "path": "topics/05-binary-search/logic-building/rotation-count",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "Logic Building",
+    "title": "Single Element in Sorted Array",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-140",
+    "path": "topics/05-binary-search/logic-building/single-element-in-sorted-array",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "On answers",
+    "title": "Square Root of a Number",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-141",
+    "path": "topics/05-binary-search/on-answers/square-root-of-a-number",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "On answers",
+    "title": "Nth Root of a Number",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-142",
+    "path": "topics/05-binary-search/on-answers/nth-root-of-a-number",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "On answers",
+    "title": "Koko Eating Bananas",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-143",
+    "path": "topics/05-binary-search/on-answers/koko-eating-bananas",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "On answers",
+    "title": "Minimum Days to Make Bouquets",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-144",
+    "path": "topics/05-binary-search/on-answers/minimum-days-to-make-bouquets",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "On answers",
+    "title": "Smallest Divisor Given a Threshold",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-145",
+    "path": "topics/05-binary-search/on-answers/smallest-divisor-given-a-threshold",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "On answers",
+    "title": "Capacity to Ship Packages Within D Days",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-146",
+    "path": "topics/05-binary-search/on-answers/capacity-to-ship-packages-within-d-days",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "On answers",
+    "title": "Kth Missing Positive Number",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-147",
+    "path": "topics/05-binary-search/on-answers/kth-missing-positive-number",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "On answers",
+    "title": "Aggressive Cows",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-148",
+    "path": "topics/05-binary-search/on-answers/aggressive-cows",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "FAQs",
+    "title": "Find Peak Element",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-149",
+    "path": "topics/05-binary-search/faqs/find-peak-element",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "FAQs",
+    "title": "Allocate Books",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-150",
+    "path": "topics/05-binary-search/faqs/allocate-books",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "FAQs",
+    "title": "Split Array Largest Sum",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-151",
+    "path": "topics/05-binary-search/faqs/split-array-largest-sum",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "FAQs",
+    "title": "Painter's Partition",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-152",
+    "path": "topics/05-binary-search/faqs/painter-s-partition",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "FAQs",
+    "title": "Minimize Maximum Distance Between Gas Stations",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-153",
+    "path": "topics/05-binary-search/faqs/minimize-maximum-distance-between-gas-stations",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "FAQs",
+    "title": "Median of Two Sorted Arrays",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-154",
+    "path": "topics/05-binary-search/faqs/median-of-two-sorted-arrays",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "FAQs",
+    "title": "Kth Element of Two Sorted Arrays",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-155",
+    "path": "topics/05-binary-search/faqs/kth-element-of-two-sorted-arrays",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "2D Arrays",
+    "title": "Row with Maximum Ones",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-156",
+    "path": "topics/05-binary-search/2d-arrays/row-with-maximum-ones",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "2D Arrays",
+    "title": "Search a 2D Matrix I",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-157",
+    "path": "topics/05-binary-search/2d-arrays/search-a-2d-matrix-i",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "2D Arrays",
+    "title": "Search a 2D Matrix II",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-158",
+    "path": "topics/05-binary-search/2d-arrays/search-a-2d-matrix-ii",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "2D Arrays",
+    "title": "Find Peak Element in a 2D Matrix",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-159",
+    "path": "topics/05-binary-search/2d-arrays/find-peak-element-in-a-2d-matrix",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search",
+    "section": "2D Arrays",
+    "title": "Median of a Row Wise Sorted Matrix",
+    "provenance": "Supplement: collapsed Binary Search section; editorial ordering",
+    "id": "A2Z-160",
+    "path": "topics/05-binary-search/2d-arrays/median-of-a-row-wise-sorted-matrix",
+    "status": "pending"
+  },
+  {
+    "topic": "Strings (Basic and Medium)",
+    "section": "Parentheses",
+    "title": "Remove Outermost Parentheses",
+    "id": "A2Z-161",
+    "path": "topics/06-strings-basic-and-medium/parentheses/remove-outermost-parentheses",
+    "status": "pending"
+  },
+  {
+    "topic": "Strings (Basic and Medium)",
+    "section": "Parentheses",
+    "title": "Maximum Nesting Depth of the Parentheses",
+    "id": "A2Z-162",
+    "path": "topics/06-strings-basic-and-medium/parentheses/maximum-nesting-depth-of-the-parentheses",
+    "status": "pending"
+  },
+  {
+    "topic": "Strings (Basic and Medium)",
+    "section": "String Conversions",
+    "title": "Roman to Integer",
+    "id": "A2Z-163",
+    "path": "topics/06-strings-basic-and-medium/string-conversions/roman-to-integer",
+    "status": "pending"
+  },
+  {
+    "topic": "Strings (Basic and Medium)",
+    "section": "String Conversions",
+    "title": "String to Integer (atoi)",
+    "id": "A2Z-164",
+    "path": "topics/06-strings-basic-and-medium/string-conversions/string-to-integer-atoi",
+    "status": "pending"
+  },
+  {
+    "topic": "Strings (Basic and Medium)",
+    "section": "Substring Problems",
+    "title": "Count Number of Substrings",
+    "id": "A2Z-165",
+    "path": "topics/06-strings-basic-and-medium/substring-problems/count-number-of-substrings",
+    "status": "pending"
+  },
+  {
+    "topic": "Strings (Basic and Medium)",
+    "section": "Substring Problems",
+    "title": "Longest Palindromic Substring",
+    "id": "A2Z-166",
+    "path": "topics/06-strings-basic-and-medium/substring-problems/longest-palindromic-substring",
+    "status": "pending"
+  },
+  {
+    "topic": "Strings (Basic and Medium)",
+    "section": "Substring Problems",
+    "title": "Sum of Beauty of All Substrings",
+    "id": "A2Z-167",
+    "path": "topics/06-strings-basic-and-medium/substring-problems/sum-of-beauty-of-all-substrings",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "Implementation Problems",
+    "title": "Pow(x,n)",
+    "id": "A2Z-168",
+    "path": "topics/07-recursion/implementation-problems/pow-x-n",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "Implementation Problems",
+    "title": "Generate Parentheses",
+    "id": "A2Z-169",
+    "path": "topics/07-recursion/implementation-problems/generate-parentheses",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "Implementation Problems",
+    "title": "Power Set",
+    "id": "A2Z-170",
+    "path": "topics/07-recursion/implementation-problems/power-set",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "Implementation Problems",
+    "title": "Count Good Numbers",
+    "id": "A2Z-171",
+    "path": "topics/07-recursion/implementation-problems/count-good-numbers",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "Implementation Problems",
+    "title": "Reverse a Stack",
+    "id": "A2Z-172",
+    "path": "topics/07-recursion/implementation-problems/reverse-a-stack",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "Subsequence Pattern Problems",
+    "title": "Learn All Patterns of Subsequences (Theory)",
+    "id": "A2Z-173",
+    "path": "topics/07-recursion/subsequence-pattern-problems/learn-all-patterns-of-subsequences-theory",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "Subsequence Pattern Problems",
+    "title": "Check if there exists a subsequence with sum K",
+    "id": "A2Z-174",
+    "path": "topics/07-recursion/subsequence-pattern-problems/check-if-there-exists-a-subsequence-with-sum-k",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "Subsequence Pattern Problems",
+    "title": "Count all subsequences with sum K",
+    "id": "A2Z-175",
+    "path": "topics/07-recursion/subsequence-pattern-problems/count-all-subsequences-with-sum-k",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "Subsequence Pattern Problems",
+    "title": "Generate Binary Strings Without Consecutive 1s",
+    "id": "A2Z-176",
+    "path": "topics/07-recursion/subsequence-pattern-problems/generate-binary-strings-without-consecutive-1s",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "FAQs (Medium)",
+    "title": "Combination Sum",
+    "id": "A2Z-177",
+    "path": "topics/07-recursion/faqs-medium/combination-sum",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "FAQs (Medium)",
+    "title": "Combination Sum II",
+    "id": "A2Z-178",
+    "path": "topics/07-recursion/faqs-medium/combination-sum-ii",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "FAQs (Medium)",
+    "title": "Subsets I",
+    "id": "A2Z-179",
+    "path": "topics/07-recursion/faqs-medium/subsets-i",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "FAQs (Medium)",
+    "title": "Subsets II",
+    "id": "A2Z-180",
+    "path": "topics/07-recursion/faqs-medium/subsets-ii",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "FAQs (Medium)",
+    "title": "Combination Sum III",
+    "id": "A2Z-181",
+    "path": "topics/07-recursion/faqs-medium/combination-sum-iii",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "Hard",
+    "title": "Letter Combinations of a Phone Number",
+    "id": "A2Z-182",
+    "path": "topics/07-recursion/hard/letter-combinations-of-a-phone-number",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "FAQs (Hard)",
+    "title": "Palindrome partitioning",
+    "id": "A2Z-183",
+    "path": "topics/07-recursion/faqs-hard/palindrome-partitioning",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "FAQs (Hard)",
+    "title": "Word Search",
+    "id": "A2Z-184",
+    "path": "topics/07-recursion/faqs-hard/word-search",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "FAQs (Hard)",
+    "title": "N Queen",
+    "id": "A2Z-185",
+    "path": "topics/07-recursion/faqs-hard/n-queen",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "FAQs (Hard)",
+    "title": "Rat in a Maze",
+    "id": "A2Z-186",
+    "path": "topics/07-recursion/faqs-hard/rat-in-a-maze",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "FAQs (Hard)",
+    "title": "M Coloring Problem",
+    "id": "A2Z-187",
+    "path": "topics/07-recursion/faqs-hard/m-coloring-problem",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "FAQs (Hard)",
+    "title": "Sudoku Solver",
+    "id": "A2Z-188",
+    "path": "topics/07-recursion/faqs-hard/sudoku-solver",
+    "status": "pending"
+  },
+  {
+    "topic": "Recursion",
+    "section": "FAQs (Hard)",
+    "title": "Expression Add Operators",
+    "id": "A2Z-189",
+    "path": "topics/07-recursion/faqs-hard/expression-add-operators",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Single LL)",
+    "title": "Introduction to Singly LinkedList",
+    "id": "A2Z-190",
+    "path": "topics/08-linked-list/fundamentals-single-ll/introduction-to-singly-linkedlist",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Single LL)",
+    "title": "Traversal in Linked List",
+    "id": "A2Z-191",
+    "path": "topics/08-linked-list/fundamentals-single-ll/traversal-in-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Single LL)",
+    "title": "Deletion in Linked List",
+    "id": "A2Z-192",
+    "path": "topics/08-linked-list/fundamentals-single-ll/deletion-in-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Single LL)",
+    "title": "Insertion in Linked List",
+    "id": "A2Z-193",
+    "path": "topics/08-linked-list/fundamentals-single-ll/insertion-in-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Single LL)",
+    "title": "Deletion of the head of LL",
+    "id": "A2Z-194",
+    "path": "topics/08-linked-list/fundamentals-single-ll/deletion-of-the-head-of-ll",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Single LL)",
+    "title": "Deletion of the tail of Linked List",
+    "id": "A2Z-195",
+    "path": "topics/08-linked-list/fundamentals-single-ll/deletion-of-the-tail-of-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Single LL)",
+    "title": "Deletion of the Kth element of Linked List",
+    "id": "A2Z-196",
+    "path": "topics/08-linked-list/fundamentals-single-ll/deletion-of-the-kth-element-of-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Single LL)",
+    "title": "Delete the element with value X",
+    "id": "A2Z-197",
+    "path": "topics/08-linked-list/fundamentals-single-ll/delete-the-element-with-value-x",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Single LL)",
+    "title": "Insertion at the head of Linked List",
+    "id": "A2Z-198",
+    "path": "topics/08-linked-list/fundamentals-single-ll/insertion-at-the-head-of-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Single LL)",
+    "title": "Insertion at the tail of Linked List",
+    "id": "A2Z-199",
+    "path": "topics/08-linked-list/fundamentals-single-ll/insertion-at-the-tail-of-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Single LL)",
+    "title": "Insertion at the Kth position of Linked List",
+    "id": "A2Z-200",
+    "path": "topics/08-linked-list/fundamentals-single-ll/insertion-at-the-kth-position-of-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Single LL)",
+    "title": "Insertion before the value X in Linked List",
+    "id": "A2Z-201",
+    "path": "topics/08-linked-list/fundamentals-single-ll/insertion-before-the-value-x-in-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Single LL)",
+    "title": "Find the length of the Linked List",
+    "id": "A2Z-202",
+    "path": "topics/08-linked-list/fundamentals-single-ll/find-the-length-of-the-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Single LL)",
+    "title": "Search in Linked List",
+    "id": "A2Z-203",
+    "path": "topics/08-linked-list/fundamentals-single-ll/search-in-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Doubly LL)",
+    "title": "Introduction to Doubly LL",
+    "id": "A2Z-204",
+    "path": "topics/08-linked-list/fundamentals-doubly-ll/introduction-to-doubly-ll",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Doubly LL)",
+    "title": "Deletion in Doubly LL",
+    "id": "A2Z-205",
+    "path": "topics/08-linked-list/fundamentals-doubly-ll/deletion-in-doubly-ll",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Doubly LL)",
+    "title": "Insertion in DLL",
+    "id": "A2Z-206",
+    "path": "topics/08-linked-list/fundamentals-doubly-ll/insertion-in-dll",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Doubly LL)",
+    "title": "Convert Array to Doubly Linked List",
+    "id": "A2Z-207",
+    "path": "topics/08-linked-list/fundamentals-doubly-ll/convert-array-to-doubly-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Doubly LL)",
+    "title": "Delete Tail of Doubly Linked List",
+    "id": "A2Z-208",
+    "path": "topics/08-linked-list/fundamentals-doubly-ll/delete-tail-of-doubly-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Doubly LL)",
+    "title": "Delete Kth Element of Doubly Linked List",
+    "id": "A2Z-209",
+    "path": "topics/08-linked-list/fundamentals-doubly-ll/delete-kth-element-of-doubly-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Doubly LL)",
+    "title": "Removing given node in Doubly Linked List",
+    "id": "A2Z-210",
+    "path": "topics/08-linked-list/fundamentals-doubly-ll/removing-given-node-in-doubly-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Doubly LL)",
+    "title": "Insert node before head in Doubly Linked List",
+    "id": "A2Z-211",
+    "path": "topics/08-linked-list/fundamentals-doubly-ll/insert-node-before-head-in-doubly-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Doubly LL)",
+    "title": "Insert node before tail in Doubly Linked List",
+    "id": "A2Z-212",
+    "path": "topics/08-linked-list/fundamentals-doubly-ll/insert-node-before-tail-in-doubly-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Doubly LL)",
+    "title": "Insert node before (kth node) in Doubly Linked List",
+    "id": "A2Z-213",
+    "path": "topics/08-linked-list/fundamentals-doubly-ll/insert-node-before-kth-node-in-doubly-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Doubly LL)",
+    "title": "Insert before given node in Doubly Linked List",
+    "id": "A2Z-214",
+    "path": "topics/08-linked-list/fundamentals-doubly-ll/insert-before-given-node-in-doubly-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Doubly LL)",
+    "title": "Delete head of Doubly Linked List",
+    "id": "A2Z-215",
+    "path": "topics/08-linked-list/fundamentals-doubly-ll/delete-head-of-doubly-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Fundamentals (Doubly LL)",
+    "title": "Reverse a Doubly Linked List",
+    "id": "A2Z-216",
+    "path": "topics/08-linked-list/fundamentals-doubly-ll/reverse-a-doubly-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Logic Building",
+    "title": "Add two numbers in Linked List",
+    "id": "A2Z-217",
+    "path": "topics/08-linked-list/logic-building/add-two-numbers-in-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Logic Building",
+    "title": "Segregate odd and even nodes in Linked List",
+    "id": "A2Z-218",
+    "path": "topics/08-linked-list/logic-building/segregate-odd-and-even-nodes-in-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Logic Building",
+    "title": "Sort a Linked List of 0's 1's and 2's",
+    "id": "A2Z-219",
+    "path": "topics/08-linked-list/logic-building/sort-a-linked-list-of-0-s-1-s-and-2-s",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Logic Building",
+    "title": "Remove Nth node from the back of the LL",
+    "id": "A2Z-220",
+    "path": "topics/08-linked-list/logic-building/remove-nth-node-from-the-back-of-the-ll",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Logic Building",
+    "title": "Reverse a LL",
+    "id": "A2Z-221",
+    "path": "topics/08-linked-list/logic-building/reverse-a-ll",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "FAQs (Medium)",
+    "title": "Add one to a number represented by LL",
+    "id": "A2Z-222",
+    "path": "topics/08-linked-list/faqs-medium/add-one-to-a-number-represented-by-ll",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "FAQs (Medium)",
+    "title": "Find Middle of Linked List",
+    "id": "A2Z-223",
+    "path": "topics/08-linked-list/faqs-medium/find-middle-of-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "FAQs (Medium)",
+    "title": "Delete the middle node in LL",
+    "id": "A2Z-224",
+    "path": "topics/08-linked-list/faqs-medium/delete-the-middle-node-in-ll",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "FAQs (Medium)",
+    "title": "Check if LL is palindrome or not",
+    "id": "A2Z-225",
+    "path": "topics/08-linked-list/faqs-medium/check-if-ll-is-palindrome-or-not",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "FAQs (Medium)",
+    "title": "Find the intersection point of Y LL",
+    "id": "A2Z-226",
+    "path": "topics/08-linked-list/faqs-medium/find-the-intersection-point-of-y-ll",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "FAQs (Medium)",
+    "title": "Detect a loop in LL",
+    "id": "A2Z-227",
+    "path": "topics/08-linked-list/faqs-medium/detect-a-loop-in-ll",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "FAQs (Medium)",
+    "title": "Find the starting point in LL",
+    "id": "A2Z-228",
+    "path": "topics/08-linked-list/faqs-medium/find-the-starting-point-in-ll",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "FAQs (Medium)",
+    "title": "Length of loop in LL",
+    "id": "A2Z-229",
+    "path": "topics/08-linked-list/faqs-medium/length-of-loop-in-ll",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "FAQs (Hard)",
+    "title": "Reverse LL in group of given size K",
+    "id": "A2Z-230",
+    "path": "topics/08-linked-list/faqs-hard/reverse-ll-in-group-of-given-size-k",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "FAQs (Hard)",
+    "title": "Rotate a LL",
+    "id": "A2Z-231",
+    "path": "topics/08-linked-list/faqs-hard/rotate-a-ll",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "FAQs (Hard)",
+    "title": "Merge two Sorted Lists",
+    "id": "A2Z-232",
+    "path": "topics/08-linked-list/faqs-hard/merge-two-sorted-lists",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "FAQs (Hard)",
+    "title": "Flattening of LL",
+    "id": "A2Z-233",
+    "path": "topics/08-linked-list/faqs-hard/flattening-of-ll",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "FAQs (Hard)",
+    "title": "Sort LL",
+    "id": "A2Z-234",
+    "path": "topics/08-linked-list/faqs-hard/sort-ll",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "FAQs (Hard)",
+    "title": "Clone a LL with random and next pointer",
+    "id": "A2Z-235",
+    "path": "topics/08-linked-list/faqs-hard/clone-a-ll-with-random-and-next-pointer",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "FAQS (DLL)",
+    "title": "Delete all occurrences of a key in DLL",
+    "id": "A2Z-236",
+    "path": "topics/08-linked-list/faqs-dll/delete-all-occurrences-of-a-key-in-dll",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "FAQS (DLL)",
+    "title": "Remove duplicates from sorted DLL",
+    "id": "A2Z-237",
+    "path": "topics/08-linked-list/faqs-dll/remove-duplicates-from-sorted-dll",
+    "status": "pending"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "FAQS (DLL)",
+    "title": "Find Pairs with Given Sum in Doubly Linked List",
+    "id": "A2Z-238",
+    "path": "topics/08-linked-list/faqs-dll/find-pairs-with-given-sum-in-doubly-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Bit Manipulation",
+    "section": "Theory",
+    "title": "Introduction to Bits and Tricks",
+    "id": "A2Z-239",
+    "path": "topics/09-bit-manipulation/theory/introduction-to-bits-and-tricks",
+    "status": "pending"
+  },
+  {
+    "topic": "Bit Manipulation",
+    "section": "Bit Fundamentals",
+    "title": "Check if the i-th bit is Set or Not",
+    "id": "A2Z-240",
+    "path": "topics/09-bit-manipulation/bit-fundamentals/check-if-the-i-th-bit-is-set-or-not",
+    "status": "pending"
+  },
+  {
+    "topic": "Bit Manipulation",
+    "section": "Bit Fundamentals",
+    "title": "Check if a Number is Odd or Not",
+    "id": "A2Z-241",
+    "path": "topics/09-bit-manipulation/bit-fundamentals/check-if-a-number-is-odd-or-not",
+    "status": "pending"
+  },
+  {
+    "topic": "Bit Manipulation",
+    "section": "Bit Fundamentals",
+    "title": "Check if a Number is Power of 2 or Not",
+    "id": "A2Z-242",
+    "path": "topics/09-bit-manipulation/bit-fundamentals/check-if-a-number-is-power-of-2-or-not",
+    "status": "pending"
+  },
+  {
+    "topic": "Bit Manipulation",
+    "section": "Bit Fundamentals",
+    "title": "Count the Number of Set Bits",
+    "id": "A2Z-243",
+    "path": "topics/09-bit-manipulation/bit-fundamentals/count-the-number-of-set-bits",
+    "status": "pending"
+  },
+  {
+    "topic": "Bit Manipulation",
+    "section": "Bit Fundamentals",
+    "title": "Set the Rightmost Unset Bit",
+    "id": "A2Z-244",
+    "path": "topics/09-bit-manipulation/bit-fundamentals/set-the-rightmost-unset-bit",
+    "status": "pending"
+  },
+  {
+    "topic": "Bit Manipulation",
+    "section": "Bit Fundamentals",
+    "title": "Swap Two Numbers",
+    "id": "A2Z-245",
+    "path": "topics/09-bit-manipulation/bit-fundamentals/swap-two-numbers",
+    "status": "pending"
+  },
+  {
+    "topic": "Bit Manipulation",
+    "section": "Problems",
+    "title": "Minimum Bit Flips to Convert Number",
+    "id": "A2Z-246",
+    "path": "topics/09-bit-manipulation/problems/minimum-bit-flips-to-convert-number",
+    "status": "pending"
+  },
+  {
+    "topic": "Bit Manipulation",
+    "section": "Problems",
+    "title": "Single Number - I",
+    "id": "A2Z-247",
+    "path": "topics/09-bit-manipulation/problems/single-number-i",
+    "status": "pending"
+  },
+  {
+    "topic": "Bit Manipulation",
+    "section": "Problems",
+    "title": "Single Number - II",
+    "id": "A2Z-248",
+    "path": "topics/09-bit-manipulation/problems/single-number-ii",
+    "status": "pending"
+  },
+  {
+    "topic": "Bit Manipulation",
+    "section": "Problems",
+    "title": "Single Number - III",
+    "id": "A2Z-249",
+    "path": "topics/09-bit-manipulation/problems/single-number-iii",
+    "status": "pending"
+  },
+  {
+    "topic": "Bit Manipulation",
+    "section": "Problems",
+    "title": "Divide two numbers without multiplication and division",
+    "id": "A2Z-250",
+    "path": "topics/09-bit-manipulation/problems/divide-two-numbers-without-multiplication-and-division",
+    "status": "pending"
+  },
+  {
+    "topic": "Bit Manipulation",
+    "section": "Problems",
+    "title": "Power Set Bit Manipulation",
+    "id": "A2Z-251",
+    "path": "topics/09-bit-manipulation/problems/power-set-bit-manipulation",
+    "status": "pending"
+  },
+  {
+    "topic": "Bit Manipulation",
+    "section": "Problems",
+    "title": "XOR of numbers in a given range",
+    "id": "A2Z-252",
+    "path": "topics/09-bit-manipulation/problems/xor-of-numbers-in-a-given-range",
+    "status": "pending"
+  },
+  {
+    "topic": "Greedy Algorithms",
+    "section": "Easy",
+    "title": "Assign Cookies",
+    "id": "A2Z-253",
+    "path": "topics/10-greedy-algorithms/easy/assign-cookies",
+    "status": "pending"
+  },
+  {
+    "topic": "Greedy Algorithms",
+    "section": "Easy",
+    "title": "Lemonade Change",
+    "id": "A2Z-254",
+    "path": "topics/10-greedy-algorithms/easy/lemonade-change",
+    "status": "pending"
+  },
+  {
+    "topic": "Greedy Algorithms",
+    "section": "Easy",
+    "title": "Fractional Knapsack",
+    "id": "A2Z-255",
+    "path": "topics/10-greedy-algorithms/easy/fractional-knapsack",
+    "status": "pending"
+  },
+  {
+    "topic": "Greedy Algorithms",
+    "section": "Easy",
+    "title": "Jump Game - I",
+    "id": "A2Z-256",
+    "path": "topics/10-greedy-algorithms/easy/jump-game-i",
+    "status": "pending"
+  },
+  {
+    "topic": "Greedy Algorithms",
+    "section": "Scheduling and Interval Problems",
+    "title": "Shortest Job First",
+    "id": "A2Z-257",
+    "path": "topics/10-greedy-algorithms/scheduling-and-interval-problems/shortest-job-first",
+    "status": "pending"
+  },
+  {
+    "topic": "Greedy Algorithms",
+    "section": "Scheduling and Interval Problems",
+    "title": "Job sequencing Problem",
+    "id": "A2Z-258",
+    "path": "topics/10-greedy-algorithms/scheduling-and-interval-problems/job-sequencing-problem",
+    "status": "pending"
+  },
+  {
+    "topic": "Greedy Algorithms",
+    "section": "Scheduling and Interval Problems",
+    "title": "N meetings in one room",
+    "id": "A2Z-259",
+    "path": "topics/10-greedy-algorithms/scheduling-and-interval-problems/n-meetings-in-one-room",
+    "status": "pending"
+  },
+  {
+    "topic": "Greedy Algorithms",
+    "section": "Scheduling and Interval Problems",
+    "title": "Non-overlapping Intervals",
+    "id": "A2Z-260",
+    "path": "topics/10-greedy-algorithms/scheduling-and-interval-problems/non-overlapping-intervals",
+    "status": "pending"
+  },
+  {
+    "topic": "Greedy Algorithms",
+    "section": "Scheduling and Interval Problems",
+    "title": "Insert Interval",
+    "id": "A2Z-261",
+    "path": "topics/10-greedy-algorithms/scheduling-and-interval-problems/insert-interval",
+    "status": "pending"
+  },
+  {
+    "topic": "Greedy Algorithms",
+    "section": "Scheduling and Interval Problems",
+    "title": "Merge Intervals",
+    "id": "A2Z-262",
+    "path": "topics/10-greedy-algorithms/scheduling-and-interval-problems/merge-intervals",
+    "status": "pending"
+  },
+  {
+    "topic": "Greedy Algorithms",
+    "section": "Scheduling and Interval Problems",
+    "title": "Minimum number of platforms required for a railway",
+    "id": "A2Z-263",
+    "path": "topics/10-greedy-algorithms/scheduling-and-interval-problems/minimum-number-of-platforms-required-for-a-railway",
+    "status": "pending"
+  },
+  {
+    "topic": "Greedy Algorithms",
+    "section": "Hard",
+    "title": "Valid Paranthesis Checker",
+    "id": "A2Z-264",
+    "path": "topics/10-greedy-algorithms/hard/valid-paranthesis-checker",
+    "status": "pending"
+  },
+  {
+    "topic": "Greedy Algorithms",
+    "section": "Hard",
+    "title": "Candy",
+    "id": "A2Z-265",
+    "path": "topics/10-greedy-algorithms/hard/candy",
+    "status": "pending"
+  },
+  {
+    "topic": "Greedy Algorithms",
+    "section": "Hard",
+    "title": "Jump Game II",
+    "id": "A2Z-266",
+    "path": "topics/10-greedy-algorithms/hard/jump-game-ii",
+    "status": "pending"
+  },
+  {
+    "topic": "Sliding Window / 2 Pointer",
+    "section": "Pattern and Template",
+    "title": "Theory",
+    "id": "A2Z-267",
+    "path": "topics/11-sliding-window-2-pointer/pattern-and-template/theory",
+    "status": "pending"
+  },
+  {
+    "topic": "Sliding Window / 2 Pointer",
+    "section": "Constant Window",
+    "title": "Maximum Points You Can Obtain from Cards",
+    "id": "A2Z-268",
+    "path": "topics/11-sliding-window-2-pointer/constant-window/maximum-points-you-can-obtain-from-cards",
+    "status": "pending"
+  },
+  {
+    "topic": "Sliding Window / 2 Pointer",
+    "section": "Longest and Smallest Window Problems",
+    "title": "Longest Substring Without Repeating Characters",
+    "id": "A2Z-269",
+    "path": "topics/11-sliding-window-2-pointer/longest-and-smallest-window-problems/longest-substring-without-repeating-characters",
+    "status": "pending"
+  },
+  {
+    "topic": "Sliding Window / 2 Pointer",
+    "section": "Longest and Smallest Window Problems",
+    "title": "Max Consecutive Ones III",
+    "id": "A2Z-270",
+    "path": "topics/11-sliding-window-2-pointer/longest-and-smallest-window-problems/max-consecutive-ones-iii",
+    "status": "pending"
+  },
+  {
+    "topic": "Sliding Window / 2 Pointer",
+    "section": "Longest and Smallest Window Problems",
+    "title": "Fruit Into Baskets",
+    "id": "A2Z-271",
+    "path": "topics/11-sliding-window-2-pointer/longest-and-smallest-window-problems/fruit-into-baskets",
+    "status": "pending"
+  },
+  {
+    "topic": "Sliding Window / 2 Pointer",
+    "section": "Longest and Smallest Window Problems",
+    "title": "Longest Substring With At Most K Distinct Characters",
+    "id": "A2Z-272",
+    "path": "topics/11-sliding-window-2-pointer/longest-and-smallest-window-problems/longest-substring-with-at-most-k-distinct-characters",
+    "status": "pending"
+  },
+  {
+    "topic": "Sliding Window / 2 Pointer",
+    "section": "Longest and Smallest Window Problems",
+    "title": "Longest Repeating Character Replacement",
+    "id": "A2Z-273",
+    "path": "topics/11-sliding-window-2-pointer/longest-and-smallest-window-problems/longest-repeating-character-replacement",
+    "status": "pending"
+  },
+  {
+    "topic": "Sliding Window / 2 Pointer",
+    "section": "Longest and Smallest Window Problems",
+    "title": "Minimum Window Substring",
+    "id": "A2Z-274",
+    "path": "topics/11-sliding-window-2-pointer/longest-and-smallest-window-problems/minimum-window-substring",
+    "status": "pending"
+  },
+  {
+    "topic": "Sliding Window / 2 Pointer",
+    "section": "Longest and Smallest Window Problems",
+    "title": "Minimum Window Subsequence",
+    "id": "A2Z-275",
+    "path": "topics/11-sliding-window-2-pointer/longest-and-smallest-window-problems/minimum-window-subsequence",
+    "status": "pending"
+  },
+  {
+    "topic": "Sliding Window / 2 Pointer",
+    "section": "Counting Subarrays / Substrings Problems",
+    "title": "Number of Substrings Containing All Three Characters",
+    "id": "A2Z-276",
+    "path": "topics/11-sliding-window-2-pointer/counting-subarrays-substrings-problems/number-of-substrings-containing-all-three-characters",
+    "status": "pending"
+  },
+  {
+    "topic": "Sliding Window / 2 Pointer",
+    "section": "Counting Subarrays / Substrings Problems",
+    "title": "Binary Subarrays With Sum",
+    "id": "A2Z-277",
+    "path": "topics/11-sliding-window-2-pointer/counting-subarrays-substrings-problems/binary-subarrays-with-sum",
+    "status": "pending"
+  },
+  {
+    "topic": "Sliding Window / 2 Pointer",
+    "section": "Counting Subarrays / Substrings Problems",
+    "title": "Count number of Nice subarrays",
+    "id": "A2Z-278",
+    "path": "topics/11-sliding-window-2-pointer/counting-subarrays-substrings-problems/count-number-of-nice-subarrays",
+    "status": "pending"
+  },
+  {
+    "topic": "Sliding Window / 2 Pointer",
+    "section": "Counting Subarrays / Substrings Problems",
+    "title": "Subarrays with K Different Integers",
+    "id": "A2Z-279",
+    "path": "topics/11-sliding-window-2-pointer/counting-subarrays-substrings-problems/subarrays-with-k-different-integers",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Implementation",
+    "title": "Implementation using different DS",
+    "id": "A2Z-280",
+    "path": "topics/12-stack-queues/implementation/implementation-using-different-ds",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Implementation",
+    "title": "Implement Stack using Arrays",
+    "id": "A2Z-281",
+    "path": "topics/12-stack-queues/implementation/implement-stack-using-arrays",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Implementation",
+    "title": "Implement Queue using Arrays",
+    "id": "A2Z-282",
+    "path": "topics/12-stack-queues/implementation/implement-queue-using-arrays",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Implementation",
+    "title": "Implement Stack using Queue",
+    "id": "A2Z-283",
+    "path": "topics/12-stack-queues/implementation/implement-stack-using-queue",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Implementation",
+    "title": "Implement Queue using Stack",
+    "id": "A2Z-284",
+    "path": "topics/12-stack-queues/implementation/implement-queue-using-stack",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Implementation",
+    "title": "Implement stack using Linkedlist",
+    "id": "A2Z-285",
+    "path": "topics/12-stack-queues/implementation/implement-stack-using-linkedlist",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Implementation",
+    "title": "Implement queue using Linkedlist",
+    "id": "A2Z-286",
+    "path": "topics/12-stack-queues/implementation/implement-queue-using-linkedlist",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Implementation",
+    "title": "Balanced Paranthesis",
+    "id": "A2Z-287",
+    "path": "topics/12-stack-queues/implementation/balanced-paranthesis",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Prefix, Infix and Postfix Conversions",
+    "title": "Infix to Postfix Conversion",
+    "id": "A2Z-288",
+    "path": "topics/12-stack-queues/prefix-infix-and-postfix-conversions/infix-to-postfix-conversion",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Prefix, Infix and Postfix Conversions",
+    "title": "Infix to Prefix Conversion",
+    "id": "A2Z-289",
+    "path": "topics/12-stack-queues/prefix-infix-and-postfix-conversions/infix-to-prefix-conversion",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Prefix, Infix and Postfix Conversions",
+    "title": "Prefix to Infix Conversion",
+    "id": "A2Z-290",
+    "path": "topics/12-stack-queues/prefix-infix-and-postfix-conversions/prefix-to-infix-conversion",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Prefix, Infix and Postfix Conversions",
+    "title": "Prefix to Postfix Conversion",
+    "id": "A2Z-291",
+    "path": "topics/12-stack-queues/prefix-infix-and-postfix-conversions/prefix-to-postfix-conversion",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Prefix, Infix and Postfix Conversions",
+    "title": "Postfix to Infix Conversion",
+    "id": "A2Z-292",
+    "path": "topics/12-stack-queues/prefix-infix-and-postfix-conversions/postfix-to-infix-conversion",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Prefix, Infix and Postfix Conversions",
+    "title": "Postfix to Prefix Conversion",
+    "id": "A2Z-293",
+    "path": "topics/12-stack-queues/prefix-infix-and-postfix-conversions/postfix-to-prefix-conversion",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Monotonic Stack",
+    "title": "Next Greater Element",
+    "id": "A2Z-294",
+    "path": "topics/12-stack-queues/monotonic-stack/next-greater-element",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Monotonic Stack",
+    "title": "Next Greater Element - 2",
+    "id": "A2Z-295",
+    "path": "topics/12-stack-queues/monotonic-stack/next-greater-element-2",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Monotonic Stack",
+    "title": "Asteroid Collision",
+    "id": "A2Z-296",
+    "path": "topics/12-stack-queues/monotonic-stack/asteroid-collision",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Monotonic Stack",
+    "title": "Sum of Subarray Minimums",
+    "id": "A2Z-297",
+    "path": "topics/12-stack-queues/monotonic-stack/sum-of-subarray-minimums",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Monotonic Stack",
+    "title": "Sum of Subarray Ranges",
+    "id": "A2Z-298",
+    "path": "topics/12-stack-queues/monotonic-stack/sum-of-subarray-ranges",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Monotonic Stack",
+    "title": "Remove K Digits",
+    "id": "A2Z-299",
+    "path": "topics/12-stack-queues/monotonic-stack/remove-k-digits",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "Monotonic Stack",
+    "title": "Next Smaller Element",
+    "id": "A2Z-300",
+    "path": "topics/12-stack-queues/monotonic-stack/next-smaller-element",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "FAQs",
+    "title": "Implement Min Stack",
+    "id": "A2Z-301",
+    "path": "topics/12-stack-queues/faqs/implement-min-stack",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "FAQs",
+    "title": "Sliding Window Maximum",
+    "id": "A2Z-302",
+    "path": "topics/12-stack-queues/faqs/sliding-window-maximum",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "FAQs",
+    "title": "Trapping Rainwater",
+    "id": "A2Z-303",
+    "path": "topics/12-stack-queues/faqs/trapping-rainwater",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "FAQs",
+    "title": "Largest rectangle in a histogram",
+    "id": "A2Z-304",
+    "path": "topics/12-stack-queues/faqs/largest-rectangle-in-a-histogram",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "FAQs",
+    "title": "Maximum Rectangles",
+    "id": "A2Z-305",
+    "path": "topics/12-stack-queues/faqs/maximum-rectangles",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "FAQs",
+    "title": "Stock span problem",
+    "id": "A2Z-306",
+    "path": "topics/12-stack-queues/faqs/stock-span-problem",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "FAQs",
+    "title": "Celebrity Problem",
+    "id": "A2Z-307",
+    "path": "topics/12-stack-queues/faqs/celebrity-problem",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "FAQs",
+    "title": "LRU Cache",
+    "id": "A2Z-308",
+    "path": "topics/12-stack-queues/faqs/lru-cache",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "FAQs",
+    "title": "LFU Cache",
+    "id": "A2Z-309",
+    "path": "topics/12-stack-queues/faqs/lfu-cache",
+    "status": "pending"
+  },
+  {
+    "topic": "Stack / Queues",
+    "section": "FAQs",
+    "title": "Number of Greater Elements to the Right",
+    "id": "A2Z-310",
+    "path": "topics/12-stack-queues/faqs/number-of-greater-elements-to-the-right",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Theory/Traversals",
+    "title": "Introduction",
+    "id": "A2Z-311",
+    "path": "topics/13-binary-trees/theory-traversals/introduction",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Theory/Traversals",
+    "title": "Inorder Traversal",
+    "id": "A2Z-312",
+    "path": "topics/13-binary-trees/theory-traversals/inorder-traversal",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Theory/Traversals",
+    "title": "Preorder Traversal",
+    "id": "A2Z-313",
+    "path": "topics/13-binary-trees/theory-traversals/preorder-traversal",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Theory/Traversals",
+    "title": "Postorder Traversal",
+    "id": "A2Z-314",
+    "path": "topics/13-binary-trees/theory-traversals/postorder-traversal",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Theory/Traversals",
+    "title": "Level Order Traversal",
+    "id": "A2Z-315",
+    "path": "topics/13-binary-trees/theory-traversals/level-order-traversal",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Theory/Traversals",
+    "title": "Pre, Post, Inorder in one traversal",
+    "id": "A2Z-316",
+    "path": "topics/13-binary-trees/theory-traversals/pre-post-inorder-in-one-traversal",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Medium Problems",
+    "title": "Maximum Depth in BT",
+    "id": "A2Z-317",
+    "path": "topics/13-binary-trees/medium-problems/maximum-depth-in-bt",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Medium Problems",
+    "title": "Check if two trees are identical or not",
+    "id": "A2Z-318",
+    "path": "topics/13-binary-trees/medium-problems/check-if-two-trees-are-identical-or-not",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Medium Problems",
+    "title": "Check for balanced binary tree",
+    "id": "A2Z-319",
+    "path": "topics/13-binary-trees/medium-problems/check-for-balanced-binary-tree",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Medium Problems",
+    "title": "Diameter of Binary Tree",
+    "id": "A2Z-320",
+    "path": "topics/13-binary-trees/medium-problems/diameter-of-binary-tree",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Medium Problems",
+    "title": "Maximum path sum",
+    "id": "A2Z-321",
+    "path": "topics/13-binary-trees/medium-problems/maximum-path-sum",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Medium Problems",
+    "title": "Check for symmetrical BTs",
+    "id": "A2Z-322",
+    "path": "topics/13-binary-trees/medium-problems/check-for-symmetrical-bts",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Medium Problems",
+    "title": "Children Sum Property in Binary Tree",
+    "id": "A2Z-323",
+    "path": "topics/13-binary-trees/medium-problems/children-sum-property-in-binary-tree",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "FAQs",
+    "title": "Zig Zag or Spiral Traversal",
+    "id": "A2Z-324",
+    "path": "topics/13-binary-trees/faqs/zig-zag-or-spiral-traversal",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "FAQs",
+    "title": "Boundary Traversal",
+    "id": "A2Z-325",
+    "path": "topics/13-binary-trees/faqs/boundary-traversal",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "FAQs",
+    "title": "Vertical Order Traversal",
+    "id": "A2Z-326",
+    "path": "topics/13-binary-trees/faqs/vertical-order-traversal",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "FAQs",
+    "title": "Top View of BT",
+    "id": "A2Z-327",
+    "path": "topics/13-binary-trees/faqs/top-view-of-bt",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "FAQs",
+    "title": "Bottom view of BT",
+    "id": "A2Z-328",
+    "path": "topics/13-binary-trees/faqs/bottom-view-of-bt",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "FAQs",
+    "title": "Right/Left View of BT",
+    "id": "A2Z-329",
+    "path": "topics/13-binary-trees/faqs/right-left-view-of-bt",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "FAQs",
+    "title": "Print root to leaf path in BT",
+    "id": "A2Z-330",
+    "path": "topics/13-binary-trees/faqs/print-root-to-leaf-path-in-bt",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "FAQs",
+    "title": "LCA in BT",
+    "id": "A2Z-331",
+    "path": "topics/13-binary-trees/faqs/lca-in-bt",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "FAQs",
+    "title": "Maximum Width of BT",
+    "id": "A2Z-332",
+    "path": "topics/13-binary-trees/faqs/maximum-width-of-bt",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "FAQs",
+    "title": "Print all nodes at a distance of K in BT",
+    "id": "A2Z-333",
+    "path": "topics/13-binary-trees/faqs/print-all-nodes-at-a-distance-of-k-in-bt",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "FAQs",
+    "title": "Minimum time taken to burn the BT from a given Node",
+    "id": "A2Z-334",
+    "path": "topics/13-binary-trees/faqs/minimum-time-taken-to-burn-the-bt-from-a-given-node",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "FAQs",
+    "title": "Count total nodes in a complete BT",
+    "id": "A2Z-335",
+    "path": "topics/13-binary-trees/faqs/count-total-nodes-in-a-complete-bt",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "FAQs",
+    "title": "Flatten Binary Tree to Linked List",
+    "id": "A2Z-336",
+    "path": "topics/13-binary-trees/faqs/flatten-binary-tree-to-linked-list",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Construction Problems",
+    "title": "Requirements needed to construct a unique BT",
+    "id": "A2Z-337",
+    "path": "topics/13-binary-trees/construction-problems/requirements-needed-to-construct-a-unique-bt",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Construction Problems",
+    "title": "Construct a BT from Preorder and Inorder",
+    "id": "A2Z-338",
+    "path": "topics/13-binary-trees/construction-problems/construct-a-bt-from-preorder-and-inorder",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Construction Problems",
+    "title": "Construct a BT from Postorder and Inorder",
+    "id": "A2Z-339",
+    "path": "topics/13-binary-trees/construction-problems/construct-a-bt-from-postorder-and-inorder",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Construction Problems",
+    "title": "Serialize and De-serialize BT",
+    "id": "A2Z-340",
+    "path": "topics/13-binary-trees/construction-problems/serialize-and-de-serialize-bt",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Traversal in Constant Space",
+    "title": "Morris Inorder Traversal",
+    "id": "A2Z-341",
+    "path": "topics/13-binary-trees/traversal-in-constant-space/morris-inorder-traversal",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Traversal in Constant Space",
+    "title": "Morris Preorder Traversal",
+    "id": "A2Z-342",
+    "path": "topics/13-binary-trees/traversal-in-constant-space/morris-preorder-traversal",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search Trees",
+    "section": "Theory and Basics",
+    "title": "Introduction to BST",
+    "id": "A2Z-343",
+    "path": "topics/14-binary-search-trees/theory-and-basics/introduction-to-bst",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search Trees",
+    "section": "Theory and Basics",
+    "title": "Search in BST",
+    "id": "A2Z-344",
+    "path": "topics/14-binary-search-trees/theory-and-basics/search-in-bst",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search Trees",
+    "section": "Theory and Basics",
+    "title": "Floor and Ceil in a BST",
+    "id": "A2Z-345",
+    "path": "topics/14-binary-search-trees/theory-and-basics/floor-and-ceil-in-a-bst",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search Trees",
+    "section": "Theory and Basics",
+    "title": "Minimum and Maximum in BST",
+    "id": "A2Z-346",
+    "path": "topics/14-binary-search-trees/theory-and-basics/minimum-and-maximum-in-bst",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search Trees",
+    "section": "Medium",
+    "title": "Insert a given node in BST",
+    "id": "A2Z-347",
+    "path": "topics/14-binary-search-trees/medium/insert-a-given-node-in-bst",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search Trees",
+    "section": "Medium",
+    "title": "Delete a node in BST",
+    "id": "A2Z-348",
+    "path": "topics/14-binary-search-trees/medium/delete-a-node-in-bst",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search Trees",
+    "section": "Medium",
+    "title": "Kth Smallest and Largest element in BST",
+    "id": "A2Z-349",
+    "path": "topics/14-binary-search-trees/medium/kth-smallest-and-largest-element-in-bst",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search Trees",
+    "section": "Medium",
+    "title": "Check if a tree is a BST or not",
+    "id": "A2Z-350",
+    "path": "topics/14-binary-search-trees/medium/check-if-a-tree-is-a-bst-or-not",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search Trees",
+    "section": "Medium",
+    "title": "LCA in BST",
+    "id": "A2Z-351",
+    "path": "topics/14-binary-search-trees/medium/lca-in-bst",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search Trees",
+    "section": "Medium",
+    "title": "Construct a BST from a preorder traversal",
+    "id": "A2Z-352",
+    "path": "topics/14-binary-search-trees/medium/construct-a-bst-from-a-preorder-traversal",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search Trees",
+    "section": "Medium",
+    "title": "Inorder successor and predecessor in BST",
+    "id": "A2Z-353",
+    "path": "topics/14-binary-search-trees/medium/inorder-successor-and-predecessor-in-bst",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search Trees",
+    "section": "FAQs",
+    "title": "BST iterator",
+    "id": "A2Z-354",
+    "path": "topics/14-binary-search-trees/faqs/bst-iterator",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search Trees",
+    "section": "FAQs",
+    "title": "Two sum in BST",
+    "id": "A2Z-355",
+    "path": "topics/14-binary-search-trees/faqs/two-sum-in-bst",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search Trees",
+    "section": "FAQs",
+    "title": "Correct BST with two nodes swapped",
+    "id": "A2Z-356",
+    "path": "topics/14-binary-search-trees/faqs/correct-bst-with-two-nodes-swapped",
+    "status": "pending"
+  },
+  {
+    "topic": "Binary Search Trees",
+    "section": "FAQs",
+    "title": "Largest BST in Binary Tree",
+    "id": "A2Z-357",
+    "path": "topics/14-binary-search-trees/faqs/largest-bst-in-binary-tree",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "Theory and Implementation",
+    "title": "Heaps (Theory Video)",
+    "id": "A2Z-358",
+    "path": "topics/15-heaps/theory-and-implementation/heaps-theory-video",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "Theory and Implementation",
+    "title": "Heapify Algorithm",
+    "id": "A2Z-359",
+    "path": "topics/15-heaps/theory-and-implementation/heapify-algorithm",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "Theory and Implementation",
+    "title": "Build heap from a given Array",
+    "id": "A2Z-360",
+    "path": "topics/15-heaps/theory-and-implementation/build-heap-from-a-given-array",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "Theory and Implementation",
+    "title": "Implement Min Heap",
+    "id": "A2Z-361",
+    "path": "topics/15-heaps/theory-and-implementation/implement-min-heap",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "Theory and Implementation",
+    "title": "Implement Max Heap",
+    "id": "A2Z-362",
+    "path": "topics/15-heaps/theory-and-implementation/implement-max-heap",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "Theory and Implementation",
+    "title": "Check if an array represents a min heap",
+    "id": "A2Z-363",
+    "path": "topics/15-heaps/theory-and-implementation/check-if-an-array-represents-a-min-heap",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "Theory and Implementation",
+    "title": "Convert Min Heap to Max Heap",
+    "id": "A2Z-364",
+    "path": "topics/15-heaps/theory-and-implementation/convert-min-heap-to-max-heap",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "Theory and Implementation",
+    "title": "Heap Sort",
+    "id": "A2Z-365",
+    "path": "topics/15-heaps/theory-and-implementation/heap-sort",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "Theory and Implementation",
+    "title": "K-th Largest element in an array",
+    "id": "A2Z-366",
+    "path": "topics/15-heaps/theory-and-implementation/k-th-largest-element-in-an-array",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "FAQs",
+    "title": "Kth largest element in a stream of running integers",
+    "id": "A2Z-367",
+    "path": "topics/15-heaps/faqs/kth-largest-element-in-a-stream-of-running-integers",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "FAQs",
+    "title": "Sort K sorted array",
+    "id": "A2Z-368",
+    "path": "topics/15-heaps/faqs/sort-k-sorted-array",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "FAQs",
+    "title": "Merge K sorted Lists",
+    "id": "A2Z-369",
+    "path": "topics/15-heaps/faqs/merge-k-sorted-lists",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "FAQs",
+    "title": "Replace Elements by Their Rank",
+    "id": "A2Z-370",
+    "path": "topics/15-heaps/faqs/replace-elements-by-their-rank",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "FAQs",
+    "title": "Task Scheduler",
+    "id": "A2Z-371",
+    "path": "topics/15-heaps/faqs/task-scheduler",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "FAQs",
+    "title": "Hand of Straights",
+    "id": "A2Z-372",
+    "path": "topics/15-heaps/faqs/hand-of-straights",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "FAQs",
+    "title": "Design Twitter",
+    "id": "A2Z-373",
+    "path": "topics/15-heaps/faqs/design-twitter",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "FAQs",
+    "title": "Minimum Cost to Connect Sticks",
+    "id": "A2Z-374",
+    "path": "topics/15-heaps/faqs/minimum-cost-to-connect-sticks",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "FAQs",
+    "title": "Maximum Sum Combination",
+    "id": "A2Z-375",
+    "path": "topics/15-heaps/faqs/maximum-sum-combination",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "FAQs",
+    "title": "Find Median from Data Stream",
+    "id": "A2Z-376",
+    "path": "topics/15-heaps/faqs/find-median-from-data-stream",
+    "status": "pending"
+  },
+  {
+    "topic": "Heaps",
+    "section": "FAQs",
+    "title": "Top K Frequent Elements",
+    "id": "A2Z-377",
+    "path": "topics/15-heaps/faqs/top-k-frequent-elements",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Theory and traversals",
+    "title": "Introduction to Graph",
+    "id": "A2Z-378",
+    "path": "topics/16-graphs/theory-and-traversals/introduction-to-graph",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Theory and traversals",
+    "title": "Traversal Techniques",
+    "id": "A2Z-379",
+    "path": "topics/16-graphs/theory-and-traversals/traversal-techniques",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Theory and traversals",
+    "title": "Connected Components",
+    "id": "A2Z-380",
+    "path": "topics/16-graphs/theory-and-traversals/connected-components",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Traversal Problems",
+    "title": "Number of provinces",
+    "id": "A2Z-381",
+    "path": "topics/16-graphs/traversal-problems/number-of-provinces",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Traversal Problems",
+    "title": "Number of islands",
+    "id": "A2Z-382",
+    "path": "topics/16-graphs/traversal-problems/number-of-islands",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Traversal Problems",
+    "title": "Flood fill algorithm",
+    "id": "A2Z-383",
+    "path": "topics/16-graphs/traversal-problems/flood-fill-algorithm",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Traversal Problems",
+    "title": "Number of enclaves",
+    "id": "A2Z-384",
+    "path": "topics/16-graphs/traversal-problems/number-of-enclaves",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Traversal Problems",
+    "title": "Rotten Oranges",
+    "id": "A2Z-385",
+    "path": "topics/16-graphs/traversal-problems/rotten-oranges",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Traversal Problems",
+    "title": "Distance of nearest cell having one",
+    "id": "A2Z-386",
+    "path": "topics/16-graphs/traversal-problems/distance-of-nearest-cell-having-one",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Traversal Problems",
+    "title": "Surrounded Regions",
+    "id": "A2Z-387",
+    "path": "topics/16-graphs/traversal-problems/surrounded-regions",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Traversal Problems",
+    "title": "Number of distinct islands",
+    "id": "A2Z-388",
+    "path": "topics/16-graphs/traversal-problems/number-of-distinct-islands",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Cycles",
+    "title": "Detect a cycle in an undirected graph",
+    "id": "A2Z-389",
+    "path": "topics/16-graphs/cycles/detect-a-cycle-in-an-undirected-graph",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Cycles",
+    "title": "Bipartite graph",
+    "id": "A2Z-390",
+    "path": "topics/16-graphs/cycles/bipartite-graph",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Cycles",
+    "title": "Topological sort or Kahn's algorithm",
+    "id": "A2Z-391",
+    "path": "topics/16-graphs/cycles/topological-sort-or-kahn-s-algorithm",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Cycles",
+    "title": "Detect a cycle in a directed graph",
+    "id": "A2Z-392",
+    "path": "topics/16-graphs/cycles/detect-a-cycle-in-a-directed-graph",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Hard Problems",
+    "title": "Find eventual safe states",
+    "id": "A2Z-393",
+    "path": "topics/16-graphs/hard-problems/find-eventual-safe-states",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Hard Problems",
+    "title": "Course Schedule I",
+    "id": "A2Z-394",
+    "path": "topics/16-graphs/hard-problems/course-schedule-i",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Hard Problems",
+    "title": "Course Schedule II",
+    "id": "A2Z-395",
+    "path": "topics/16-graphs/hard-problems/course-schedule-ii",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Hard Problems",
+    "title": "Alien Dictionary",
+    "id": "A2Z-396",
+    "path": "topics/16-graphs/hard-problems/alien-dictionary",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Hard Problems",
+    "title": "Shortest path in DAG",
+    "id": "A2Z-397",
+    "path": "topics/16-graphs/hard-problems/shortest-path-in-dag",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Hard Problems",
+    "title": "Shortest path in undirected graph with unit weights",
+    "id": "A2Z-398",
+    "path": "topics/16-graphs/hard-problems/shortest-path-in-undirected-graph-with-unit-weights",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Hard Problems",
+    "title": "Word ladder I",
+    "id": "A2Z-399",
+    "path": "topics/16-graphs/hard-problems/word-ladder-i",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Hard Problems",
+    "title": "Word ladder II",
+    "id": "A2Z-400",
+    "path": "topics/16-graphs/hard-problems/word-ladder-ii",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Shortest Path Algorithms",
+    "title": "Dijkstra's algorithm",
+    "id": "A2Z-401",
+    "path": "topics/16-graphs/shortest-path-algorithms/dijkstra-s-algorithm",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Shortest Path Algorithms",
+    "title": "Print Shortest Path",
+    "id": "A2Z-402",
+    "path": "topics/16-graphs/shortest-path-algorithms/print-shortest-path",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Shortest Path Algorithms",
+    "title": "Shortest Distance in a Binary Maze",
+    "id": "A2Z-403",
+    "path": "topics/16-graphs/shortest-path-algorithms/shortest-distance-in-a-binary-maze",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Shortest Path Algorithms",
+    "title": "Path with minimum effort",
+    "id": "A2Z-404",
+    "path": "topics/16-graphs/shortest-path-algorithms/path-with-minimum-effort",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Shortest Path Algorithms",
+    "title": "Cheapest flight within K stops",
+    "id": "A2Z-405",
+    "path": "topics/16-graphs/shortest-path-algorithms/cheapest-flight-within-k-stops",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Shortest Path Algorithms",
+    "title": "Minimum multiplications to reach end",
+    "id": "A2Z-406",
+    "path": "topics/16-graphs/shortest-path-algorithms/minimum-multiplications-to-reach-end",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Shortest Path Algorithms",
+    "title": "Number of ways to arrive at destination",
+    "id": "A2Z-407",
+    "path": "topics/16-graphs/shortest-path-algorithms/number-of-ways-to-arrive-at-destination",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Shortest Path Algorithms",
+    "title": "Bellman ford algorithm",
+    "id": "A2Z-408",
+    "path": "topics/16-graphs/shortest-path-algorithms/bellman-ford-algorithm",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Shortest Path Algorithms",
+    "title": "Floyd warshall algorithm",
+    "id": "A2Z-409",
+    "path": "topics/16-graphs/shortest-path-algorithms/floyd-warshall-algorithm",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Shortest Path Algorithms",
+    "title": "Find the city with the smallest number of neighbors",
+    "id": "A2Z-410",
+    "path": "topics/16-graphs/shortest-path-algorithms/find-the-city-with-the-smallest-number-of-neighbors",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Shortest Path Algorithms",
+    "title": "Network Delay Time",
+    "id": "A2Z-411",
+    "path": "topics/16-graphs/shortest-path-algorithms/network-delay-time",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Shortest Path Algorithms",
+    "title": "Swim in Rising Water",
+    "id": "A2Z-412",
+    "path": "topics/16-graphs/shortest-path-algorithms/swim-in-rising-water",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Minimum Spanning Tree",
+    "title": "MST theory",
+    "id": "A2Z-413",
+    "path": "topics/16-graphs/minimum-spanning-tree/mst-theory",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Minimum Spanning Tree",
+    "title": "Disjoint Set",
+    "id": "A2Z-414",
+    "path": "topics/16-graphs/minimum-spanning-tree/disjoint-set",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Minimum Spanning Tree",
+    "title": "Find the MST weight",
+    "id": "A2Z-415",
+    "path": "topics/16-graphs/minimum-spanning-tree/find-the-mst-weight",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Hard Problems II",
+    "title": "Number of operations to make network connected",
+    "id": "A2Z-416",
+    "path": "topics/16-graphs/hard-problems-ii/number-of-operations-to-make-network-connected",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Hard Problems II",
+    "title": "Accounts merge",
+    "id": "A2Z-417",
+    "path": "topics/16-graphs/hard-problems-ii/accounts-merge",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Hard Problems II",
+    "title": "Number of islands II",
+    "id": "A2Z-418",
+    "path": "topics/16-graphs/hard-problems-ii/number-of-islands-ii",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Hard Problems II",
+    "title": "Making a large island",
+    "id": "A2Z-419",
+    "path": "topics/16-graphs/hard-problems-ii/making-a-large-island",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Hard Problems II",
+    "title": "Most stones removed with same row or column",
+    "id": "A2Z-420",
+    "path": "topics/16-graphs/hard-problems-ii/most-stones-removed-with-same-row-or-column",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Additional Algorithms",
+    "title": "Kosaraju's algorithm",
+    "id": "A2Z-421",
+    "path": "topics/16-graphs/additional-algorithms/kosaraju-s-algorithm",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Additional Algorithms",
+    "title": "Bridges in graph",
+    "id": "A2Z-422",
+    "path": "topics/16-graphs/additional-algorithms/bridges-in-graph",
+    "status": "pending"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Additional Algorithms",
+    "title": "Articulation point in graph",
+    "id": "A2Z-423",
+    "path": "topics/16-graphs/additional-algorithms/articulation-point-in-graph",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "Introduction",
+    "title": "Introduction to DP",
+    "id": "A2Z-424",
+    "path": "topics/17-dynamic-programming/introduction/introduction-to-dp",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "1D DP",
+    "title": "Climbing stairs",
+    "id": "A2Z-425",
+    "path": "topics/17-dynamic-programming/1d-dp/climbing-stairs",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "1D DP",
+    "title": "Frog Jump",
+    "id": "A2Z-426",
+    "path": "topics/17-dynamic-programming/1d-dp/frog-jump",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "1D DP",
+    "title": "Frog jump with K distances",
+    "id": "A2Z-427",
+    "path": "topics/17-dynamic-programming/1d-dp/frog-jump-with-k-distances",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "1D DP",
+    "title": "Maximum sum of non adjacent elements",
+    "id": "A2Z-428",
+    "path": "topics/17-dynamic-programming/1d-dp/maximum-sum-of-non-adjacent-elements",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "1D DP",
+    "title": "House robber",
+    "id": "A2Z-429",
+    "path": "topics/17-dynamic-programming/1d-dp/house-robber",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "2D DP",
+    "title": "Ninja's training",
+    "id": "A2Z-430",
+    "path": "topics/17-dynamic-programming/2d-dp/ninja-s-training",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on grids",
+    "title": "Grid unique paths",
+    "id": "A2Z-431",
+    "path": "topics/17-dynamic-programming/dp-on-grids/grid-unique-paths",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on grids",
+    "title": "Unique paths II",
+    "id": "A2Z-432",
+    "path": "topics/17-dynamic-programming/dp-on-grids/unique-paths-ii",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on grids",
+    "title": "Minimum Falling Path Sum",
+    "id": "A2Z-433",
+    "path": "topics/17-dynamic-programming/dp-on-grids/minimum-falling-path-sum",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on grids",
+    "title": "Triangle",
+    "id": "A2Z-434",
+    "path": "topics/17-dynamic-programming/dp-on-grids/triangle",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on grids",
+    "title": "Cherry pickup II",
+    "id": "A2Z-435",
+    "path": "topics/17-dynamic-programming/dp-on-grids/cherry-pickup-ii",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on grids",
+    "title": "Count Square Submatrices with All Ones",
+    "id": "A2Z-436",
+    "path": "topics/17-dynamic-programming/dp-on-grids/count-square-submatrices-with-all-ones",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on stocks",
+    "title": "Best time to buy and sell stock",
+    "id": "A2Z-437",
+    "path": "topics/17-dynamic-programming/dp-on-stocks/best-time-to-buy-and-sell-stock",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on stocks",
+    "title": "Best time to buy and sell stock II",
+    "id": "A2Z-438",
+    "path": "topics/17-dynamic-programming/dp-on-stocks/best-time-to-buy-and-sell-stock-ii",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on stocks",
+    "title": "Best time to buy and sell stock III",
+    "id": "A2Z-439",
+    "path": "topics/17-dynamic-programming/dp-on-stocks/best-time-to-buy-and-sell-stock-iii",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on stocks",
+    "title": "Best time to buy and sell stock IV",
+    "id": "A2Z-440",
+    "path": "topics/17-dynamic-programming/dp-on-stocks/best-time-to-buy-and-sell-stock-iv",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on stocks",
+    "title": "Best time to buy and sell stock with transaction fees",
+    "id": "A2Z-441",
+    "path": "topics/17-dynamic-programming/dp-on-stocks/best-time-to-buy-and-sell-stock-with-transaction-fees",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on stocks",
+    "title": "Best Time to Buy and Sell Stock with Cooldown",
+    "id": "A2Z-442",
+    "path": "topics/17-dynamic-programming/dp-on-stocks/best-time-to-buy-and-sell-stock-with-cooldown",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on subsequences",
+    "title": "Subset sum equals to target",
+    "id": "A2Z-443",
+    "path": "topics/17-dynamic-programming/dp-on-subsequences/subset-sum-equals-to-target",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on subsequences",
+    "title": "Partition equal subset sum",
+    "id": "A2Z-444",
+    "path": "topics/17-dynamic-programming/dp-on-subsequences/partition-equal-subset-sum",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on subsequences",
+    "title": "Partition a set into two subsets with minimum absolute sum difference",
+    "id": "A2Z-445",
+    "path": "topics/17-dynamic-programming/dp-on-subsequences/partition-a-set-into-two-subsets-with-minimum-absolute-sum-difference",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on subsequences",
+    "title": "Count subsets with sum K",
+    "id": "A2Z-446",
+    "path": "topics/17-dynamic-programming/dp-on-subsequences/count-subsets-with-sum-k",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on subsequences",
+    "title": "Count partitions with given difference",
+    "id": "A2Z-447",
+    "path": "topics/17-dynamic-programming/dp-on-subsequences/count-partitions-with-given-difference",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on subsequences",
+    "title": "0 and 1 Knapsack",
+    "id": "A2Z-448",
+    "path": "topics/17-dynamic-programming/dp-on-subsequences/0-and-1-knapsack",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on subsequences",
+    "title": "Minimum coins",
+    "id": "A2Z-449",
+    "path": "topics/17-dynamic-programming/dp-on-subsequences/minimum-coins",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on subsequences",
+    "title": "Target sum",
+    "id": "A2Z-450",
+    "path": "topics/17-dynamic-programming/dp-on-subsequences/target-sum",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on subsequences",
+    "title": "Coin change II",
+    "id": "A2Z-451",
+    "path": "topics/17-dynamic-programming/dp-on-subsequences/coin-change-ii",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on subsequences",
+    "title": "Unbounded knapsack",
+    "id": "A2Z-452",
+    "path": "topics/17-dynamic-programming/dp-on-subsequences/unbounded-knapsack",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on subsequences",
+    "title": "Rod cutting problem",
+    "id": "A2Z-453",
+    "path": "topics/17-dynamic-programming/dp-on-subsequences/rod-cutting-problem",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "LIS",
+    "title": "Longest Increasing Subsequence",
+    "id": "A2Z-454",
+    "path": "topics/17-dynamic-programming/lis/longest-increasing-subsequence",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "LIS",
+    "title": "Print Longest Increasing Subsequence",
+    "id": "A2Z-455",
+    "path": "topics/17-dynamic-programming/lis/print-longest-increasing-subsequence",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "LIS",
+    "title": "Largest Divisible Subset",
+    "id": "A2Z-456",
+    "path": "topics/17-dynamic-programming/lis/largest-divisible-subset",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "LIS",
+    "title": "Longest String Chain",
+    "id": "A2Z-457",
+    "path": "topics/17-dynamic-programming/lis/longest-string-chain",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "LIS",
+    "title": "Longest Bitonic Subsequence",
+    "id": "A2Z-458",
+    "path": "topics/17-dynamic-programming/lis/longest-bitonic-subsequence",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "LIS",
+    "title": "Number of Longest Increasing Subsequences",
+    "id": "A2Z-459",
+    "path": "topics/17-dynamic-programming/lis/number-of-longest-increasing-subsequences",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on strings",
+    "title": "Longest common subsequence",
+    "id": "A2Z-460",
+    "path": "topics/17-dynamic-programming/dp-on-strings/longest-common-subsequence",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on strings",
+    "title": "Longest common substring",
+    "id": "A2Z-461",
+    "path": "topics/17-dynamic-programming/dp-on-strings/longest-common-substring",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on strings",
+    "title": "Longest palindromic subsequence",
+    "id": "A2Z-462",
+    "path": "topics/17-dynamic-programming/dp-on-strings/longest-palindromic-subsequence",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on strings",
+    "title": "Minimum insertions to make string palindrome",
+    "id": "A2Z-463",
+    "path": "topics/17-dynamic-programming/dp-on-strings/minimum-insertions-to-make-string-palindrome",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on strings",
+    "title": "Minimum insertions or deletions to convert string A to B",
+    "id": "A2Z-464",
+    "path": "topics/17-dynamic-programming/dp-on-strings/minimum-insertions-or-deletions-to-convert-string-a-to-b",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on strings",
+    "title": "Shortest common supersequence",
+    "id": "A2Z-465",
+    "path": "topics/17-dynamic-programming/dp-on-strings/shortest-common-supersequence",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on strings",
+    "title": "Distinct subsequences",
+    "id": "A2Z-466",
+    "path": "topics/17-dynamic-programming/dp-on-strings/distinct-subsequences",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on strings",
+    "title": "Edit distance",
+    "id": "A2Z-467",
+    "path": "topics/17-dynamic-programming/dp-on-strings/edit-distance",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on strings",
+    "title": "Wildcard matching",
+    "id": "A2Z-468",
+    "path": "topics/17-dynamic-programming/dp-on-strings/wildcard-matching",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on strings",
+    "title": "Word Break",
+    "id": "A2Z-469",
+    "path": "topics/17-dynamic-programming/dp-on-strings/word-break",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "DP on strings",
+    "title": "Count Palindromic Subsequences",
+    "id": "A2Z-470",
+    "path": "topics/17-dynamic-programming/dp-on-strings/count-palindromic-subsequences",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "MCM DP",
+    "title": "Matrix chain multiplication",
+    "id": "A2Z-471",
+    "path": "topics/17-dynamic-programming/mcm-dp/matrix-chain-multiplication",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "MCM DP",
+    "title": "Burst balloons",
+    "id": "A2Z-472",
+    "path": "topics/17-dynamic-programming/mcm-dp/burst-balloons",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "MCM DP",
+    "title": "Palindrome partitioning II",
+    "id": "A2Z-473",
+    "path": "topics/17-dynamic-programming/mcm-dp/palindrome-partitioning-ii",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "MCM DP",
+    "title": "Partition Array for Maximum Sum",
+    "id": "A2Z-474",
+    "path": "topics/17-dynamic-programming/mcm-dp/partition-array-for-maximum-sum",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "MCM DP",
+    "title": "Minimum cost to cut the stick",
+    "id": "A2Z-475",
+    "path": "topics/17-dynamic-programming/mcm-dp/minimum-cost-to-cut-the-stick",
+    "status": "pending"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "MCM DP",
+    "title": "Different Ways to Evaluate a Boolean Expression",
+    "id": "A2Z-476",
+    "path": "topics/17-dynamic-programming/mcm-dp/different-ways-to-evaluate-a-boolean-expression",
+    "status": "pending"
+  },
+  {
+    "topic": "Tries",
+    "section": "Theory",
+    "title": "Bit PreRequisites for TRIE Problems",
+    "id": "A2Z-477",
+    "path": "topics/18-tries/theory/bit-prerequisites-for-trie-problems",
+    "status": "pending"
+  },
+  {
+    "topic": "Tries",
+    "section": "Theory",
+    "title": "Trie Implementation and Operations",
+    "id": "A2Z-478",
+    "path": "topics/18-tries/theory/trie-implementation-and-operations",
+    "status": "pending"
+  },
+  {
+    "topic": "Tries",
+    "section": "Theory",
+    "title": "Trie Implementation and Advanced Operations",
+    "id": "A2Z-479",
+    "path": "topics/18-tries/theory/trie-implementation-and-advanced-operations",
+    "status": "pending"
+  },
+  {
+    "topic": "Tries",
+    "section": "Problems",
+    "title": "Longest Word with All Prefixes",
+    "id": "A2Z-480",
+    "path": "topics/18-tries/problems/longest-word-with-all-prefixes",
+    "status": "pending"
+  },
+  {
+    "topic": "Tries",
+    "section": "Problems",
+    "title": "Number of distinct substrings in a string",
+    "id": "A2Z-481",
+    "path": "topics/18-tries/problems/number-of-distinct-substrings-in-a-string",
+    "status": "pending"
+  },
+  {
+    "topic": "Tries",
+    "section": "Problems",
+    "title": "Maximum XOR of two numbers in an array",
+    "id": "A2Z-482",
+    "path": "topics/18-tries/problems/maximum-xor-of-two-numbers-in-an-array",
+    "status": "pending"
+  },
+  {
+    "topic": "Tries",
+    "section": "Problems",
+    "title": "Maximum Xor with an element from an array",
+    "id": "A2Z-483",
+    "path": "topics/18-tries/problems/maximum-xor-with-an-element-from-an-array",
+    "status": "pending"
+  },
+  {
+    "topic": "Strings (Advanced Algo)",
+    "section": "Medium Problems",
+    "title": "Reverse every word in a string",
+    "id": "A2Z-484",
+    "path": "topics/19-strings-advanced-algo/medium-problems/reverse-every-word-in-a-string",
+    "status": "pending"
+  },
+  {
+    "topic": "Strings (Advanced Algo)",
+    "section": "Medium Problems",
+    "title": "Minimum number of bracket reversals to make an expression balanced",
+    "id": "A2Z-485",
+    "path": "topics/19-strings-advanced-algo/medium-problems/minimum-number-of-bracket-reversals-to-make-an-expression-balanced",
+    "status": "pending"
+  },
+  {
+    "topic": "Strings (Advanced Algo)",
+    "section": "Medium Problems",
+    "title": "Count and say",
+    "id": "A2Z-486",
+    "path": "topics/19-strings-advanced-algo/medium-problems/count-and-say",
+    "status": "pending"
+  },
+  {
+    "topic": "Strings (Advanced Algo)",
+    "section": "Advanced Problems (Less asked)",
+    "title": "Hashing In Strings | Theory",
+    "id": "A2Z-487",
+    "path": "topics/19-strings-advanced-algo/advanced-problems-less-asked/hashing-in-strings-theory",
+    "status": "pending"
+  },
+  {
+    "topic": "Strings (Advanced Algo)",
+    "section": "Advanced Problems (Less asked)",
+    "title": "Rabin Karp Algorithm",
+    "id": "A2Z-488",
+    "path": "topics/19-strings-advanced-algo/advanced-problems-less-asked/rabin-karp-algorithm",
+    "status": "pending"
+  },
+  {
+    "topic": "Strings (Advanced Algo)",
+    "section": "Advanced Problems (Less asked)",
+    "title": "Z function",
+    "id": "A2Z-489",
+    "path": "topics/19-strings-advanced-algo/advanced-problems-less-asked/z-function",
+    "status": "pending"
+  },
+  {
+    "topic": "Strings (Advanced Algo)",
+    "section": "Advanced Problems (Less asked)",
+    "title": "KMP Algorithm or LPS array",
+    "id": "A2Z-490",
+    "path": "topics/19-strings-advanced-algo/advanced-problems-less-asked/kmp-algorithm-or-lps-array",
+    "status": "pending"
+  },
+  {
+    "topic": "Strings (Advanced Algo)",
+    "section": "Advanced Problems (Less asked)",
+    "title": "Shortest Palindrome",
+    "id": "A2Z-491",
+    "path": "topics/19-strings-advanced-algo/advanced-problems-less-asked/shortest-palindrome",
+    "status": "pending"
+  },
+  {
+    "topic": "Strings (Advanced Algo)",
+    "section": "Advanced Problems (Less asked)",
+    "title": "Longest happy prefix",
+    "id": "A2Z-492",
+    "path": "topics/19-strings-advanced-algo/advanced-problems-less-asked/longest-happy-prefix",
+    "status": "pending"
+  },
+  {
+    "topic": "Maths",
+    "section": "Sieve of Eratosthenes",
+    "title": "Print all primes till N",
+    "id": "A2Z-493",
+    "path": "topics/20-maths/sieve-of-eratosthenes/print-all-primes-till-n",
+    "status": "pending"
+  },
+  {
+    "topic": "Maths",
+    "section": "Sieve of Eratosthenes",
+    "title": "Prime factorisation of a Number",
+    "id": "A2Z-494",
+    "path": "topics/20-maths/sieve-of-eratosthenes/prime-factorisation-of-a-number",
+    "status": "pending"
+  },
+  {
+    "topic": "Maths",
+    "section": "Sieve of Eratosthenes",
+    "title": "Count primes in range L to R",
+    "id": "A2Z-495",
+    "path": "topics/20-maths/sieve-of-eratosthenes/count-primes-in-range-l-to-r",
+    "status": "pending"
+  }
+]
