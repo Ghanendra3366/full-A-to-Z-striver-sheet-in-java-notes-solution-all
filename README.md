@@ -3,8 +3,9 @@
 Topic → subsection → question folders, following the supplied Striver curriculum.
 Explanations use English with Hinglish reasoning where helpful. Code is Java 8 compatible.
 
-**This is a work in progress. The exact implemented/theory/pending counts are in
-[COVERAGE.md](curriculum/COVERAGE.md). A listed pending problem is not a completed solution.**
+**All 495 inventory items are covered: 452 runnable solutions and 43 theory lessons.
+22 additional reference variants bring the total to 474 Java programs and 517 lessons.**
+Browse the complete [coverage index](curriculum/COVERAGE.md).
 
 ## Clone and study
 
@@ -50,10 +51,15 @@ with JDK 8 it uses the native compiler.
 ```sh
 python tools/build_catalog.py
 python tools/verify.py
+python tools/regression.py
+python tools/audit.py
 ```
 
 Authored source is in `tools/content/`; generated question folders are committed so
 readers do not need Python to study or run a solution. See [CONTRIBUTING](CONTRIBUTING.md).
+Each module JSON stores the complete formatted Java source and note fields. Generation
+uses only Python's standard library and preserves formatting. See [validation](VALIDATION.md)
+for the checks and their limits.
 
 ## Sources and attribution
 
