@@ -46,4 +46,4 @@ Expected output:
 
 Code: [Solution.java](Solution.java). Methods are reusable; `main` is a deterministic example.
 
-[Curriculum index](../../../../COVERAGE.md)
+[Curriculum index](../../../../curriculum/COVERAGE.md)

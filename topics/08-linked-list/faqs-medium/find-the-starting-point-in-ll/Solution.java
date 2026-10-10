@@ -1,14 +1,53 @@
 import java.util.*;
-import java.math.BigInteger;
 
 public class Solution {
-    static class Node { int value; Node next,prev,random,bottom; Node(int v){value=v;} }
-    static Node list(int... values){ Node dummy=new Node(0),tail=dummy; for(int v:values){ tail.next=new Node(v); tail.next.prev=tail==dummy?null:tail; tail=tail.next; } return dummy.next; }
-    static String view(Node head){ List<Integer> a=new ArrayList<>(); for(Node n=head;n!=null;n=n.next) a.add(n.value); return a.toString(); }
-    public static Node entry(Node h){ Node slow=h,fast=h; do { if(fast==null||fast.next==null) return null; slow=slow.next; fast=fast.next.next; } while(slow!=fast); slow=h; while(slow!=fast){ slow=slow.next; fast=fast.next; } return slow; }
-    public static int solve(Node h){ return entry(h)==null?-1:entry(h).value; }
+  static class Node {
+    int value;
+    Node next, prev, random, bottom;
 
-    public static void main(String[] args) {
-        Node h=list(1,2,3); h.next.next.next=h.next; System.out.println(solve(h));
+    Node(int v) {
+      value = v;
     }
+  }
+
+  static Node list(int... values) {
+    Node dummy = new Node(0), tail = dummy;
+    for (int v : values) {
+      tail.next = new Node(v);
+      tail.next.prev = tail == dummy ? null : tail;
+      tail = tail.next;
+    }
+    return dummy.next;
+  }
+
+  static String view(Node head) {
+    List<Integer> a = new ArrayList<>();
+    for (Node n = head; n != null; n = n.next) a.add(n.value);
+    return a.toString();
+  }
+
+  public static Node entry(Node h) {
+    Node slow = h, fast = h;
+    do {
+      if (fast == null || fast.next == null) return null;
+      slow = slow.next;
+      fast = fast.next.next;
+    } while (slow != fast);
+    slow = h;
+    while (slow != fast) {
+      slow = slow.next;
+      fast = fast.next;
+    }
+    return slow;
+  }
+
+  public static int solve(Node h) {
+    return entry(h) == null ? -1 : entry(h).value;
+  }
+
+  public static void main(String[] args) {
+    Node h = list(1, 2, 3);
+    h.next.next.next = h.next;
+    System.out.println(solve(h));
+  }
 }

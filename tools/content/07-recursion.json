@@ -1,0 +1,245 @@
+{
+  "Pow(x,n)": {
+    "expected": "0.125",
+    "problem": "Compute x raised to an int exponent using IEEE-754 double arithmetic; 0^0 returns 1.",
+    "approach": "Binary exponentiation keeps ans*x^remaining equal to the desired result. Consume low bits; square the base as the exponent halves.",
+    "complexity": "O(log(|n|+1)) time; O(1) space.",
+    "trace": "2^-3 becomes 0.5^3: take 0.5, square to 0.25, then take it -> 0.125.",
+    "pitfalls": "Cast exponent to long before negating MIN_VALUE. Double overflow/underflow follows IEEE-754; this is not exact rational arithmetic.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static double solve(double x, int exponent) {\n    long n = exponent;\n    if (n < 0) {\n      x = 1 / x;\n      n = -n;\n    }\n    double ans = 1;\n    while (n > 0) {\n      if ((n & 1) == 1) ans *= x;\n      x *= x;\n      n >>= 1;\n    }\n    return ans;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(2, -3));\n  }\n}\n"
+  },
+  "Generate Parentheses": {
+    "expected": "[((())), (()()), (())(), ()(()), ()()()]",
+    "problem": "Generate all balanced strings with n opening and n closing parentheses; n=0 yields one empty string.",
+    "approach": "Only add an opening when open<n, and a closing when close<open. These conditions ensure no invalid prefix is generated; every balanced string follows one such path.",
+    "complexity": "O(n*C_n) time/output space where C_n is the nth Catalan number; O(n) recursion/path space.",
+    "trace": "At n=2 paths are (()) and ()(); trying to close at the initial state is forbidden.",
+    "pitfalls": "Restore the builder after each branch. The returned list is exponential; large n cannot be enumerated practically.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static void dfs(int n, int open, int close, StringBuilder path, List<String> out) {\n    if (close == n) {\n      out.add(path.toString());\n      return;\n    }\n    if (open < n) {\n      path.append('(');\n      dfs(n, open + 1, close, path, out);\n      path.deleteCharAt(path.length() - 1);\n    }\n    if (close < open) {\n      path.append(')');\n      dfs(n, open, close + 1, path, out);\n      path.deleteCharAt(path.length() - 1);\n    }\n  }\n\n  public static List<String> solve(int n) {\n    if (n < 0) throw new IllegalArgumentException();\n    List<String> out = new ArrayList<>();\n    dfs(n, 0, 0, new StringBuilder(), out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(3));\n  }\n}\n"
+  },
+  "Power Set": {
+    "expected": "[[], [2], [1], [1, 2]]",
+    "problem": "Enumerate positional subsets; skip branch is visited before take branch. Duplicate values may give equal value lists.",
+    "approach": "At each index choose skip or take. Copy the path at a leaf to prevent later mutations from changing stored results.",
+    "complexity": "O(n*2^n) time/output space; O(n) stack and working path.",
+    "trace": "Skip 1/skip 2 -> []; skip 1/take 2 -> [2]; take 1/skip 2 -> [1]; take both -> [1,2].",
+    "pitfalls": "Use remove(size-1), not remove(value), when restoring a path. Enumeration includes the empty subset.",
+    "alternatives": "Bitmask enumeration gives the same asymptotic costs with a different order.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static void dfs(int[] a, int i, List<Integer> path, List<List<Integer>> out) {\n    if (i == a.length) {\n      out.add(new ArrayList<>(path));\n      return;\n    }\n    dfs(a, i + 1, path, out);\n    path.add(a[i]);\n    dfs(a, i + 1, path, out);\n    path.remove(path.size() - 1);\n  }\n\n  public static List<List<Integer>> solve(int[] a) {\n    List<List<Integer>> out = new ArrayList<>();\n    dfs(a, 0, new ArrayList<>(), out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2}));\n  }\n}\n"
+  },
+  "Count Good Numbers": {
+    "expected": "400",
+    "problem": "Length-n digit strings have an even digit at every zero-based even position and a prime digit at every odd position. Leading zeros allowed; return modulo 1e9+7.",
+    "approach": "Even positions have five choices {0,2,4,6,8}; odd positions four {2,3,5,7}. Independent choices multiply, so use 5^ceil(n/2)*4^floor(n/2) with modular exponentiation.",
+    "complexity": "O(log(n+1)) time; O(1) space.",
+    "trace": "n=4 has two positions of each kind: 5²*4²=400.",
+    "pitfalls": "Use n/2+n%2 rather than (n+1)/2 to avoid long overflow. n=0 represents one empty string.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static long power(long x, long n) {\n    long ans = 1, mod = 1000000007L;\n    while (n > 0) {\n      if ((n & 1) == 1) ans = ans * x % mod;\n      x = x * x % mod;\n      n >>= 1;\n    }\n    return ans;\n  }\n\n  public static long solve(long n) {\n    if (n < 0) throw new IllegalArgumentException();\n    return power(5, n / 2 + n % 2) * power(4, n / 2) % 1000000007L;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(4));\n  }\n}\n"
+  },
+  "Reverse a Stack": {
+    "expected": "[3, 2, 1]",
+    "problem": "Reverse a stack in place, using the front of ArrayDeque as its top.",
+    "approach": "Remove the top recursively; after reversing the remaining stack, insert the saved top at the bottom via a second recursion.",
+    "complexity": "O(n²) time; O(n) peak recursion space.",
+    "trace": "Pop 1,2,3; insert 3 at bottom of empty, then 2 below 3, then 1 below them.",
+    "pitfalls": "Deque iteration prints top-to-bottom here. Deep recursion can overflow the Java stack.",
+    "alternatives": "A second stack reverses in O(n) time with O(n) auxiliary storage.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static void bottom(Deque<Integer> stack, int x) {\n    if (stack.isEmpty()) {\n      stack.push(x);\n      return;\n    }\n    int y = stack.pop();\n    bottom(stack, x);\n    stack.push(y);\n  }\n\n  public static void solve(Deque<Integer> stack) {\n    if (stack.isEmpty()) return;\n    int x = stack.pop();\n    solve(stack);\n    bottom(stack, x);\n  }\n\n  public static void main(String[] args) {\n    Deque<Integer> s = new ArrayDeque<>(Arrays.asList(1, 2, 3));\n    solve(s);\n    System.out.println(s);\n  }\n}\n"
+  },
+  "Learn All Patterns of Subsequences (Theory)": {
+    "theory": "At index i, a positional subsequence either includes a[i] or skips it. Recurse on i+1 in both cases; the measure n-i decreases. A mutable path needs push -> recurse -> pop restoration. At i==n: print/copy the path for enumeration, return whether its sum matches for existence, or return 1/0 for counting. Existence can short-circuit with OR; counting adds both branches. Duplicated values still give distinct positional choices. Pruning sum>target is only safe when all remaining values are nonnegative. Worst case is 2^n leaves and O(n) stack, with additional output cost when copying paths."
+  },
+  "Check if there exists a subsequence with sum K": {
+    "expected": "true",
+    "problem": "Decide if some positional subsequence sums to k; empty subsequence is allowed.",
+    "approach": "Take/skip every index. The leaf tests the remaining target. OR combines the branches and short-circuits on a witness.",
+    "complexity": "O(2^n) recursive nodes; O(n) stack. BigInteger counting cost additionally depends on count bits.",
+    "trace": "[1,2,1] reaches sum 2 either by taking index 1 alone or both indices 0,2.",
+    "pitfalls": "Negatives and zeros are supported, so sum-based positive-only pruning is intentionally absent.",
+    "alternatives": "Memoize (index,remaining) to avoid repeated states. Nonnegative bounded sums admit subset-sum DP; existence can use a boolean table, counting an integer table.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static boolean dfs(int[] a, int i, long remaining) {\n    if (i == a.length) return remaining == 0;\n    return dfs(a, i + 1, remaining) || dfs(a, i + 1, remaining - a[i]);\n  }\n\n  public static boolean solve(int[] a, long k) {\n    return dfs(a, 0, k);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 1}, 2));\n  }\n}\n"
+  },
+  "Count all subsequences with sum K": {
+    "expected": "2",
+    "problem": "Count positional subsequences summing to k, including the empty one for k=0.",
+    "approach": "Take/skip every index. The leaf tests the remaining target. Counts add because the branches partition positional subsets.",
+    "complexity": "O(2^n) recursive nodes; O(n) stack. BigInteger counting cost additionally depends on count bits.",
+    "trace": "[1,2,1] reaches sum 2 either by taking index 1 alone or both indices 0,2.",
+    "pitfalls": "Negatives and zeros are supported, so sum-based positive-only pruning is intentionally absent.",
+    "alternatives": "Memoize (index,remaining) to avoid repeated states. Nonnegative bounded sums admit subset-sum DP; existence can use a boolean table, counting an integer table.",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  private static BigInteger dfs(int[] a, int i, long remaining) {\n    if (i == a.length) return remaining == 0 ? BigInteger.ONE : BigInteger.ZERO;\n    return dfs(a, i + 1, remaining).add(dfs(a, i + 1, remaining - a[i]));\n  }\n\n  public static BigInteger solve(int[] a, long k) {\n    return dfs(a, 0, k);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 1}, 2));\n  }\n}\n"
+  },
+  "Generate Binary Strings Without Consecutive 1s": {
+    "expected": "[000, 001, 010, 100, 101]",
+    "problem": "Generate length-n binary strings in lexicographic order, forbidding adjacent ones.",
+    "approach": "Zero is always allowed; one is allowed only after zero or at the first position. This excludes invalid prefixes immediately while preserving all valid choices.",
+    "complexity": "O(n*F_(n+2)) time/output space; O(n) stack.",
+    "trace": "After prefix 01 only zero is allowed, producing 010.",
+    "pitfalls": "n=0 gives the single empty string. Save the allowed-one condition before appending/removing zero.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static void dfs(int n, StringBuilder p, List<String> out) {\n    if (p.length() == n) {\n      out.add(p.toString());\n      return;\n    }\n    boolean canOne = p.length() == 0 || p.charAt(p.length() - 1) == '0';\n    p.append('0');\n    dfs(n, p, out);\n    p.deleteCharAt(p.length() - 1);\n    if (canOne) {\n      p.append('1');\n      dfs(n, p, out);\n      p.deleteCharAt(p.length() - 1);\n    }\n  }\n\n  public static List<String> solve(int n) {\n    if (n < 0) throw new IllegalArgumentException();\n    List<String> out = new ArrayList<>();\n    dfs(n, new StringBuilder(), out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(3));\n  }\n}\n"
+  },
+  "Combination Sum": {
+    "expected": "[[2, 2, 3], [7]]",
+    "problem": "Find unique nondecreasing combinations summing to target, with positive candidates. Each candidate may be reused.",
+    "approach": "Sort candidates, skip duplicate siblings, and append values only at/after start. Recurse at i for reuse. This makes combinations canonical and avoids permutation duplicates.",
+    "complexity": "Exponential output-sensitive time; O(target/minCandidate) recursion depth for reuse, O(n) without reuse, plus sorted copy/output.",
+    "trace": "For target 7, reusing 2 gives 2+2+3; candidate 7 gives a singleton. Without reuse only [7] is possible.",
+    "pitfalls": "Zero candidates would create infinite reuse recursion; reject nonpositive values. A remaining target of zero yields one completed combination.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static void dfs(\n      int[] a, int start, int remaining, List<Integer> p, List<List<Integer>> out, boolean reuse) {\n    if (remaining == 0) {\n      out.add(new ArrayList<>(p));\n      return;\n    }\n    for (int i = start; i < a.length && a[i] <= remaining; i++) {\n      if (i > start && a[i] == a[i - 1]) continue;\n      p.add(a[i]);\n      dfs(a, reuse ? i : i + 1, remaining - a[i], p, out, reuse);\n      p.remove(p.size() - 1);\n    }\n  }\n\n  public static List<List<Integer>> solve(int[] input, int target) {\n    if (target < 0) throw new IllegalArgumentException();\n    int[] a = input.clone();\n    for (int x : a) if (x <= 0) throw new IllegalArgumentException(\"positive candidates required\");\n    Arrays.sort(a);\n    List<List<Integer>> out = new ArrayList<>();\n    dfs(a, 0, target, new ArrayList<>(), out, true);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {2, 3, 6, 7}, 7));\n  }\n}\n"
+  },
+  "Combination Sum II": {
+    "expected": "[[7]]",
+    "problem": "Find unique nondecreasing combinations summing to target, with positive candidates. Each input position may be used once.",
+    "approach": "Sort candidates, skip duplicate siblings, and append values only at/after start. Recurse at i+1 to prevent reuse. This makes combinations canonical and avoids permutation duplicates.",
+    "complexity": "Exponential output-sensitive time; O(target/minCandidate) recursion depth for reuse, O(n) without reuse, plus sorted copy/output.",
+    "trace": "For target 7, reusing 2 gives 2+2+3; candidate 7 gives a singleton. Without reuse only [7] is possible.",
+    "pitfalls": "Zero candidates would create infinite reuse recursion; reject nonpositive values. A remaining target of zero yields one completed combination.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static void dfs(\n      int[] a, int start, int remaining, List<Integer> p, List<List<Integer>> out, boolean reuse) {\n    if (remaining == 0) {\n      out.add(new ArrayList<>(p));\n      return;\n    }\n    for (int i = start; i < a.length && a[i] <= remaining; i++) {\n      if (i > start && a[i] == a[i - 1]) continue;\n      p.add(a[i]);\n      dfs(a, reuse ? i : i + 1, remaining - a[i], p, out, reuse);\n      p.remove(p.size() - 1);\n    }\n  }\n\n  public static List<List<Integer>> solve(int[] input, int target) {\n    if (target < 0) throw new IllegalArgumentException();\n    int[] a = input.clone();\n    for (int x : a) if (x <= 0) throw new IllegalArgumentException(\"positive candidates required\");\n    Arrays.sort(a);\n    List<List<Integer>> out = new ArrayList<>();\n    dfs(a, 0, target, new ArrayList<>(), out, false);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {2, 3, 6, 7}, 7));\n  }\n}\n"
+  },
+  "Subsets I": {
+    "expected": "[[], [2], [1], [1, 2]]",
+    "problem": "Enumerate positional subsets; skip branch is visited before take branch. Duplicate values may give equal value lists.",
+    "approach": "At each index choose skip or take. Copy the path at a leaf to prevent later mutations from changing stored results.",
+    "complexity": "O(n*2^n) time/output space; O(n) stack and working path.",
+    "trace": "Skip 1/skip 2 -> []; skip 1/take 2 -> [2]; take 1/skip 2 -> [1]; take both -> [1,2].",
+    "pitfalls": "Use remove(size-1), not remove(value), when restoring a path. Enumeration includes the empty subset.",
+    "alternatives": "Bitmask enumeration gives the same asymptotic costs with a different order.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static void dfs(int[] a, int i, List<Integer> path, List<List<Integer>> out) {\n    if (i == a.length) {\n      out.add(new ArrayList<>(path));\n      return;\n    }\n    dfs(a, i + 1, path, out);\n    path.add(a[i]);\n    dfs(a, i + 1, path, out);\n    path.remove(path.size() - 1);\n  }\n\n  public static List<List<Integer>> solve(int[] a) {\n    List<List<Integer>> out = new ArrayList<>();\n    dfs(a, 0, new ArrayList<>(), out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2}));\n  }\n}\n"
+  },
+  "Subsets II": {
+    "expected": "[[], [1], [1, 2], [1, 2, 2], [2], [2, 2]]",
+    "problem": "Enumerate distinct value subsets when input can contain duplicates.",
+    "approach": "Sort so duplicates are adjacent. Skip equal values at the SAME decision depth, but allow a second equal value in a deeper decision so [2,2] remains possible.",
+    "complexity": "O(n*2^n) worst output/time plus sort; O(n) stack and copy before output.",
+    "trace": "[1,2,2]: skip the second 2 as a root sibling, but permit it after taking the first 2.",
+    "pitfalls": "Globally forbidding duplicates would incorrectly remove subsets that use repeated input positions.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static void dfs(int[] a, int start, List<Integer> p, List<List<Integer>> out) {\n    out.add(new ArrayList<>(p));\n    for (int i = start; i < a.length; i++) {\n      if (i > start && a[i] == a[i - 1]) continue;\n      p.add(a[i]);\n      dfs(a, i + 1, p, out);\n      p.remove(p.size() - 1);\n    }\n  }\n\n  public static List<List<Integer>> solve(int[] input) {\n    int[] a = input.clone();\n    Arrays.sort(a);\n    List<List<Integer>> out = new ArrayList<>();\n    dfs(a, 0, new ArrayList<>(), out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 2}));\n  }\n}\n"
+  },
+  "Combination Sum III": {
+    "expected": "[[1, 2, 6], [1, 3, 5], [2, 3, 4]]",
+    "problem": "Select exactly k distinct digits from 1..9 whose sum is target.",
+    "approach": "Choose increasing digits so each combination has one representation. State carries the next minimum digit, remaining count and remaining sum.",
+    "complexity": "O(2^9*9) upper-bound enumeration time; O(9) working stack plus output.",
+    "trace": "1+2+6, 1+3+5 and 2+3+4 are the three valid triples for nine.",
+    "pitfalls": "k=0,target=0 yields an empty combination. Digits cannot repeat.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static void dfs(int start, int k, int sum, List<Integer> p, List<List<Integer>> out) {\n    if (k == 0) {\n      if (sum == 0) out.add(new ArrayList<>(p));\n      return;\n    }\n    for (int x = start; x <= 9 && x <= sum; x++) {\n      p.add(x);\n      dfs(x + 1, k - 1, sum - x, p, out);\n      p.remove(p.size() - 1);\n    }\n  }\n\n  public static List<List<Integer>> solve(int k, int target) {\n    if (k < 0) throw new IllegalArgumentException();\n    List<List<Integer>> out = new ArrayList<>();\n    dfs(1, k, target, new ArrayList<>(), out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(3, 9));\n  }\n}\n"
+  },
+  "Letter Combinations of a Phone Number": {
+    "expected": "[ad, ae, af, bd, be, bf, cd, ce, cf]",
+    "problem": "Return all letter strings represented by digits 2..9; empty input returns empty.",
+    "approach": "At each digit branch over its letters; copy the path after processing all digits. The product of independent per-digit choices gives every combination.",
+    "complexity": "O(n*4^n) worst time/output; O(n) stack/path.",
+    "trace": "Choose a/b/c for 2, then d/e/f for 3.",
+    "pitfalls": "Digits 0/1 have no letters and are rejected rather than silently skipping positions.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static final String[] MAP = {\n    \"\", \"\", \"abc\", \"def\", \"ghi\", \"jkl\", \"mno\", \"pqrs\", \"tuv\", \"wxyz\"\n  };\n\n  private static void dfs(String digits, int i, StringBuilder p, List<String> out) {\n    if (i == digits.length()) {\n      out.add(p.toString());\n      return;\n    }\n    char digit = digits.charAt(i);\n    if (digit < '2' || digit > '9') throw new IllegalArgumentException();\n    for (char c : MAP[digit - '0'].toCharArray()) {\n      p.append(c);\n      dfs(digits, i + 1, p, out);\n      p.deleteCharAt(p.length() - 1);\n    }\n  }\n\n  public static List<String> solve(String digits) {\n    List<String> out = new ArrayList<>();\n    if (!digits.isEmpty()) dfs(digits, 0, new StringBuilder(), out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"23\"));\n  }\n}\n"
+  },
+  "Palindrome partitioning": {
+    "expected": "[[a, a, b], [aa, b]]",
+    "problem": "Partition the whole string into contiguous palindromic parts; return every partition.",
+    "approach": "For each start, try every palindromic prefix and recursively partition the suffix. Each partition has a unique sequence of end positions.",
+    "complexity": "O(n²*2^n) safe worst time bound for direct checks/copies; O(n) recursion depth plus output.",
+    "trace": "a -> a -> b gives [a,a,b]; aa -> b gives [aa,b].",
+    "pitfalls": "Empty string has one empty partition. Substring creates new strings in Java 8.",
+    "alternatives": "Precompute a palindrome table in O(n²) to make each prefix check O(1); output remains exponential.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static boolean palindrome(String s, int l, int r) {\n    while (l < r) if (s.charAt(l++) != s.charAt(r--)) return false;\n    return true;\n  }\n\n  private static void dfs(String s, int start, List<String> p, List<List<String>> out) {\n    if (start == s.length()) {\n      out.add(new ArrayList<>(p));\n      return;\n    }\n    for (int end = start; end < s.length(); end++)\n      if (palindrome(s, start, end)) {\n        p.add(s.substring(start, end + 1));\n        dfs(s, end + 1, p, out);\n        p.remove(p.size() - 1);\n      }\n  }\n\n  public static List<List<String>> solve(String s) {\n    List<List<String>> out = new ArrayList<>();\n    dfs(s, 0, new ArrayList<>(), out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"aab\"));\n  }\n}\n"
+  },
+  "Word Search": {
+    "expected": "true",
+    "problem": "Find a word via orthogonal steps in a rectangular character board without reusing a cell.",
+    "approach": "Try each start and recursively match one character per step. Mark a cell only for the current path, restoring it before returning so other paths may use it.",
+    "complexity": "O(rows*cols*4^wordLength) safe upper bound; O(rows*cols+wordLength) auxiliary space.",
+    "trace": "ABCCED follows A(0,0),B(0,1),C(0,2),C(1,2),E(2,2),D(2,1).",
+    "pitfalls": "A global permanently visited set is wrong: reuse is forbidden within a path, not across alternative searches.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static boolean dfs(char[][] a, String word, int i, int r, int c, boolean[][] used) {\n    if (i == word.length()) return true;\n    if (r < 0\n        || r == a.length\n        || c < 0\n        || c == a[0].length\n        || used[r][c]\n        || a[r][c] != word.charAt(i)) return false;\n    used[r][c] = true;\n    boolean found =\n        dfs(a, word, i + 1, r + 1, c, used)\n            || dfs(a, word, i + 1, r - 1, c, used)\n            || dfs(a, word, i + 1, r, c + 1, used)\n            || dfs(a, word, i + 1, r, c - 1, used);\n    used[r][c] = false;\n    return found;\n  }\n\n  public static boolean solve(char[][] a, String word) {\n    if (word.isEmpty()) return true;\n    if (a.length == 0 || a[0].length == 0) return false;\n    boolean[][] used = new boolean[a.length][a[0].length];\n    for (int r = 0; r < a.length; r++)\n      for (int c = 0; c < a[0].length; c++) if (dfs(a, word, 0, r, c, used)) return true;\n    return false;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(\n        solve(\n            new char[][] {{'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'}},\n            \"ABCCED\"));\n  }\n}\n"
+  },
+  "N Queen": {
+    "expected": "2",
+    "problem": "Return all n-by-n boards with n nonattacking queens, one in each row.",
+    "approach": "Place one queen per row. Boolean column and two diagonal arrays give O(1) conflict tests. Mark -> recurse -> unmark explores every valid placement.",
+    "complexity": "O(n*n!) search upper bound plus O(n²) copying per result; O(n²) board and O(n) stack/flags.",
+    "trace": "For n=4, columns [1,3,0,2] and [2,0,3,1] are the two valid boards.",
+    "pitfalls": "Diagonal indices are r-c+n-1 and r+c. n=0 gives one empty board.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static void dfs(\n      int r, char[][] board, boolean[] col, boolean[] down, boolean[] up, List<List<String>> out) {\n    int n = board.length;\n    if (r == n) {\n      List<String> rows = new ArrayList<>();\n      for (char[] row : board) rows.add(new String(row));\n      out.add(rows);\n      return;\n    }\n    for (int c = 0; c < n; c++)\n      if (!col[c] && !down[r - c + n - 1] && !up[r + c]) {\n        col[c] = down[r - c + n - 1] = up[r + c] = true;\n        board[r][c] = 'Q';\n        dfs(r + 1, board, col, down, up, out);\n        board[r][c] = '.';\n        col[c] = down[r - c + n - 1] = up[r + c] = false;\n      }\n  }\n\n  public static List<List<String>> solve(int n) {\n    if (n < 0) throw new IllegalArgumentException();\n    char[][] b = new char[n][n];\n    for (char[] row : b) Arrays.fill(row, '.');\n    List<List<String>> out = new ArrayList<>();\n    dfs(\n        0,\n        b,\n        new boolean[n],\n        new boolean[Math.max(0, 2 * n - 1)],\n        new boolean[Math.max(0, 2 * n - 1)],\n        out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(4).size());\n  }\n}\n"
+  },
+  "Rat in a Maze": {
+    "expected": "[DR]",
+    "problem": "Return all simple open-cell paths in a square binary maze, top-left to bottom-right; directions D,L,R,U.",
+    "approach": "DFS marks only the current path. Explore directions in lexical order and restore visits so distinct paths remain possible.",
+    "complexity": "Exponential path enumeration, O(4^(n²)) loose upper bound; O(n²) working space plus output.",
+    "trace": "For [[1,0],[1,1]], only down then right reaches the destination.",
+    "pitfalls": "A blocked endpoint yields empty. A 1x1 open maze has one empty path, whose list prints ambiguously as [].",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static final int[] DR = {1, 0, 0, -1}, DC = {0, -1, 1, 0};\n  private static final char[] DIR = {'D', 'L', 'R', 'U'};\n\n  private static void dfs(\n      int[][] a, int r, int c, boolean[][] seen, StringBuilder p, List<String> out) {\n    int n = a.length;\n    if (r == n - 1 && c == n - 1) {\n      out.add(p.toString());\n      return;\n    }\n    seen[r][c] = true;\n    for (int d = 0; d < 4; d++) {\n      int x = r + DR[d], y = c + DC[d];\n      if (x >= 0 && y >= 0 && x < n && y < n && a[x][y] == 1 && !seen[x][y]) {\n        p.append(DIR[d]);\n        dfs(a, x, y, seen, p, out);\n        p.deleteCharAt(p.length() - 1);\n      }\n    }\n    seen[r][c] = false;\n  }\n\n  public static List<String> solve(int[][] a) {\n    List<String> out = new ArrayList<>();\n    int n = a.length;\n    if (n == 0) return out;\n    for (int[] row : a) if (row.length != n) throw new IllegalArgumentException();\n    if (a[0][0] == 1 && a[n - 1][n - 1] == 1)\n      dfs(a, 0, 0, new boolean[n][n], new StringBuilder(), out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[][] {{1, 0}, {1, 1}}));\n  }\n}\n"
+  },
+  "M Coloring Problem": {
+    "expected": "true",
+    "problem": "Decide whether an undirected adjacency-matrix graph can be properly colored with at most m colors.",
+    "approach": "Choose a color for the next vertex only if no neighbor already has it. Recursively complete later vertices; restore failed choices. Every possible valid assignment is explored.",
+    "complexity": "O(V*m^V) loose time upper bound; O(V) colors/stack excluding input.",
+    "trace": "A triangle needs three different colors; two cannot suffice.",
+    "pitfalls": "A self-loop makes proper coloring impossible. Empty graph is colorable with zero colors.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static boolean dfs(boolean[][] graph, int v, int[] color, int m) {\n    if (v == graph.length) return true;\n    for (int c = 1; c <= m; c++) {\n      boolean valid = true;\n      for (int u = 0; u < graph.length; u++)\n        if ((graph[v][u] || graph[u][v]) && (u == v || color[u] == c)) {\n          valid = false;\n          break;\n        }\n      if (valid) {\n        color[v] = c;\n        if (dfs(graph, v + 1, color, m)) return true;\n        color[v] = 0;\n      }\n    }\n    return false;\n  }\n\n  public static boolean solve(boolean[][] graph, int m) {\n    if (m < 0) throw new IllegalArgumentException();\n    return dfs(graph, 0, new int[graph.length], m);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(\n        solve(new boolean[][] {{false, true, true}, {true, false, true}, {true, true, false}}, 3));\n  }\n}\n"
+  },
+  "Sudoku Solver": {
+    "expected": "true\n534678912",
+    "problem": "Solve a 9x9 Sudoku in place, with . for blanks. Return false if invalid or unsolvable, restoring attempted blank assignments.",
+    "approach": "Validate initial clues, then fill the first blank with each row/column/box-compatible digit. A failed continuation restores the blank. An all-filled valid board is the base success.",
+    "complexity": "O(9^E) loose upper bound for E blanks with constant-size checks; O(E) stack.",
+    "trace": "First-row blanks are constrained by column and 3x3 box; the completed first row is 534678912.",
+    "pitfalls": "Initial duplicates must be detected, otherwise an already-full invalid board would wrongly return true.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static boolean valid(char[][] a, int r, int c, char x) {\n    for (int i = 0; i < 9; i++)\n      if (a[r][i] == x || a[i][c] == x || a[3 * (r / 3) + i / 3][3 * (c / 3) + i % 3] == x)\n        return false;\n    return true;\n  }\n\n  private static boolean dfs(char[][] a) {\n    for (int r = 0; r < 9; r++)\n      for (int c = 0; c < 9; c++)\n        if (a[r][c] == '.') {\n          for (char x = '1'; x <= '9'; x++)\n            if (valid(a, r, c, x)) {\n              a[r][c] = x;\n              if (dfs(a)) return true;\n              a[r][c] = '.';\n            }\n          return false;\n        }\n    return true;\n  }\n\n  public static boolean solve(char[][] a) {\n    if (a.length != 9) throw new IllegalArgumentException();\n    for (char[] row : a) if (row.length != 9) throw new IllegalArgumentException();\n    for (int r = 0; r < 9; r++)\n      for (int c = 0; c < 9; c++)\n        if (a[r][c] != '.') {\n          char x = a[r][c];\n          a[r][c] = '.';\n          boolean ok = x >= '1' && x <= '9' && valid(a, r, c, x);\n          a[r][c] = x;\n          if (!ok) return false;\n        }\n    return dfs(a);\n  }\n\n  public static void main(String[] args) {\n    char[][] a = {\n      \"53..7....\".toCharArray(),\n      \"6..195...\".toCharArray(),\n      \".98....6.\".toCharArray(),\n      \"8...6...3\".toCharArray(),\n      \"4..8.3..1\".toCharArray(),\n      \"7...2...6\".toCharArray(),\n      \".6....28.\".toCharArray(),\n      \"...419..5\".toCharArray(),\n      \"....8..79\".toCharArray()\n    };\n    System.out.println(solve(a));\n    System.out.println(new String(a[0]));\n  }\n}\n"
+  },
+  "Expression Add Operators": {
+    "expected": "[1+2+3, 1*2*3]",
+    "problem": "Insert +,-,* between digit groups to reach target; preserve digit order, use no parentheses and forbid multi-digit leading-zero operands.",
+    "approach": "Track total and the last signed multiplicative term. Multiplication replaces last with last*x in total, enforcing precedence without reparsing. Try all token endpoints and all operators.",
+    "complexity": "Exponential O(n*4^n) loose search/string-cost bound, with additional BigInteger bit costs; O(n) depth plus expression storage/output.",
+    "trace": "1+2 then *3 would replace +2 with +6, giving 7; 1*2*3 correctly evaluates 6.",
+    "pitfalls": "BigInteger prevents expression overflow. A token 0 is valid, but 00 is not.",
+    "alternatives": "",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  private static void dfs(\n      String s,\n      int at,\n      BigInteger value,\n      BigInteger last,\n      String expression,\n      BigInteger target,\n      List<String> out) {\n    if (at == s.length()) {\n      if (value.equals(target)) out.add(expression);\n      return;\n    }\n    for (int end = at + 1; end <= s.length(); end++) {\n      if (end > at + 1 && s.charAt(at) == '0') break;\n      String token = s.substring(at, end);\n      BigInteger x = new BigInteger(token);\n      if (at == 0) dfs(s, end, x, x, token, target, out);\n      else {\n        dfs(s, end, value.add(x), x, expression + \"+\" + token, target, out);\n        dfs(s, end, value.subtract(x), x.negate(), expression + \"-\" + token, target, out);\n        BigInteger product = last.multiply(x);\n        dfs(\n            s,\n            end,\n            value.subtract(last).add(product),\n            product,\n            expression + \"*\" + token,\n            target,\n            out);\n      }\n    }\n  }\n\n  public static List<String> solve(String digits, long target) {\n    for (char c : digits.toCharArray())\n      if (c < '0' || c > '9') throw new IllegalArgumentException();\n    List<String> out = new ArrayList<>();\n    if (!digits.isEmpty())\n      dfs(digits, 0, BigInteger.ZERO, BigInteger.ZERO, \"\", BigInteger.valueOf(target), out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"123\", 6));\n  }\n}\n"
+  },
+  "Sort a Stack Using Recursion": {
+    "expected": "[4, 3, 2, 1]",
+    "problem": "Sort stack descending from top to bottom, using front as top.",
+    "approach": "Recursively sort the remaining stack; insert the removed top by recursively moving larger entries aside until its proper position, then restore them.",
+    "complexity": "O(n²) time, O(n) peak recursion depth.",
+    "trace": "Sort1,3,2 into3,2,1; insert4 at the top.",
+    "pitfalls": "Equal values are allowed. Iterative collection sorting is simpler when recursion is not an exercise requirement.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static void insert(Deque<Integer> s, int x) {\n    if (s.isEmpty() || s.peek() <= x) {\n      s.push(x);\n      return;\n    }\n    int y = s.pop();\n    insert(s, x);\n    s.push(y);\n  }\n\n  public static void solve(Deque<Integer> s) {\n    if (s.isEmpty()) return;\n    int x = s.pop();\n    solve(s);\n    insert(s, x);\n  }\n\n  public static void main(String[] args) {\n    Deque<Integer> s = new ArrayDeque<>(Arrays.asList(4, 1, 3, 2));\n    solve(s);\n    System.out.println(s);\n  }\n}\n"
+  },
+  "Subset Sums Enumeration": {
+    "expected": "[0, 1, 2, 3]",
+    "problem": "Return sums of all POSITIONAL subsets sorted, including duplicate sums and empty sum zero.",
+    "approach": "Take/skip each index; each leaf is exactly one positional subset and contributes its accumulated sum.",
+    "complexity": "O(2^n log(2^n)) sorting time, O(2^n) output and O(n) stack.",
+    "trace": "Skip both0; only1 gives1; only2 gives2; both gives3.",
+    "pitfalls": "Unlike distinct-subset enumeration, repeated sum values must not be removed. Exponential output limits practical n.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static void dfs(int[] a, int i, long sum, List<Long> out) {\n    if (i == a.length) {\n      out.add(sum);\n      return;\n    }\n    dfs(a, i + 1, sum, out);\n    dfs(a, i + 1, sum + a[i], out);\n  }\n\n  public static List<Long> solve(int[] a) {\n    List<Long> out = new ArrayList<>();\n    dfs(a, 0, 0, out);\n    Collections.sort(out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2}));\n  }\n}\n"
+  },
+  "Recursive String to Integer": {
+    "expected": "-2147483648",
+    "problem": "Recursive atoi: skip ASCII spaces, optional sign, read decimal prefix and clamp to signed int.",
+    "approach": "Recursion consumes one digit per frame. Check the limit before multiplying, and immediately return the clamped limit if it would be exceeded.",
+    "complexity": "O(n) time/stack, stopping early after saturation.",
+    "trace": "2147483649 exceeds negative magnitude limit2147483648, so result clamps to MIN_VALUE.",
+    "pitfalls": "Very long strings of leading zeros still recurse deeply without saturation; the iterative atoi lesson is preferable for production input.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static long digits(String s, int at, long value, long limit) {\n    if (at == s.length() || s.charAt(at) < '0' || s.charAt(at) > '9') return value;\n    int digit = s.charAt(at) - '0';\n    if (value > (limit - digit) / 10) return limit;\n    return digits(s, at + 1, value * 10 + digit, limit);\n  }\n\n  public static int solve(String s) {\n    int i = 0, sign = 1;\n    while (i < s.length() && s.charAt(i) == ' ') i++;\n    if (i < s.length() && (s.charAt(i) == '+' || s.charAt(i) == '-'))\n      sign = s.charAt(i++) == '-' ? -1 : 1;\n    return (int) (sign * digits(s, i, 0, sign == 1 ? 2147483647L : 2147483648L));\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\" -2147483649\"));\n  }\n}\n"
+  }
+}

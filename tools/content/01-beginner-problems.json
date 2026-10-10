@@ -1,0 +1,721 @@
+{
+  "Breaking The Myth": {
+    "theory": "DSA koi memorization contest nahi hai. Pehle small examples solve karo, phir repeated work identify karo. Correct brute force is a starting point. Speed comes from constraints, invariants and repeated practice."
+  },
+  "Programming and What Are Computers?": {
+    "theory": "A program is a precise sequence of instructions. CPU executes instructions; memory stores values. Java source is compiled to bytecode, then executed by the JVM. Input, processing, and output are separate steps. Example: read two integers, calculate their sum as long, print it."
+  },
+  "How to Think Like a Programmer": {
+    "theory": "1. Restate input/output. 2. Define constraints. 3. Solve a tiny example by hand. 4. Write a direct algorithm. 5. State the invariant. 6. Check complexity. 7. Test an empty, single, duplicate and extreme-value case. 8. Optimize only where constraints demand it."
+  },
+  "Flowcharts and Pseudocode": {
+    "theory": "Use a start/end oval, input/output parallelogram, process rectangle and decision diamond. Pseudocode example: READ n; IF n<2 RETURN false; FOR d=2 WHILE d<=n/d: IF n%d==0 RETURN false; RETURN true. Pseudocode describes the algorithm independently of Java syntax."
+  },
+  "Flowchart Problem-Solving": {
+    "theory": "For max(a,b): start -> read a,b -> decision a>=b -> print a on yes, print b on no -> end. Trace both branches and equality. A loop requires initialization, condition, body and update; a missing update makes an infinite loop."
+  },
+  "Dry Runs, Edge Cases and Debugging": {
+    "theory": "Create a table of iteration, index, current value and accumulator. For [2,-1,3] running sums are 2,1,4. Test zero-length input, boundary indices, duplicates, negative values and integer overflow. Fix the first point where the invariant fails rather than patching the final output."
+  },
+  "Programming Languages and Choosing a Path": {
+    "theory": "This repository targets Java 8. Learn one language well: variables, loops, methods, arrays and collections, then DSA. The algorithm usually transfers to other languages; library APIs, overflow and reference semantics do not."
+  },
+  "Learn C++": {
+    "theory": "Java comparison lesson: C++ vector corresponds roughly to ArrayList, unordered_map to HashMap, set to TreeSet, queue to ArrayDeque and priority_queue to PriorityQueue with a comparator. Java arrays do not resize; Java generics use boxed Integer rather than int. C++ pointers become object references, with null as the absent node. This Java-only repo does not provide C++ implementations."
+  },
+  "Learn Java": {
+    "theory": "Java 8: `int` is signed 32-bit, `long` signed 64-bit; `boolean` is true/false. `(long)a*b` widens before multiplication. `a/b` truncates toward zero for integers. Arrays have fixed length and zero-based indices. Objects are passed by value of their reference; methods can mutate the referenced array. Strings are immutable: use `.equals`, not `==`. `StringBuilder` supports repeated appends. Use `public class Solution` in Solution.java. Compile with `javac Solution.java`, run with `java Solution`. Scanner is convenient; BufferedReader plus StringTokenizer is faster for large token streams. Never mix nextInt() and nextLine() without consuming the leftover newline."
+  },
+  "Learn Python": {
+    "theory": "Java comparison lesson: Python list corresponds to ArrayList or an array, dict to HashMap, set to HashSet and deque to ArrayDeque. Python integers grow automatically; Java int/long overflow, so use BigInteger when exact unbounded arithmetic is required. Slicing needs an explicit copy in Java. This Java-only repo does not provide Python solutions."
+  },
+  "Easy and Medium": {
+    "theory": "Pattern workflow: choose rows, derive symbols per row, derive left/right padding, then write nested loops. For a triangle row r prints r symbols; a centered pyramid prints n-r spaces and 2*r-1 stars. See the 22 runnable Patterns lessons for concrete shapes."
+  },
+  "Hard": {
+    "theory": "Compound patterns can be split into halves. A diamond joins a pyramid with its inverted form; a butterfly mirrors two triangles around a gap. For concentric squares the cell value follows distance to the nearest boundary. Check whether the widest row is repeated before choosing 2*n or 2*n-1 total rows."
+  },
+  "Pattern 1": {
+    "expected": "* * * \n* * * \n* * *",
+    "problem": "Print pattern 1 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int r = 1; r <= n; r++) {\n      for (int c = 1; c <= n; c++) out.append(\"* \");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 2": {
+    "expected": "* \n* * \n* * *",
+    "problem": "Print pattern 2 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int r = 1; r <= n; r++) {\n      for (int c = 1; c <= r; c++) out.append(\"* \");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 3": {
+    "expected": "1 \n1 2 \n1 2 3",
+    "problem": "Print pattern 3 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int r = 1; r <= n; r++) {\n      for (int c = 1; c <= r; c++) out.append(c).append(\" \");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 4": {
+    "expected": "1 \n2 2 \n3 3 3",
+    "problem": "Print pattern 4 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int r = 1; r <= n; r++) {\n      for (int c = 1; c <= r; c++) out.append(r).append(\" \");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 5": {
+    "expected": "* * * \n* * \n*",
+    "problem": "Print pattern 5 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int r = n; r >= 1; r--) {\n      for (int c = 1; c <= r; c++) out.append(\"* \");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 6": {
+    "expected": "1 2 3 \n1 2 \n1",
+    "problem": "Print pattern 6 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int r = n; r >= 1; r--) {\n      for (int c = 1; c <= r; c++) out.append(c).append(\" \");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 7": {
+    "expected": "  *\n ***\n*****",
+    "problem": "Print pattern 7 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int r = 1; r <= n; r++) {\n      for (int c = 0; c < n - r; c++) out.append(\" \");\n      for (int c = 0; c < 2 * r - 1; c++) out.append(\"*\");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 8": {
+    "expected": "*****\n ***\n  *",
+    "problem": "Print pattern 8 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int r = n; r >= 1; r--) {\n      for (int c = 0; c < n - r; c++) out.append(\" \");\n      for (int c = 0; c < 2 * r - 1; c++) out.append(\"*\");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 9": {
+    "expected": "  *\n ***\n*****\n*****\n ***\n  *",
+    "problem": "Print pattern 9 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int row = 1; row <= 2 * n; row++) {\n      int r = row <= n ? row : 2 * n - row + 1;\n      for (int c = 0; c < n - r; c++) out.append(\" \");\n      for (int c = 0; c < 2 * r - 1; c++) out.append(\"*\");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 10": {
+    "expected": "* \n* * \n* * * \n* * \n*",
+    "problem": "Print pattern 10 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int row = 1; row < 2 * n; row++) {\n      int r = row <= n ? row : 2 * n - row;\n      for (int c = 0; c < r; c++) out.append(\"* \");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 11": {
+    "expected": "1 \n0 1 \n1 0 1",
+    "problem": "Print pattern 11 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int r = 1; r <= n; r++) {\n      for (int c = 1; c <= r; c++) out.append((r + c) % 2 == 0 ? 1 : 0).append(\" \");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 12": {
+    "expected": "1    1\n12  21\n123321",
+    "problem": "Print pattern 12 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int r = 1; r <= n; r++) {\n      for (int c = 1; c <= r; c++) out.append(c);\n      for (int c = 0; c < 2 * (n - r); c++) out.append(\" \");\n      for (int c = r; c >= 1; c--) out.append(c);\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 13": {
+    "expected": "1 \n2 3 \n4 5 6",
+    "problem": "Print pattern 13 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    int value = 1;\n    for (int r = 1; r <= n; r++) {\n      for (int c = 1; c <= r; c++) out.append(value++).append(\" \");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 14": {
+    "expected": "A \nA B \nA B C",
+    "problem": "Print pattern 14 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int r = 1; r <= n; r++) {\n      for (int c = 0; c < r; c++) out.append((char) ('A' + c)).append(\" \");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 15": {
+    "expected": "A B C \nA B \nA",
+    "problem": "Print pattern 15 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int r = n; r >= 1; r--) {\n      for (int c = 0; c < r; c++) out.append((char) ('A' + c)).append(\" \");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 16": {
+    "expected": "A \nB B \nC C C",
+    "problem": "Print pattern 16 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int r = 0; r < n; r++) {\n      for (int c = 0; c <= r; c++) out.append((char) ('A' + r)).append(\" \");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 17": {
+    "expected": "  A\n ABA\nABCBA",
+    "problem": "Print pattern 17 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int r = 1; r <= n; r++) {\n      for (int c = 0; c < n - r; c++) out.append(\" \");\n      for (int c = 0; c < 2 * r - 1; c++) out.append((char) ('A' + Math.min(c, 2 * r - 2 - c)));\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 18": {
+    "expected": "C \nB C \nA B C",
+    "problem": "Print pattern 18 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int r = 1; r <= n; r++) {\n      for (int c = n - r; c < n; c++) out.append((char) ('A' + c)).append(\" \");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 19": {
+    "expected": "******\n**  **\n*    *\n*    *\n**  **\n******",
+    "problem": "Print pattern 19 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int row = 0; row < 2 * n; row++) {\n      int r = row < n ? n - row : row - n + 1;\n      for (int c = 0; c < r; c++) out.append(\"*\");\n      for (int c = 0; c < 2 * (n - r); c++) out.append(\" \");\n      for (int c = 0; c < r; c++) out.append(\"*\");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 20": {
+    "expected": "*    *\n**  **\n******\n**  **\n*    *",
+    "problem": "Print pattern 20 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int row = 1; row < 2 * n; row++) {\n      int r = row <= n ? row : 2 * n - row;\n      for (int c = 0; c < r; c++) out.append(\"*\");\n      for (int c = 0; c < 2 * (n - r); c++) out.append(\" \");\n      for (int c = 0; c < r; c++) out.append(\"*\");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 21": {
+    "expected": "***\n* *\n***",
+    "problem": "Print pattern 21 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int r = 0; r < n; r++) {\n      for (int c = 0; c < n; c++)\n        out.append(r == 0 || c == 0 || r == n - 1 || c == n - 1 ? \"*\" : \" \");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Pattern 22": {
+    "expected": "3 3 3 3 3 \n3 2 2 2 3 \n3 2 1 2 3 \n3 2 2 2 3 \n3 3 3 3 3",
+    "problem": "Print pattern 22 for n rows/rings. The example defines the exact shape; n=0 prints nothing. Alphabet patterns assume n<=26.",
+    "approach": "Outer loop selects a row. Inner loops calculate its symbols and padding directly from the row index. Trace the formulas before writing the loops; row-dependent bounds create the shape.",
+    "complexity": "O(n²) time and O(n²) output storage; streaming directly to a writer would use O(1) auxiliary space.",
+    "trace": "Use n=3 and label row/column indices. For each row, apply the bounds in Solution.java; compare the emitted row with the example below. Pattern 22 uses distance to the closest border to determine the ring value.",
+    "pitfalls": "One-based symbol counts and zero-based coordinates must not be mixed. Some rows include a trailing space; verification ignores trailing spaces only. Diamond 9 repeats the widest row; butterfly 20 does not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"nonnegative n required\");\n    StringBuilder out = new StringBuilder();\n    for (int r = 0; r < 2 * n - 1; r++) {\n      for (int c = 0; c < 2 * n - 1; c++)\n        out.append(n - Math.min(Math.min(r, c), Math.min(2 * n - 2 - r, 2 * n - 2 - c)))\n            .append(\" \");\n      out.append(\"\\n\");\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.print(solve(3));\n  }\n}\n"
+  },
+  "Theory with examples": {
+    "theory": "Count input-dependent operations, not source lines. A single scan is O(n); nested scans usually O(n²); repeatedly halving an interval is O(log n). Sequential costs add and the largest term dominates. Recurrence merge sort: T(n)=2T(n/2)+O(n)=O(n log n). Space includes recursion frames; distinguish auxiliary space from returned output. HashMap operations are expected constant time, not an unconditional worst-case guarantee."
+  },
+  "STL": {
+    "theory": "STL-to-Java mapping is covered in Learn C++ and Java Collections. Prefer ArrayDeque for a stack/queue, PriorityQueue for a heap and TreeMap for ordered dictionaries. Comparator ordering and boxing differ from C++; translate the contract and complexity, not just the spelling."
+  },
+  "Java Collections": {
+    "theory": "ArrayList: indexed get O(1), append amortized O(1), middle insertion O(n). ArrayDeque: O(1) amortized push/pop/offer/poll, no null. HashMap/HashSet: expected O(1) lookup/update. TreeMap/TreeSet: O(log n), sorted keys. PriorityQueue: offer/poll O(log n), peek O(1). Use `Integer.compare(a,b)` rather than subtraction comparators that can overflow. Java 8 supports `getOrDefault`, `computeIfAbsent`, lambdas and diamond syntax. It does not support List.of, Map.of, records or var. Primitive arrays use Arrays.sort; object arrays can take comparators. Iterator.remove removes safely during iteration."
+  },
+  "Python Libraries Part 1": {
+    "theory": "Java equivalents for Python collections: Counter -> HashMap<Integer,Integer> counting with getOrDefault; deque -> ArrayDeque; bisect_left -> lower bound; heapq -> PriorityQueue. See Java Collections and Binary Search for runnable Java implementations."
+  },
+  "Python Libraries Part 2": {
+    "theory": "Java equivalents: itertools combinations -> explicit backtracking; math.gcd -> Euclid; functools memoization -> an array or map keyed by the full state. A Java array used as a map key compares by identity; use a stable key class or encode the tuple safely. Avoid overflow-prone arithmetic key encodings."
+  },
+  "Basic Maths": {
+    "theory": "Understand divisibility, remainders, digit extraction, Euclid and the sqrt factor-pair bound. `%` in Java can be negative; normalize modular values with `(x % m + m) % m` for positive m. Cast before arithmetic that may overflow. The Basic Maths section gives runnable examples."
+  },
+  "Basic Arrays": {
+    "theory": "An array has a fixed length; valid indices are 0 through length-1. Use a half-open interval [l,r) when convenient. Copy via Arrays.copyOf rather than assigning a second reference. Define whether each method mutates its input. Empty-array contracts matter for maximum/minimum problems."
+  },
+  "Basic Hashing": {
+    "theory": "Hashing stores a count or an index per key. Use HashMap for unrestricted integer values; frequency arrays work only when the value range is small and explicitly bounded. Prefix sums plus a map count subarrays, including negatives. Expected O(1) operations rely on normal hashing assumptions."
+  },
+  "Basic String": {
+    "theory": "Strings are immutable UTF-16 sequences in Java 8. charAt handles code units, not full Unicode code points. These interview solutions state ASCII/lowercase assumptions where applicable. Repeated `s += c` can become quadratic; use StringBuilder. Compare content using equals."
+  },
+  "Count all Digits of a Number": {
+    "expected": "10",
+    "problem": "Count decimal digits, excluding the sign; zero has one digit.",
+    "approach": "Har division by 10 last digit hataata hai. A do-while loop handles zero without a special branch. Signed division also works for negative numbers.",
+    "complexity": "O(d) time and O(1) extra space, where d is the digit count.",
+    "trace": "123: 123 -> 12 -> 1 -> 0, so three divisions count three digits.",
+    "pitfalls": "Math.abs(Integer.MIN_VALUE) overflows; this implementation never takes abs(int).",
+    "alternatives": "String.valueOf(n) also works after excluding the minus sign, but allocates O(d) space. Logarithms need a zero case and can round at powers of ten.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int n) {\n    int count = 0;\n    do {\n      count++;\n      n /= 10;\n    } while (n != 0);\n    return count;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(Integer.MIN_VALUE));\n  }\n}\n"
+  },
+  "Count number of odd digits in a number": {
+    "expected": "3",
+    "problem": "Count odd decimal digits of a signed int; zero contributes no odd digit.",
+    "approach": "Extract n % 10 and test its parity. Negative odd remainders are still nonzero modulo two.",
+    "complexity": "O(d) time; O(1) space.",
+    "trace": "Digits 0,2,5,3,1 contain three odd digits.",
+    "pitfalls": "Do not check remainder == 1: Java gives -1 for negative odd values.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int n) {\n    int count = 0;\n    while (n != 0) {\n      if ((n % 10) % 2 != 0) count++;\n      n /= 10;\n    }\n    return count;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(-13520));\n  }\n}\n"
+  },
+  "Reverse a number": {
+    "expected": "-21",
+    "problem": "Reverse decimal digits while preserving sign. Return long so every reversed int fits.",
+    "approach": "Append each last digit to the result: rev * 10 + digit. Remaining n contains exactly the unprocessed digits.",
+    "complexity": "O(d) time and O(1) space.",
+    "trace": "-120 gives 0, then -2, then -21.",
+    "pitfalls": "Trailing zeros disappear. If a judge requires int and zero on overflow, check the long result against Integer.MIN_VALUE/MAX_VALUE before casting.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int n) {\n    long reversed = 0;\n    while (n != 0) {\n      reversed = reversed * 10 + n % 10;\n      n /= 10;\n    }\n    return reversed;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(-120));\n  }\n}\n"
+  },
+  "Palindrome Number": {
+    "expected": "true",
+    "problem": "Check whether a nonnegative integer reads the same forwards and backwards. Negative inputs are false.",
+    "approach": "Reverse into long, then compare with the original. Equality means every positional digit matches.",
+    "complexity": "O(d) time, O(1) space.",
+    "trace": "1221 reverses through 1 -> 12 -> 122 -> 1221.",
+    "pitfalls": "0 is a palindrome; 10 is not. A long accumulator avoids overflow.",
+    "alternatives": "A half-reversal stops when the unprocessed prefix is no larger than the reversed suffix; compare n == half or n == half / 10 to handle odd lengths.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(int n) {\n    if (n < 0) return false;\n    long rev = 0;\n    int copy = n;\n    do {\n      rev = rev * 10 + copy % 10;\n      copy /= 10;\n    } while (copy != 0);\n    return rev == n;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(1221));\n  }\n}\n"
+  },
+  "Return the Largest Digit in a Number": {
+    "expected": "9",
+    "problem": "Return the largest decimal digit, ignoring sign.",
+    "approach": "Har extracted digit ke baad largest is the maximum of all processed digits.",
+    "complexity": "O(d) time and O(1) space.",
+    "trace": "Process 3,9,2: maximum becomes 3,9,9.",
+    "pitfalls": "abs is applied only to a remainder in [-9,9], so Integer.MIN_VALUE is safe.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int n) {\n    int largest = 0;\n    do {\n      largest = Math.max(largest, Math.abs(n % 10));\n      n /= 10;\n    } while (n != 0);\n    return largest;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(-293));\n  }\n}\n"
+  },
+  "Factorial of a given number": {
+    "expected": "2432902008176640000",
+    "problem": "Compute n! exactly for n >= 0, including 0! = 1.",
+    "approach": "Multiply 2 through n; after i, the accumulator is i!. BigInteger keeps the result exact.",
+    "complexity": "n-1 multiplications; bit complexity and space grow with the output size, so this is not O(1) space for arbitrary n.",
+    "trace": "4!: 1 -> 2 -> 6 -> 24.",
+    "pitfalls": "int overflows after 12!; long after 20!. Reject negative inputs.",
+    "alternatives": "",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  public static BigInteger solve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"n must be nonnegative\");\n    BigInteger ans = BigInteger.ONE;\n    for (int i = 2; i <= n; i++) ans = ans.multiply(BigInteger.valueOf(i));\n    return ans;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(20));\n  }\n}\n"
+  },
+  "Check if the Number is Armstrong": {
+    "expected": "true",
+    "problem": "A d-digit nonnegative number is Armstrong when it equals the sum of its digits raised to d.",
+    "approach": "Count digits, compute each power using integer multiplication, and compare the sum.",
+    "complexity": "O(d²) arithmetic operations; O(d) temporary space for digit-count conversion.",
+    "trace": "9474: 9^4 + 4^4 + 7^4 + 4^4 = 6561 + 256 + 2401 + 256 = 9474.",
+    "pitfalls": "153 uses cubes, but 9474 uses fourth powers. Avoid floating-point Math.pow equality.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(int n) {\n    if (n < 0) return false;\n    int d = String.valueOf(n).length(), copy = n;\n    long sum = 0;\n    do {\n      int digit = copy % 10;\n      long power = 1;\n      for (int i = 0; i < d; i++) power *= digit;\n      sum += power;\n      copy /= 10;\n    } while (copy != 0);\n    return sum == n;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(9474));\n  }\n}\n"
+  },
+  "Check for Perfect Number": {
+    "expected": "true",
+    "problem": "A positive integer is perfect when its positive proper divisors sum to itself.",
+    "approach": "Divisors arrive in pairs d and n/d; visit the smaller partner only. Start with divisor 1 and omit n.",
+    "complexity": "O(sqrt(n)) time; O(1) space.",
+    "trace": "28 has proper divisors 1,2,4,7,14 whose sum is 28.",
+    "pitfalls": "1 is not perfect. Add the square-root divisor only once; use n/d rather than d*d to avoid overflow.",
+    "alternatives": "Checking every possible divisor takes O(n) time with the same constant extra space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(int n) {\n    if (n <= 1) return false;\n    long sum = 1;\n    for (int d = 2; d <= n / d; d++)\n      if (n % d == 0) {\n        sum += d;\n        if (d != n / d) sum += n / d;\n      }\n    return sum == n;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(28));\n  }\n}\n"
+  },
+  "Check for Prime Number": {
+    "expected": "true",
+    "problem": "Return true if n has exactly two positive divisors.",
+    "approach": "A composite n has a factor at most sqrt(n), because two factors both larger than sqrt(n) would multiply to more than n.",
+    "complexity": "O(sqrt(n)) time; O(1) space.",
+    "trace": "For 97, test 2 through 9; no divisor exists.",
+    "pitfalls": "0,1 and negatives are not prime. n/d bounds the loop without int multiplication overflow.",
+    "alternatives": "The direct O(n) approach checks 2 through n-1. For many queries use a sieve instead.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(int n) {\n    if (n < 2) return false;\n    for (int d = 2; d <= n / d; d++) if (n % d == 0) return false;\n    return true;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(97));\n  }\n}\n"
+  },
+  "Count of Prime Numbers till N": {
+    "expected": "4",
+    "problem": "Count primes in the inclusive range [2,n], with n >= 0.",
+    "approach": "Sieve: when p is prime, mark p²,p²+p,... composite. Smaller multiples were marked by smaller prime factors already.",
+    "complexity": "O(n log log n) time and O(n) space.",
+    "trace": "At n=10, mark 4,6,8,10 for 2 and 9 for 3; keep 2,3,5,7.",
+    "pitfalls": "The endpoint is inclusive. n=0 and n=1 return zero. Very large n needs a segmented sieve.",
+    "alternatives": "Trial division for every number takes O(n sqrt(n)) time.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean[] sieve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"n must be nonnegative\");\n    boolean[] prime = new boolean[n + 1];\n    Arrays.fill(prime, true);\n    prime[0] = false;\n    if (n >= 1) prime[1] = false;\n    for (int p = 2; p <= n / p; p++)\n      if (prime[p]) for (long j = (long) p * p; j <= n; j += p) prime[(int) j] = false;\n    return prime;\n  }\n\n  public static int solve(int n) {\n    boolean[] p = sieve(n);\n    int count = 0;\n    for (boolean x : p) if (x) count++;\n    return count;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(10));\n  }\n}\n"
+  },
+  "GCD of Two Numbers": {
+    "expected": "6",
+    "problem": "Return nonnegative gcd(a,b); define gcd(0,0)=0.",
+    "approach": "Euclid uses gcd(a,b)=gcd(b,a%b). Any common divisor divides the remainder and vice versa.",
+    "complexity": "O(log(min(|a|,|b|)+1)) time, O(1) space.",
+    "trace": "(48,18) -> (18,12) -> (12,6) -> (6,0).",
+    "pitfalls": "Cast to long before abs so MIN_VALUE is safe. gcd can be 2147483648, so the return type is long.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int a, int b) {\n    long x = Math.abs((long) a), y = Math.abs((long) b);\n    while (y != 0) {\n      long r = x % y;\n      x = y;\n      y = r;\n    }\n    return x;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(48, 18));\n  }\n}\n"
+  },
+  "LCM of two numbers": {
+    "expected": "36",
+    "problem": "Return nonnegative lcm; if either input is zero, return zero.",
+    "approach": "gcd*lcm = |a*b|. Divide before multiplying to reduce the intermediate magnitude.",
+    "complexity": "O(log(min(|a|,|b|)+1)) time, O(1) space.",
+    "trace": "gcd(12,18)=6; (12/6)*18=36.",
+    "pitfalls": "Use long and do the zero check before division. This handles all pairs of int inputs.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long gcd(int a, int b) {\n    long x = Math.abs((long) a), y = Math.abs((long) b);\n    while (y != 0) {\n      long r = x % y;\n      x = y;\n      y = r;\n    }\n    return x;\n  }\n\n  public static long solve(int a, int b) {\n    if (a == 0 || b == 0) return 0;\n    return Math.abs(((long) a / gcd(a, b)) * b);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(12, 18));\n  }\n}\n"
+  },
+  "Divisors of a Number": {
+    "expected": "[1, 2, 3, 4, 6, 9, 12, 18, 36]",
+    "problem": "Return every positive divisor of n in increasing order.",
+    "approach": "Collect smaller partners in increasing order, larger partners in decreasing order, then reverse the latter. This avoids a full sort.",
+    "complexity": "O(sqrt(n)) time plus O(number of divisors) output space.",
+    "trace": "For 36 collect low=[1,2,3,4,6], high=[36,18,12,9], then reverse high.",
+    "pitfalls": "At d*d=n, do not duplicate d. Zero has infinitely many divisors and is rejected.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static List<Integer> solve(int n) {\n    if (n <= 0) throw new IllegalArgumentException(\"positive n required\");\n    List<Integer> low = new ArrayList<>(), high = new ArrayList<>();\n    for (int d = 1; d <= n / d; d++)\n      if (n % d == 0) {\n        low.add(d);\n        if (d != n / d) high.add(n / d);\n      }\n    Collections.reverse(high);\n    low.addAll(high);\n    return low;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(36));\n  }\n}\n"
+  },
+  "Sum of Array Elements": {
+    "expected": "6",
+    "problem": "Sum all entries; an empty array sums to zero.",
+    "approach": "Running sum equals the sum of the processed prefix. Use long for accumulation.",
+    "complexity": "O(n) time and O(1) auxiliary space.",
+    "trace": "Example input: [1, 2, 3]. Visit each entry or symmetric pair exactly once.",
+    "pitfalls": "Empty and single-element arrays are valid. The reverse operation mutates its argument; the other operations do not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[] a) {\n    long sum = 0;\n    for (int x : a) sum += x;\n    return sum;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 3}));\n  }\n}\n"
+  },
+  "Count of odd numbers in Array": {
+    "expected": "2",
+    "problem": "Count odd array entries, including negative odd values.",
+    "approach": "Test remainder != 0; negative odd numbers have remainder -1.",
+    "complexity": "O(n) time and O(1) auxiliary space.",
+    "trace": "Example input: [-3,2,5]. Visit each entry or symmetric pair exactly once.",
+    "pitfalls": "Empty and single-element arrays are valid. The reverse operation mutates its argument; the other operations do not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a) {\n    int count = 0;\n    for (int x : a) if (x % 2 != 0) count++;\n    return count;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {-3, 2, 5}));\n  }\n}\n"
+  },
+  "Check if the Array is Sorted I": {
+    "expected": "true",
+    "problem": "Check nondecreasing order; equal neighbors are allowed.",
+    "approach": "A sequence is nondecreasing exactly when each adjacent pair is ordered.",
+    "complexity": "O(n) time and O(1) auxiliary space.",
+    "trace": "Example input: [1,1,3]. Visit each entry or symmetric pair exactly once.",
+    "pitfalls": "Empty and single-element arrays are valid. The reverse operation mutates its argument; the other operations do not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(int[] a) {\n    for (int i = 1; i < a.length; i++) if (a[i] < a[i - 1]) return false;\n    return true;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 1, 3}));\n  }\n}\n"
+  },
+  "Reverse an array": {
+    "expected": "[3, 2, 1]",
+    "problem": "Reverse the input array in place.",
+    "approach": "Swap matching ends and shrink the unprocessed interval. The already processed ends are in final positions.",
+    "complexity": "O(n) time and O(1) auxiliary space.",
+    "trace": "Example input: [1,2,3]. Visit each entry or symmetric pair exactly once.",
+    "pitfalls": "Empty and single-element arrays are valid. The reverse operation mutates its argument; the other operations do not.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] a) {\n    for (int l = 0, r = a.length - 1; l < r; l++, r--) {\n      int t = a[l];\n      a[l] = a[r];\n      a[r] = t;\n    }\n    return a;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {1, 2, 3})));\n  }\n}\n"
+  },
+  "Highest Occurring Element in an Array": {
+    "expected": "2",
+    "problem": "Return the most frequent value; ties choose the smaller value.",
+    "approach": "TreeMap visits keys in increasing order. Update only for a strictly higher frequency, so the first value among ties wins.",
+    "complexity": "O(n log u) time and O(u) space, u distinct values.",
+    "trace": "Counts: 1->1, 2->2, 3->2. Value 2 beats 1; 3 ties and is skipped.",
+    "pitfalls": "Tie-breaking must be explicit. Empty arrays have no most frequent element.",
+    "alternatives": "HashMap gives expected O(n) counting, but then compare both frequency and value explicitly.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static Map<Integer, Integer> frequencies(int[] a) {\n    Map<Integer, Integer> map = new TreeMap<>();\n    for (int x : a) map.put(x, map.getOrDefault(x, 0) + 1);\n    return map;\n  }\n\n  public static int solve(int[] a) {\n    if (a.length == 0) throw new IllegalArgumentException(\"nonempty array required\");\n    int best = 0, count = -1;\n    for (Map.Entry<Integer, Integer> e : frequencies(a).entrySet())\n      if (e.getValue() > count) {\n        best = e.getKey();\n        count = e.getValue();\n      }\n    return best;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {3, 2, 3, 2, 1}));\n  }\n}\n"
+  },
+  "Second Highest Occurring Element": {
+    "expected": "1",
+    "problem": "Rank distinct values by descending frequency, breaking ties by smaller value. Return the second ranked value, or empty if fewer than two distinct values exist.",
+    "approach": "Count, sort distinct entries, select rank two. This contract allows the first two values to have equal frequency.",
+    "complexity": "O(n log u + u log u) time, O(u) space.",
+    "trace": "2 occurs three times, 1 twice, 3 once; ranking is 2,1,3.",
+    "pitfalls": "Second ranked element and second distinct frequency are different variants. OptionalInt avoids a sentinel that could be a valid input.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static Map<Integer, Integer> frequencies(int[] a) {\n    Map<Integer, Integer> map = new TreeMap<>();\n    for (int x : a) map.put(x, map.getOrDefault(x, 0) + 1);\n    return map;\n  }\n\n  public static OptionalInt solve(int[] a) {\n    List<Map.Entry<Integer, Integer>> entries = new ArrayList<>(frequencies(a).entrySet());\n    entries.sort(\n        (x, y) -> {\n          int c = Integer.compare(y.getValue(), x.getValue());\n          return c != 0 ? c : Integer.compare(x.getKey(), y.getKey());\n        });\n    return entries.size() < 2 ? OptionalInt.empty() : OptionalInt.of(entries.get(1).getKey());\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 1, 2, 2, 2, 3}).getAsInt());\n  }\n}\n"
+  },
+  "Sum of Highest and Lowest Frequency": {
+    "expected": "4",
+    "problem": "Add the largest and smallest positive frequency of values present. Empty input returns zero.",
+    "approach": "Only present values participate. Traverse frequency counts and maintain the two extrema.",
+    "complexity": "O(n log u) time, O(u) space.",
+    "trace": "Frequencies 2,3,1 give 3+1=4.",
+    "pitfalls": "Return the sum of frequencies, not the sum of the associated values. With one distinct value, its frequency is counted twice.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static Map<Integer, Integer> frequencies(int[] a) {\n    Map<Integer, Integer> map = new TreeMap<>();\n    for (int x : a) map.put(x, map.getOrDefault(x, 0) + 1);\n    return map;\n  }\n\n  public static int solve(int[] a) {\n    if (a.length == 0) return 0;\n    int low = Integer.MAX_VALUE, high = 0;\n    for (int f : frequencies(a).values()) {\n      low = Math.min(low, f);\n      high = Math.max(high, f);\n    }\n    return low + high;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 1, 2, 2, 2, 3}));\n  }\n}\n"
+  },
+  "Reverse a String II": {
+    "expected": "avaj",
+    "problem": "Reverse a string as UTF-16 code units; ASCII is the intended interview input.",
+    "approach": "Copy to a mutable char array and swap symmetric positions; then construct the result.",
+    "complexity": "O(n) time and O(n) result/array space.",
+    "trace": "java -> avaj after swapping j/a and a/v.",
+    "pitfalls": "Surrogate pairs need code-point handling for general Unicode. Strings cannot be modified in place.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(String s) {\n    char[] a = s.toCharArray();\n    for (int l = 0, r = a.length - 1; l < r; l++, r--) {\n      char t = a[l];\n      a[l] = a[r];\n      a[r] = t;\n    }\n    return new String(a);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"java\"));\n  }\n}\n"
+  },
+  "Palindrome Check": {
+    "expected": "true",
+    "problem": "Exact, case-sensitive palindrome check; punctuation is not ignored.",
+    "approach": "Compare matching ends. If every pair matches, reversing does not change the sequence.",
+    "complexity": "O(n) time and O(1) space.",
+    "trace": "l==l, e==e, then central v ends the scan.",
+    "pitfalls": "Empty string is a palindrome. Normalize separately if a judge ignores punctuation/case.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(String s) {\n    for (int l = 0, r = s.length() - 1; l < r; l++, r--)\n      if (s.charAt(l) != s.charAt(r)) return false;\n    return true;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"level\"));\n  }\n}\n"
+  },
+  "Largest Odd Number in a String": {
+    "expected": "35",
+    "problem": "Given a decimal digit string without leading zeros (except \"0\"), return its largest-valued odd substring, or empty.",
+    "approach": "An odd number ends at an odd digit. The rightmost odd digit permits the longest prefix, which is the largest possible candidate for the contract.",
+    "complexity": "O(n) time including the substring copy; O(n) output space.",
+    "trace": "From the right skip 0,2,4; digit 5 is odd, so retain prefix 35.",
+    "pitfalls": "No numeric parsing is needed, so huge strings are supported. Leading-zero variants need a separately defined output normalization.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(String s) {\n    for (int i = s.length() - 1; i >= 0; i--)\n      if ((s.charAt(i) - '0') % 2 == 1) return s.substring(0, i + 1);\n    return \"\";\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"35420\"));\n  }\n}\n"
+  },
+  "Longest Common Prefix": {
+    "expected": "fl",
+    "problem": "Return the longest prefix common to every string.",
+    "approach": "Maintain the common-prefix length of all processed strings. Comparing the next string can only shrink that prefix.",
+    "complexity": "O(total compared characters) time; O(prefix length) output space.",
+    "trace": "flower/flow -> flow; flow/flight -> fl.",
+    "pitfalls": "Empty input or an empty member yields empty. Null strings are outside the contract.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(String[] a) {\n    if (a.length == 0) return \"\";\n    int length = a[0].length();\n    for (int i = 1; i < a.length; i++) {\n      length = Math.min(length, a[i].length());\n      int j = 0;\n      while (j < length && a[0].charAt(j) == a[i].charAt(j)) j++;\n      length = j;\n    }\n    return a[0].substring(0, length);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new String[] {\"flower\", \"flow\", \"flight\"}));\n  }\n}\n"
+  },
+  "Isomorphic Strings": {
+    "expected": "true",
+    "problem": "Return whether a one-to-one mapping of UTF-16 characters changes s into t.",
+    "approach": "Maintain forward and reverse maps. Forward consistency enforces repeated-character matches; reverse consistency prevents two source characters from sharing one destination.",
+    "complexity": "Expected O(n) time; O(u) space.",
+    "trace": "e->a, g->d, second g remains d.",
+    "pitfalls": "A forward map alone wrongly accepts ab -> cc. Lengths must match.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(String s, String t) {\n    if (s.length() != t.length()) return false;\n    Map<Character, Character> forward = new HashMap<>(), back = new HashMap<>();\n    for (int i = 0; i < s.length(); i++) {\n      char a = s.charAt(i), b = t.charAt(i);\n      if (forward.containsKey(a) && forward.get(a) != b || back.containsKey(b) && back.get(b) != a)\n        return false;\n      forward.put(a, b);\n      back.put(b, a);\n    }\n    return true;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"egg\", \"add\"));\n  }\n}\n"
+  },
+  "Rotate String": {
+    "expected": "true",
+    "problem": "Return whether goal is a cyclic rotation of s; empty rotates to empty.",
+    "approach": "Every rotation starts at one position in doubled string s+s. Equal length is essential to prevent accepting shorter substrings.",
+    "complexity": "O(n²) worst-case substring search on Java 8; O(n) concatenation space.",
+    "trace": "abcdeabcde contains cdeab starting at index 2.",
+    "pitfalls": "Do not label String.contains as guaranteed linear; use KMP for O(n) search.",
+    "alternatives": "Try all n rotation offsets in O(n²) time, or use KMP over s+s in O(n).",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(String s, String goal) {\n    return s.length() == goal.length() && (s + s).contains(goal);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"abcde\", \"cdeab\"));\n  }\n}\n"
+  },
+  "Valid Anagram": {
+    "expected": "true",
+    "problem": "Check equal multiplicity of UTF-16 code units; exact case matters.",
+    "approach": "Increment for one string and decrement for the other. All counters zero means each character appears equally often.",
+    "complexity": "O(n+65536) time, O(65536) space; the alphabet bound is fixed.",
+    "trace": "Both strings contain a three times, n once, g once, r once, m once.",
+    "pitfalls": "For lowercase letters only, 26 counters suffice. Code-point anagrams need a different representation.",
+    "alternatives": "Sorting both char arrays costs O(n log n) time and O(n) space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(String s, String t) {\n    if (s.length() != t.length()) return false;\n    int[] count = new int[65536];\n    for (int i = 0; i < s.length(); i++) {\n      count[s.charAt(i)]++;\n      count[t.charAt(i)]--;\n    }\n    for (int x : count) if (x != 0) return false;\n    return true;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"anagram\", \"nagaram\"));\n  }\n}\n"
+  },
+  "Sort Characters by Frequency": {
+    "expected": "eert",
+    "problem": "Sort character groups by descending frequency; ties by ascending UTF-16 character value.",
+    "approach": "Count, sort distinct characters by the contract comparator, then repeat each character its count.",
+    "complexity": "Expected O(n+u log u) time; O(n+u) space.",
+    "trace": "e:2, r:1, t:1 -> ee then r then t.",
+    "pitfalls": "Tie-breaking makes output deterministic. Comparator subtraction can overflow for large integer counts; use compare.",
+    "alternatives": "Frequency buckets can produce O(n+u) time but need explicit tie ordering if required.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(String s) {\n    Map<Character, Integer> f = new HashMap<>();\n    for (char c : s.toCharArray()) f.put(c, f.getOrDefault(c, 0) + 1);\n    List<Character> keys = new ArrayList<>(f.keySet());\n    keys.sort(\n        (a, b) -> {\n          int cmp = Integer.compare(f.get(b), f.get(a));\n          return cmp != 0 ? cmp : Character.compare(a, b);\n        });\n    StringBuilder out = new StringBuilder();\n    for (char c : keys) for (int i = 0; i < f.get(c); i++) out.append(c);\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"tree\"));\n  }\n}\n"
+  },
+  "Recursion Theory": {
+    "theory": "Every recursive algorithm needs a base case and a strictly decreasing measure. Call frames hold local variables. For reversal, interval length decreases by two. For subsets, the index increases until n. Prove termination and include stack usage in the space complexity."
+  },
+  "Recursion Concepts with Parameters": {
+    "theory": "Parameters carry the subproblem state. For array sum, solve(a,i) means the sum of suffix [i,n); its base is i==n. Backtracking additionally restores mutated state after each choice. A global accumulator must be reset between calls; prefer returning values or passing explicit state."
+  },
+  "Sum of First N Numbers": {
+    "expected": "15",
+    "problem": "Sum 1 through n for n>=0.",
+    "approach": "solve(n)=n+solve(n-1), base solve(0)=0.",
+    "complexity": "O(n) time and O(n) call stack.",
+    "trace": "5+4+3+2+1+0=15.",
+    "pitfalls": "Java 8 does not optimize tail calls. Deep recursion can cause StackOverflowError; use an iterative equivalent for large inputs. Validate helper indices before calling.",
+    "alternatives": "The iterative equivalent avoids recursive stack space. Fibonacci naive recursion is exponential; memoization uses O(n) time and O(n) space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int n) {\n    if (n < 0) throw new IllegalArgumentException();\n    return n == 0 ? 0 : n + solve(n - 1);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(5));\n  }\n}\n"
+  },
+  "Factorial of a Given Number": {
+    "expected": "120",
+    "problem": "Compute factorial recursively and exactly.",
+    "approach": "n!=n*(n-1)! with 0!=1 and 1!=1.",
+    "complexity": "O(n) recursive calls; O(n) stack frames plus BigInteger storage and multiplication cost.",
+    "trace": "5*4*3*2*1=120.",
+    "pitfalls": "Java 8 does not optimize tail calls. Deep recursion can cause StackOverflowError; use an iterative equivalent for large inputs. Validate helper indices before calling.",
+    "alternatives": "The iterative equivalent avoids recursive stack space. Fibonacci naive recursion is exponential; memoization uses O(n) time and O(n) space.",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  public static BigInteger solve(int n) {\n    if (n < 0) throw new IllegalArgumentException();\n    return n <= 1 ? BigInteger.ONE : BigInteger.valueOf(n).multiply(solve(n - 1));\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(5));\n  }\n}\n"
+  },
+  "Sum of Array Elements II": {
+    "expected": "6",
+    "problem": "Sum from index i to the end; require 0<=i<=length.",
+    "approach": "Consume one element and recurse on the remaining suffix.",
+    "complexity": "O(n-i) time and call stack.",
+    "trace": "1+(2+(3+0))=6.",
+    "pitfalls": "Java 8 does not optimize tail calls. Deep recursion can cause StackOverflowError; use an iterative equivalent for large inputs. Validate helper indices before calling.",
+    "alternatives": "The iterative equivalent avoids recursive stack space. Fibonacci naive recursion is exponential; memoization uses O(n) time and O(n) space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[] a, int i) {\n    return i == a.length ? 0 : a[i] + solve(a, i + 1);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 3}, 0));\n  }\n}\n"
+  },
+  "Reverse a String I": {
+    "expected": "avaj",
+    "problem": "Reverse a UTF-16 string recursively for educational purposes.",
+    "approach": "First character becomes the last; recursively reverse the suffix.",
+    "complexity": "O(n²) time and allocated substring/concatenation storage; O(n) recursion depth.",
+    "trace": "java -> reverse(ava)+j -> avaj.",
+    "pitfalls": "Java 8 does not optimize tail calls. Deep recursion can cause StackOverflowError; use an iterative equivalent for large inputs. Validate helper indices before calling.",
+    "alternatives": "The iterative equivalent avoids recursive stack space. Fibonacci naive recursion is exponential; memoization uses O(n) time and O(n) space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(String s) {\n    return s.length() < 2 ? s : solve(s.substring(1)) + s.charAt(0);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"java\"));\n  }\n}\n"
+  },
+  "Check if String is Palindrome or Not": {
+    "expected": "true",
+    "problem": "Exact case-sensitive palindrome check with an inclusive interval.",
+    "approach": "The outer characters must match and the inner interval must be a palindrome.",
+    "complexity": "O(n) time and O(n) stack.",
+    "trace": "l,e match their opposite ends; middle v is a base case.",
+    "pitfalls": "Java 8 does not optimize tail calls. Deep recursion can cause StackOverflowError; use an iterative equivalent for large inputs. Validate helper indices before calling.",
+    "alternatives": "The iterative equivalent avoids recursive stack space. Fibonacci naive recursion is exponential; memoization uses O(n) time and O(n) space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(String s, int l, int r) {\n    return l >= r || (s.charAt(l) == s.charAt(r) && solve(s, l + 1, r - 1));\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"level\", 0, 4));\n  }\n}\n"
+  },
+  "Check if a Number is Prime or Not": {
+    "expected": "true",
+    "problem": "Recursive trial division; call with d=2.",
+    "approach": "Stop after sqrt(n); otherwise reject a divisor and recurse with the next candidate.",
+    "complexity": "O(sqrt(n)) time and stack.",
+    "trace": "Candidates 2 through 9 fail to divide 97.",
+    "pitfalls": "Java 8 does not optimize tail calls. Deep recursion can cause StackOverflowError; use an iterative equivalent for large inputs. Validate helper indices before calling.",
+    "alternatives": "The iterative equivalent avoids recursive stack space. Fibonacci naive recursion is exponential; memoization uses O(n) time and O(n) space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(int n, int d) {\n    if (n < 2) return false;\n    if (d > n / d) return true;\n    return n % d != 0 && solve(n, d + 1);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(97, 2));\n  }\n}\n"
+  },
+  "Reverse an array 2": {
+    "expected": "[3, 2, 1]",
+    "problem": "Reverse in place; start with endpoints 0,length-1.",
+    "approach": "Swap endpoints and recurse on the interval between them.",
+    "complexity": "O(n) time and stack.",
+    "trace": "[1,2,3] -> [3,2,1]; central index terminates.",
+    "pitfalls": "Java 8 does not optimize tail calls. Deep recursion can cause StackOverflowError; use an iterative equivalent for large inputs. Validate helper indices before calling.",
+    "alternatives": "The iterative equivalent avoids recursive stack space. Fibonacci naive recursion is exponential; memoization uses O(n) time and O(n) space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] a, int l, int r) {\n    if (l >= r) return a;\n    int t = a[l];\n    a[l] = a[r];\n    a[r] = t;\n    return solve(a, l + 1, r - 1);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {1, 2, 3}, 0, 2)));\n  }\n}\n"
+  },
+  "Check if the Array is Sorted II": {
+    "expected": "true",
+    "problem": "Check nondecreasing order recursively, starting at index zero.",
+    "approach": "Each adjacent pair must be ordered; recurse to validate the remaining pairs.",
+    "complexity": "O(n) time and stack.",
+    "trace": "1<=2 and 2<=2, then no pair remains.",
+    "pitfalls": "Java 8 does not optimize tail calls. Deep recursion can cause StackOverflowError; use an iterative equivalent for large inputs. Validate helper indices before calling.",
+    "alternatives": "The iterative equivalent avoids recursive stack space. Fibonacci naive recursion is exponential; memoization uses O(n) time and O(n) space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(int[] a, int i) {\n    return i + 1 >= a.length || (a[i] <= a[i + 1] && solve(a, i + 1));\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 2}, 0));\n  }\n}\n"
+  },
+  "Sum of Digits in a Given Number": {
+    "expected": "6",
+    "problem": "Sum decimal digits ignoring sign.",
+    "approach": "Add the magnitude of the last digit to the digit sum of the truncated number.",
+    "complexity": "O(d) time and stack.",
+    "trace": "|-3|+|-2|+|-1|+0=6.",
+    "pitfalls": "Java 8 does not optimize tail calls. Deep recursion can cause StackOverflowError; use an iterative equivalent for large inputs. Validate helper indices before calling.",
+    "alternatives": "The iterative equivalent avoids recursive stack space. Fibonacci naive recursion is exponential; memoization uses O(n) time and O(n) space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int n) {\n    return n == 0 ? 0 : Math.abs(n % 10) + solve(n / 10);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(-123));\n  }\n}\n"
+  },
+  "Fibonacci Number": {
+    "expected": "55",
+    "problem": "Return F(n), F(0)=0 and F(1)=1, for 0<=n<=92.",
+    "approach": "Keep two consecutive terms. This removes repeated subproblems from the recursion tree. The unused successor after F(92) may wrap, but the returned F(92) is exact.",
+    "complexity": "O(n) time and O(1) space.",
+    "trace": "Pairs (0,1),(1,1),(1,2),...,(55,89).",
+    "pitfalls": "Java 8 does not optimize tail calls. Deep recursion can cause StackOverflowError; use an iterative equivalent for large inputs. Validate helper indices before calling.",
+    "alternatives": "The iterative equivalent avoids recursive stack space. Fibonacci naive recursion is exponential; memoization uses O(n) time and O(n) space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int n) {\n    if (n < 0 || n > 92) throw new IllegalArgumentException(\"0<=n<=92\");\n    long a = 0, b = 1;\n    for (int i = 0; i < n; i++) {\n      long next = a + b;\n      a = b;\n      b = next;\n    }\n    return a;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(10));\n  }\n}\n"
+  },
+  "Print Something N Times": {
+    "expected": "[Hello, Hello, Hello]",
+    "problem": "Return the named recursive printing sequence, n>=0.",
+    "approach": "A call handles one value/message, while n-1 is the strictly smaller subproblem. Recording before recursion emits descending order; recording after recursion emits ascending order.",
+    "complexity": "O(n) time, O(n) stack and output.",
+    "trace": "At n=3, frames3,2,1 are entered and then return1,2,3.",
+    "pitfalls": "Large n can exhaust Java recursion; an iterative loop avoids stack usage.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static void dfs(int n, List<String> out) {\n    if (n == 0) return;\n    out.add(\"Hello\");\n    dfs(n - 1, out);\n  }\n\n  public static List<String> solve(int n) {\n    if (n < 0) throw new IllegalArgumentException();\n    List<String> out = new ArrayList<>();\n    dfs(n, out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(3));\n  }\n}\n"
+  },
+  "Print Name N Times": {
+    "expected": "[Ghanendra, Ghanendra, Ghanendra]",
+    "problem": "Return the named recursive printing sequence, n>=0.",
+    "approach": "A call handles one value/message, while n-1 is the strictly smaller subproblem. Recording before recursion emits descending order; recording after recursion emits ascending order.",
+    "complexity": "O(n) time, O(n) stack and output.",
+    "trace": "At n=3, frames3,2,1 are entered and then return1,2,3.",
+    "pitfalls": "Large n can exhaust Java recursion; an iterative loop avoids stack usage.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static void dfs(int n, List<String> out) {\n    if (n == 0) return;\n    out.add(\"Ghanendra\");\n    dfs(n - 1, out);\n  }\n\n  public static List<String> solve(int n) {\n    if (n < 0) throw new IllegalArgumentException();\n    List<String> out = new ArrayList<>();\n    dfs(n, out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(3));\n  }\n}\n"
+  },
+  "Print 1 to N": {
+    "expected": "[1, 2, 3]",
+    "problem": "Return the named recursive printing sequence, n>=0.",
+    "approach": "A call handles one value/message, while n-1 is the strictly smaller subproblem. Recording before recursion emits descending order; recording after recursion emits ascending order.",
+    "complexity": "O(n) time, O(n) stack and output.",
+    "trace": "At n=3, frames3,2,1 are entered and then return1,2,3.",
+    "pitfalls": "Large n can exhaust Java recursion; an iterative loop avoids stack usage.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static void dfs(int n, List<String> out) {\n    if (n == 0) return;\n    dfs(n - 1, out);\n    out.add(String.valueOf(n));\n  }\n\n  public static List<String> solve(int n) {\n    if (n < 0) throw new IllegalArgumentException();\n    List<String> out = new ArrayList<>();\n    dfs(n, out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(3));\n  }\n}\n"
+  },
+  "Print N to 1": {
+    "expected": "[3, 2, 1]",
+    "problem": "Return the named recursive printing sequence, n>=0.",
+    "approach": "A call handles one value/message, while n-1 is the strictly smaller subproblem. Recording before recursion emits descending order; recording after recursion emits ascending order.",
+    "complexity": "O(n) time, O(n) stack and output.",
+    "trace": "At n=3, frames3,2,1 are entered and then return1,2,3.",
+    "pitfalls": "Large n can exhaust Java recursion; an iterative loop avoids stack usage.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static void dfs(int n, List<String> out) {\n    if (n == 0) return;\n    out.add(String.valueOf(n));\n    dfs(n - 1, out);\n  }\n\n  public static List<String> solve(int n) {\n    if (n < 0) throw new IllegalArgumentException();\n    List<String> out = new ArrayList<>();\n    dfs(n, out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(3));\n  }\n}\n"
+  },
+  "Counting Frequencies of Array Elements": {
+    "expected": "{5=2, 10=3, 15=1}",
+    "problem": "Return sorted value-to-frequency counts.",
+    "approach": "Increment one count per entry; after processing each prefix the map equals its exact histogram.",
+    "complexity": "O(n log u) time, O(u) space; TreeMap provides deterministic sorted keys.",
+    "trace": "10 occurs3,5 occurs2,15 occurs1.",
+    "pitfalls": "A HashMap alternative gives expected O(n) time but unspecified iteration order.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static Map<Integer, Integer> frequencies(int[] a) {\n    Map<Integer, Integer> map = new TreeMap<>();\n    for (int x : a) map.put(x, map.getOrDefault(x, 0) + 1);\n    return map;\n  }\n\n  public static Map<Integer, Integer> solve(int[] a) {\n    return frequencies(a);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {10, 5, 10, 15, 10, 5}));\n  }\n}\n"
+  }
+}

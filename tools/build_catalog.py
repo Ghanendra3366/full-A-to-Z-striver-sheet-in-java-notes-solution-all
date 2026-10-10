@@ -1,6 +1,6 @@
 """Build the readable topic tree from the explicitly supplied curriculum.
 
-Run with Python 3.8+. Solutions are authored in tools/content/*.py.
+Run with Python 3.8+. Solutions are authored in tools/content/*.json.
 No PDF text or third-party code is redistributed by this script.
 """
 import json
@@ -57,6 +57,11 @@ def inventory(text):
     return rows
 
 CONTENT = {}
+SUPPLEMENTS = []
+def supplement(title, topic):
+    SUPPLEMENTS.append(dict(topic=topic, section='Reference supplements', title=title,
+        provenance='Supplement: additional reference-PDF topic or explicitly separated variant'))
+
 def add(title, code, example, expected, problem, approach, complexity, trace, pitfalls,
         alternatives='', brute=''):
     CONTENT[title] = dict(code=code, example=example, expected=expected, problem=problem,
@@ -68,10 +73,17 @@ def theory(title, body):
 
 def build():
     rows = inventory((ROOT / 'curriculum/source-list.txt').read_text(encoding='utf-8'))
-    for path in sorted((ROOT / 'tools/content').glob('*.py')):
-        exec(compile(path.read_text(encoding='utf-8'), str(path), 'exec'), globals())
+    CONTENT.clear()
+    for path in sorted((ROOT / 'tools/content').glob('*.json')):
+        CONTENT.update(json.loads(path.read_text(encoding='utf-8')))
+    SUPPLEMENTS[:] = json.loads((ROOT / 'curriculum/supplements.json').read_text(encoding='utf-8'))
+    for i, extra in enumerate(SUPPLEMENTS, 1):
+        extra['id'] = 'SUP-%03d' % i
+        extra['path'] = 'topics/%02d-%s/reference-supplements/%s' % (
+            MODULES.index(extra['topic']) + 1, slug(extra['topic']), slug(extra['title']))
+        rows.append(extra)
     index = ['# Curriculum coverage', '',
-        'Inventory: supplied pasted curriculum. Binary Search titles were collapsed in the source and are explicitly supplemented.', '',
+        'Inventory: 495 supplied curriculum items, plus explicitly marked SUP reference supplements. Binary Search titles were collapsed in the source and are explicitly supplemented.', '',
         'Implemented means runnable Java 8 code plus authored notes. Theory means an authored concept lesson. Pending means work remains; a directory or checklist is not a solution.', '',
         '| ID | Topic / subsection | Problem | Status |', '|---|---|---|---|']
     manifest = []
@@ -85,10 +97,7 @@ def build():
                 note = '# %s\n\n%s\n' % (row['title'], c['theory'])
             else:
                 status = 'implemented'
-                source = ('import java.util.*;\nimport java.math.BigInteger;\n\n'
-                    'public class Solution {\n%s\n%s\n'
-                    '    public static void main(String[] args) {\n        %s\n    }\n}\n') % (
-                        c['code'], c['brute'], c['example'])
+                source = c['source']
                 (folder / 'Solution.java').write_text(source, encoding='utf-8')
                 note = ('# %s\n\n## Problem and contract\n\n%s\n\n'
                     '## Approach\n\n%s\n\n## Other approaches\n\n%s\n\n'
@@ -100,7 +109,7 @@ def build():
                         row['title'], c['problem'], c['approach'],
                         c['alternatives'] or 'The direct method already meets the stated contract. See the invariant in the approach; no artificial extra approach is required.',
                         c['trace'], c['complexity'], c['pitfalls'], c['expected'])
-            note += '\n[Curriculum index](%s/COVERAGE.md)\n' % ('../' * 4).rstrip('/')
+            note += '\n[Curriculum index](../../../../curriculum/COVERAGE.md)\n'
             (folder / 'README.md').write_text(note, encoding='utf-8')
         else:
             status = 'pending'

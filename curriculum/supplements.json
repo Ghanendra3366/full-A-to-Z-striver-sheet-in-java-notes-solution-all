@@ -1,0 +1,134 @@
+[
+  {
+    "topic": "Beginner Problems",
+    "section": "Reference supplements",
+    "title": "Print Something N Times",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Reference supplements",
+    "title": "Print Name N Times",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Reference supplements",
+    "title": "Print 1 to N",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Reference supplements",
+    "title": "Print N to 1",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Beginner Problems",
+    "section": "Reference supplements",
+    "title": "Counting Frequencies of Array Elements",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Arrays",
+    "section": "Reference supplements",
+    "title": "Second Smallest Distinct Element",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Recursion",
+    "section": "Reference supplements",
+    "title": "Sort a Stack Using Recursion",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Recursion",
+    "section": "Reference supplements",
+    "title": "Subset Sums Enumeration",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Bit Manipulation",
+    "section": "Reference supplements",
+    "title": "Set the i-th Bit",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Bit Manipulation",
+    "section": "Reference supplements",
+    "title": "Clear the i-th Bit",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Bit Manipulation",
+    "section": "Reference supplements",
+    "title": "Toggle the i-th Bit",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Linked-List",
+    "section": "Reference supplements",
+    "title": "Append to Doubly Linked List",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Reference supplements",
+    "title": "Root to Given Node Path",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Binary Search Trees",
+    "section": "Reference supplements",
+    "title": "Merge Two BSTs",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "Reference supplements",
+    "title": "Minimum Path Sum in Grid",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Dynamic Programming",
+    "section": "Reference supplements",
+    "title": "Print Longest Common Subsequence",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Reference supplements",
+    "title": "Prims Minimum Spanning Tree",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Reference supplements",
+    "title": "Depth First Search of a Graph",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Graphs",
+    "section": "Reference supplements",
+    "title": "Number of Islands with Eight Directions",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Recursion",
+    "section": "Reference supplements",
+    "title": "Recursive String to Integer",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Greedy Algorithms",
+    "section": "Reference supplements",
+    "title": "Greedy Minimum Coins for a Canonical System",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  },
+  {
+    "topic": "Binary Trees",
+    "section": "Reference supplements",
+    "title": "Enforce Children Sum Property",
+    "provenance": "Supplement: additional reference-PDF topic or explicitly separated variant"
+  }
+]

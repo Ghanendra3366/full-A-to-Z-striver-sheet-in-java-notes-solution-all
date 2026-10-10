@@ -1,0 +1,545 @@
+{
+  "Introduction to DP": {
+    "theory": "Dynamic programming applies when subproblems overlap and a state captures every fact needed for future choices. Start with a recursive state definition, write choices and base cases, memoize by the complete state, then order a table so dependencies are computed first. Space compression is valid only after identifying which earlier rows are still needed. Existence uses OR, optimization min/max, counting sums. Do not confuse an uncomputed state with a legitimate zero or negative answer. Use separate visited flags or a sentinel outside the result range. Prove optimal substructure: replacing a chosen subproblem solution by a better one must improve the complete solution. The lessons below state the recurrence and provide executable tabulated/rolling implementations; they describe memoized alternatives where appropriate. Not every alternative has a separate code implementation."
+  },
+  "Climbing stairs": {
+    "expected": "8",
+    "problem": "Reach step n with jumps of one or two; n=0 has one empty way. Return exact count.",
+    "approach": "ways(i)=ways(i-1)+ways(i-2), because final jump is one of those two disjoint cases. Base ways(0)=ways(1)=1. Keep only the two preceding counts.",
+    "complexity": "O(n) BigInteger additions, O(answer bits) retained storage.",
+    "trace": "ways: 1,1,2,3,5,8 for n=0..5.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  public static BigInteger solve(int n) {\n    if (n < 0) throw new IllegalArgumentException();\n    BigInteger a = BigInteger.ONE, b = BigInteger.ONE;\n    for (int i = 2; i <= n; i++) {\n      BigInteger next = a.add(b);\n      a = b;\n      b = next;\n    }\n    return b;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(5));\n  }\n}\n"
+  },
+  "Frog Jump": {
+    "expected": "20",
+    "problem": "A frog starts at index zero and jumps 1..k forward indices. Cost is absolute height difference; return minimum total. Frog Jump uses k=2.",
+    "approach": "dp[i]=min over j=1..k of dp[i-j]+abs(h[i]-h[i-j]). Every path has one last jump; minimizing each predecessor is safe by additive cost.",
+    "complexity": "O(n*k) time, O(n) space.",
+    "trace": "k=2 permits 0->1->3 at cost 10+10=20; k=3 permits 0->3 at cost zero.",
+    "pitfalls": "Widen height subtraction before abs; extreme int heights are supported.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[] h, int k) {\n    if (k < 1) throw new IllegalArgumentException();\n    if (h.length == 0) return 0;\n    long[] d = new long[h.length];\n    Arrays.fill(d, Long.MAX_VALUE);\n    d[0] = 0;\n    for (int i = 1; i < h.length; i++)\n      for (int jump = 1; jump <= k && jump <= i; jump++)\n        d[i] = Math.min(d[i], d[i - jump] + Math.abs((long) h[i] - h[i - jump]));\n    return d[h.length - 1];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {10, 20, 30, 10}, 2));\n  }\n}\n"
+  },
+  "Frog jump with K distances": {
+    "expected": "0",
+    "problem": "A frog starts at index zero and jumps 1..k forward indices. Cost is absolute height difference; return minimum total. Frog Jump uses k=2.",
+    "approach": "dp[i]=min over j=1..k of dp[i-j]+abs(h[i]-h[i-j]). Every path has one last jump; minimizing each predecessor is safe by additive cost.",
+    "complexity": "O(n*k) time, O(n) space.",
+    "trace": "k=2 permits 0->1->3 at cost 10+10=20; k=3 permits 0->3 at cost zero.",
+    "pitfalls": "Widen height subtraction before abs; extreme int heights are supported.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[] h, int k) {\n    if (k < 1) throw new IllegalArgumentException();\n    if (h.length == 0) return 0;\n    long[] d = new long[h.length];\n    Arrays.fill(d, Long.MAX_VALUE);\n    d[0] = 0;\n    for (int i = 1; i < h.length; i++)\n      for (int jump = 1; jump <= k && jump <= i; jump++)\n        d[i] = Math.min(d[i], d[i - jump] + Math.abs((long) h[i] - h[i - jump]));\n    return d[h.length - 1];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {10, 20, 30, 10}, 3));\n  }\n}\n"
+  },
+  "Maximum sum of non adjacent elements": {
+    "expected": "11",
+    "problem": "Nonnegative array; maximize sum of a subset with no adjacent chosen indices. Empty subset allowed.",
+    "approach": "dp[i]=max(dp[i-1],a[i]+dp[i-2]): skip or take the last value. Keep two preceding states.",
+    "complexity": "O(n) time, O(1) space.",
+    "trace": "Choose 2 and 9 for 11; choosing 4 would prevent adjacent 9.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static long linear(int[] a, int l, int r) {\n    long prev = 0, before = 0;\n    for (int i = l; i < r; i++) {\n      if (a[i] < 0) throw new IllegalArgumentException();\n      long next = Math.max(prev, before + a[i]);\n      before = prev;\n      prev = next;\n    }\n    return prev;\n  }\n\n  public static long solve(int[] a) {\n    return linear(a, 0, a.length);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {2, 1, 4, 9}));\n  }\n}\n"
+  },
+  "House robber": {
+    "expected": "3",
+    "problem": "Circular house-robber variant: first and last are adjacent, nonnegative amounts.",
+    "approach": "No valid solution takes both endpoints. Maximize the two linear cases excluding last or excluding first; together they cover every feasible selection.",
+    "complexity": "O(n) time, O(1) space.",
+    "trace": "[2,3,2]: endpoints cannot both be chosen; pick 3.",
+    "pitfalls": "This sheet lesson uses the circular variant (House Robber II). The preceding nonadjacent lesson covers the ordinary linear version.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static long linear(int[] a, int l, int r) {\n    long prev = 0, before = 0;\n    for (int i = l; i < r; i++) {\n      if (a[i] < 0) throw new IllegalArgumentException();\n      long next = Math.max(prev, before + a[i]);\n      before = prev;\n      prev = next;\n    }\n    return prev;\n  }\n\n  public static long solve(int[] a) {\n    if (a.length == 0) return 0;\n    if (a.length == 1) return a[0];\n    return Math.max(linear(a, 0, a.length - 1), linear(a, 1, a.length));\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {2, 3, 2}));\n  }\n}\n"
+  },
+  "Ninja's training": {
+    "expected": "210",
+    "problem": "Exactly one of three tasks daily; consecutive days cannot repeat the same task. Scores may be negative.",
+    "approach": "dp[day][task]=points[day][task]+max(prev[other task]). Starting from first-day scores ensures one task must be chosen even for negative values.",
+    "complexity": "O(3*days) time, O(3) space.",
+    "trace": "70 on day0,50 on day1,90 on day2 totals210.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[][] points) {\n    if (points.length == 0) return 0;\n    long[] prev = new long[3];\n    for (int task = 0; task < 3; task++) prev[task] = points[0][task];\n    for (int day = 1; day < points.length; day++) {\n      long[] next = new long[3];\n      for (int t = 0; t < 3; t++)\n        next[t] = points[day][t] + Math.max(prev[(t + 1) % 3], prev[(t + 2) % 3]);\n      prev = next;\n    }\n    return Math.max(prev[0], Math.max(prev[1], prev[2]));\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[][] {{10, 40, 70}, {20, 50, 80}, {30, 60, 90}}));\n  }\n}\n"
+  },
+  "Grid unique paths": {
+    "expected": "28",
+    "problem": "Move only right/down in an obstacle-free rows-by-cols grid; return exact path count.",
+    "approach": "ways[r][c]=ways[r-1][c]+ways[r][c-1]. In a rolling row, d[c] is above and d[c-1] is already current-row left. Seed start with one.",
+    "complexity": "O(R*C) BigInteger additions; O(C) BigIntegers.",
+    "trace": "A 3x7 grid needs two down and six right moves; choose their two down positions among eight gives28.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  public static BigInteger solve(int rows, int cols) {\n    if (rows < 0 || cols < 0) throw new IllegalArgumentException();\n    if (rows == 0 || cols == 0) return BigInteger.ZERO;\n    BigInteger[] d = new BigInteger[cols];\n    Arrays.fill(d, BigInteger.ZERO);\n    d[0] = BigInteger.ONE;\n    for (int r = 0; r < rows; r++) for (int c = 1; c < cols; c++) d[c] = d[c].add(d[c - 1]);\n    return d[cols - 1];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(3, 7));\n  }\n}\n"
+  },
+  "Unique paths II": {
+    "expected": "2",
+    "problem": "1 denotes obstacle,0 open; move right/down and return exact path count.",
+    "approach": "Blocked cells have zero ways. Others sum above and left using a rolling row. A blocked start correctly resets the initial one to zero.",
+    "complexity": "O(R*C) BigInteger additions, O(C) retained values.",
+    "trace": "Center obstacle removes the four central routes; only the top/right boundary and left/bottom boundary routes remain.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  public static BigInteger solve(int[][] a) {\n    if (a.length == 0 || a[0].length == 0) return BigInteger.ZERO;\n    BigInteger[] d = new BigInteger[a[0].length];\n    Arrays.fill(d, BigInteger.ZERO);\n    d[0] = BigInteger.ONE;\n    for (int[] row : a)\n      for (int c = 0; c < d.length; c++) {\n        if (row[c] == 1) d[c] = BigInteger.ZERO;\n        else if (c > 0) d[c] = d[c].add(d[c - 1]);\n      }\n    return d[d.length - 1];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[][] {{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}));\n  }\n}\n"
+  },
+  "Minimum Falling Path Sum": {
+    "expected": "13",
+    "problem": "Start anywhere in row0; move down-left,down,down-right each row. Return minimum path sum.",
+    "approach": "dp[r][c]=a[r][c]+min of valid predecessor columns c-1,c,c+1. Only the previous row is needed.",
+    "complexity": "O(R*C) time, O(C) space.",
+    "trace": "1->5->7 sums13; 1->4->8 also sums13.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[][] a) {\n    if (a.length == 0 || a[0].length == 0) return 0;\n    long[] prev = new long[a[0].length];\n    for (int c = 0; c < prev.length; c++) prev[c] = a[0][c];\n    for (int r = 1; r < a.length; r++) {\n      long[] next = new long[prev.length];\n      for (int c = 0; c < prev.length; c++) {\n        long best = prev[c];\n        if (c > 0) best = Math.min(best, prev[c - 1]);\n        if (c + 1 < prev.length) best = Math.min(best, prev[c + 1]);\n        next[c] = best + a[r][c];\n      }\n      prev = next;\n    }\n    long best = Long.MAX_VALUE;\n    for (long x : prev) best = Math.min(best, x);\n    return best;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[][] {{2, 1, 3}, {6, 5, 4}, {7, 8, 9}}));\n  }\n}\n"
+  },
+  "Triangle": {
+    "expected": "11",
+    "problem": "Row r has r+1 entries. From (r,c) move to (r+1,c) or (r+1,c+1); minimize top-to-bottom sum.",
+    "approach": "Bottom-up dp[c]=value+min(down,diagonal). Updating left-to-right preserves the needed old d[c+1].",
+    "complexity": "O(n²) time, O(n) space.",
+    "trace": "2->3->5->1 gives11.",
+    "pitfalls": "Validate triangular row lengths at the call site. Reverse-direction in-place updates would overwrite the next diagonal prematurely.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[][] a) {\n    if (a.length == 0) return 0;\n    long[] d = new long[a[a.length - 1].length];\n    for (int i = 0; i < d.length; i++) d[i] = a[a.length - 1][i];\n    for (int r = a.length - 2; r >= 0; r--)\n      for (int c = 0; c < a[r].length; c++) d[c] = a[r][c] + Math.min(d[c], d[c + 1]);\n    return d[0];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[][] {{2}, {3, 4}, {6, 5, 7}, {4, 1, 8, 3}}));\n  }\n}\n"
+  },
+  "Cherry pickup II": {
+    "expected": "24",
+    "problem": "Two robots start at row0 columns0,last; each moves down with column delta -1,0,1. Collect both cells, once if coincident; maximize total.",
+    "approach": "State (row,col1,col2) captures both robot positions. Add current reward and maximize over nine next-position pairs; rolling 2D layers retain all dependencies.",
+    "complexity": "O(R*C²*9) time, O(C²) space.",
+    "trace": "Robots collect both edge/frontier rewards while converging on high middle values; shared cells contribute once.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[][] a) {\n    if (a.length == 0 || a[0].length == 0) return 0;\n    int cols = a[0].length;\n    long[][] prev = new long[cols][cols];\n    for (int x = 0; x < cols; x++)\n      for (int y = 0; y < cols; y++)\n        prev[x][y] = a[a.length - 1][x] + (x == y ? 0L : a[a.length - 1][y]);\n    for (int r = a.length - 2; r >= 0; r--) {\n      long[][] next = new long[cols][cols];\n      for (int x = 0; x < cols; x++)\n        for (int y = 0; y < cols; y++) {\n          long best = Long.MIN_VALUE;\n          for (int dx = -1; dx <= 1; dx++)\n            for (int dy = -1; dy <= 1; dy++)\n              if (x + dx >= 0 && y + dy >= 0 && x + dx < cols && y + dy < cols)\n                best = Math.max(best, prev[x + dx][y + dy]);\n          next[x][y] = best + a[r][x] + (x == y ? 0L : a[r][y]);\n        }\n      prev = next;\n    }\n    return prev[0][cols - 1];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[][] {{3, 1, 1}, {2, 5, 1}, {1, 5, 5}, {2, 1, 1}}));\n  }\n}\n"
+  },
+  "Count Square Submatrices with All Ones": {
+    "expected": "5",
+    "problem": "Count all-one axis-aligned square submatrices of a binary rectangular grid.",
+    "approach": "dp[r][c] is largest side ending at (r,c), one plus min(top,left,diagonal) for a one. Every side1..dp exists there, so add dp to total.",
+    "complexity": "O(R*C) time, O(C) space.",
+    "trace": "Four unit squares plus one 2x2 square gives5.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[][] a) {\n    if (a.length == 0) return 0;\n    int[] prev = new int[a[0].length + 1];\n    long total = 0;\n    for (int[] row : a) {\n      int[] next = new int[prev.length];\n      for (int c = 1; c < next.length; c++)\n        if (row[c - 1] == 1) {\n          next[c] = 1 + Math.min(prev[c], Math.min(prev[c - 1], next[c - 1]));\n          total += next[c];\n        }\n      prev = next;\n    }\n    return total;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[][] {{1, 1}, {1, 1}}));\n  }\n}\n"
+  },
+  "Best time to buy and sell stock": {
+    "expected": "5",
+    "problem": "Nonnegative daily prices; at most k completed transactions, one share held at once. This lesson uses 1 transactions; fee zero; no cooldown.",
+    "approach": "State (day,holding,remainingSells). Not holding: max(skip,-price+holding tomorrow). Holding: max(skip,price-fee+notHolding after sell). A sell consumes one transaction; cooldown skips one subsequent day. Work backwards, retaining tomorrow and day-after states.",
+    "complexity": "O(n*k) time, O(k) rolling space; k is capped at floor(n/2). Unlimited variants can use constant-state O(n) algorithms instead.",
+    "trace": "On [7,1,5,3,6,4], one trade1->6 yields5; two trades1->5 and3->6 yield7; charging fee2 per sell leaves3. Cooldown forbids buying immediately after selling.",
+    "pitfalls": "For III pass k=2; IV takes arbitrary k. II/fees/cooldown use k=n/2 for unlimited trades. Fees are charged at SELL only. Bounds assume final holding has no positive salvage value.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long profit(int[] prices, int k, int fee, boolean cooldown) {\n    if (k < 0 || fee < 0) throw new IllegalArgumentException();\n    for (int p : prices) if (p < 0) throw new IllegalArgumentException();\n    k = Math.min(k, prices.length / 2);\n    long[][] next = new long[2][k + 1], after = new long[2][k + 1];\n    for (int i = prices.length - 1; i >= 0; i--) {\n      long[][] cur = new long[2][k + 1];\n      for (int t = 1; t <= k; t++) {\n        cur[0][t] = Math.max(next[0][t], -((long) prices[i]) + next[1][t]);\n        cur[1][t] =\n            Math.max(\n                next[1][t], prices[i] - (long) fee + (cooldown ? after[0][t - 1] : next[0][t - 1]));\n      }\n      after = next;\n      next = cur;\n    }\n    return next[0][k];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(profit(new int[] {7, 1, 5, 3, 6, 4}, 1, 0, false));\n  }\n}\n"
+  },
+  "Best time to buy and sell stock II": {
+    "expected": "7",
+    "problem": "Nonnegative daily prices; at most k completed transactions, one share held at once. This lesson uses unlimited (pass n/2), fee 0, cooldown false.",
+    "approach": "State (day,holding,remainingSells). Not holding: max(skip,-price+holding tomorrow). Holding: max(skip,price-fee+notHolding after sell). A sell consumes one transaction; cooldown skips one subsequent day. Work backwards, retaining tomorrow and day-after states.",
+    "complexity": "O(n*k) time, O(k) rolling space; k is capped at floor(n/2). Unlimited variants can use constant-state O(n) algorithms instead.",
+    "trace": "On [7,1,5,3,6,4], one trade1->6 yields5; two trades1->5 and3->6 yield7; charging fee2 per sell leaves3. Cooldown forbids buying immediately after selling.",
+    "pitfalls": "For III pass k=2; IV takes arbitrary k. II/fees/cooldown use k=n/2 for unlimited trades. Fees are charged at SELL only. Bounds assume final holding has no positive salvage value.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long profit(int[] prices, int k, int fee, boolean cooldown) {\n    if (k < 0 || fee < 0) throw new IllegalArgumentException();\n    for (int p : prices) if (p < 0) throw new IllegalArgumentException();\n    k = Math.min(k, prices.length / 2);\n    long[][] next = new long[2][k + 1], after = new long[2][k + 1];\n    for (int i = prices.length - 1; i >= 0; i--) {\n      long[][] cur = new long[2][k + 1];\n      for (int t = 1; t <= k; t++) {\n        cur[0][t] = Math.max(next[0][t], -((long) prices[i]) + next[1][t]);\n        cur[1][t] =\n            Math.max(\n                next[1][t], prices[i] - (long) fee + (cooldown ? after[0][t - 1] : next[0][t - 1]));\n      }\n      after = next;\n      next = cur;\n    }\n    return next[0][k];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(profit(new int[] {7, 1, 5, 3, 6, 4}, 3, 0, false));\n  }\n}\n"
+  },
+  "Best time to buy and sell stock III": {
+    "expected": "7",
+    "problem": "Nonnegative daily prices; at most k completed transactions, one share held at once. This lesson uses 2 transactions; fee zero; no cooldown.",
+    "approach": "State (day,holding,remainingSells). Not holding: max(skip,-price+holding tomorrow). Holding: max(skip,price-fee+notHolding after sell). A sell consumes one transaction; cooldown skips one subsequent day. Work backwards, retaining tomorrow and day-after states.",
+    "complexity": "O(n*k) time, O(k) rolling space; k is capped at floor(n/2). Unlimited variants can use constant-state O(n) algorithms instead.",
+    "trace": "On [7,1,5,3,6,4], one trade1->6 yields5; two trades1->5 and3->6 yield7; charging fee2 per sell leaves3. Cooldown forbids buying immediately after selling.",
+    "pitfalls": "For III pass k=2; IV takes arbitrary k. II/fees/cooldown use k=n/2 for unlimited trades. Fees are charged at SELL only. Bounds assume final holding has no positive salvage value.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long profit(int[] prices, int k, int fee, boolean cooldown) {\n    if (k < 0 || fee < 0) throw new IllegalArgumentException();\n    for (int p : prices) if (p < 0) throw new IllegalArgumentException();\n    k = Math.min(k, prices.length / 2);\n    long[][] next = new long[2][k + 1], after = new long[2][k + 1];\n    for (int i = prices.length - 1; i >= 0; i--) {\n      long[][] cur = new long[2][k + 1];\n      for (int t = 1; t <= k; t++) {\n        cur[0][t] = Math.max(next[0][t], -((long) prices[i]) + next[1][t]);\n        cur[1][t] =\n            Math.max(\n                next[1][t], prices[i] - (long) fee + (cooldown ? after[0][t - 1] : next[0][t - 1]));\n      }\n      after = next;\n      next = cur;\n    }\n    return next[0][k];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(profit(new int[] {7, 1, 5, 3, 6, 4}, 2, 0, false));\n  }\n}\n"
+  },
+  "Best time to buy and sell stock IV": {
+    "expected": "7",
+    "problem": "Nonnegative daily prices; at most k completed transactions, one share held at once. This lesson uses 2 transactions; fee zero; no cooldown.",
+    "approach": "State (day,holding,remainingSells). Not holding: max(skip,-price+holding tomorrow). Holding: max(skip,price-fee+notHolding after sell). A sell consumes one transaction; cooldown skips one subsequent day. Work backwards, retaining tomorrow and day-after states.",
+    "complexity": "O(n*k) time, O(k) rolling space; k is capped at floor(n/2). Unlimited variants can use constant-state O(n) algorithms instead.",
+    "trace": "On [7,1,5,3,6,4], one trade1->6 yields5; two trades1->5 and3->6 yield7; charging fee2 per sell leaves3. Cooldown forbids buying immediately after selling.",
+    "pitfalls": "For III pass k=2; IV takes arbitrary k. II/fees/cooldown use k=n/2 for unlimited trades. Fees are charged at SELL only. Bounds assume final holding has no positive salvage value.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long profit(int[] prices, int k, int fee, boolean cooldown) {\n    if (k < 0 || fee < 0) throw new IllegalArgumentException();\n    for (int p : prices) if (p < 0) throw new IllegalArgumentException();\n    k = Math.min(k, prices.length / 2);\n    long[][] next = new long[2][k + 1], after = new long[2][k + 1];\n    for (int i = prices.length - 1; i >= 0; i--) {\n      long[][] cur = new long[2][k + 1];\n      for (int t = 1; t <= k; t++) {\n        cur[0][t] = Math.max(next[0][t], -((long) prices[i]) + next[1][t]);\n        cur[1][t] =\n            Math.max(\n                next[1][t], prices[i] - (long) fee + (cooldown ? after[0][t - 1] : next[0][t - 1]));\n      }\n      after = next;\n      next = cur;\n    }\n    return next[0][k];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(profit(new int[] {7, 1, 5, 3, 6, 4}, 2, 0, false));\n  }\n}\n"
+  },
+  "Best time to buy and sell stock with transaction fees": {
+    "expected": "3",
+    "problem": "Nonnegative daily prices; at most k completed transactions, one share held at once. This lesson uses unlimited (pass n/2), fee 2, cooldown false.",
+    "approach": "State (day,holding,remainingSells). Not holding: max(skip,-price+holding tomorrow). Holding: max(skip,price-fee+notHolding after sell). A sell consumes one transaction; cooldown skips one subsequent day. Work backwards, retaining tomorrow and day-after states.",
+    "complexity": "O(n*k) time, O(k) rolling space; k is capped at floor(n/2). Unlimited variants can use constant-state O(n) algorithms instead.",
+    "trace": "On [7,1,5,3,6,4], one trade1->6 yields5; two trades1->5 and3->6 yield7; charging fee2 per sell leaves3. Cooldown forbids buying immediately after selling.",
+    "pitfalls": "For III pass k=2; IV takes arbitrary k. II/fees/cooldown use k=n/2 for unlimited trades. Fees are charged at SELL only. Bounds assume final holding has no positive salvage value.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long profit(int[] prices, int k, int fee, boolean cooldown) {\n    if (k < 0 || fee < 0) throw new IllegalArgumentException();\n    for (int p : prices) if (p < 0) throw new IllegalArgumentException();\n    k = Math.min(k, prices.length / 2);\n    long[][] next = new long[2][k + 1], after = new long[2][k + 1];\n    for (int i = prices.length - 1; i >= 0; i--) {\n      long[][] cur = new long[2][k + 1];\n      for (int t = 1; t <= k; t++) {\n        cur[0][t] = Math.max(next[0][t], -((long) prices[i]) + next[1][t]);\n        cur[1][t] =\n            Math.max(\n                next[1][t], prices[i] - (long) fee + (cooldown ? after[0][t - 1] : next[0][t - 1]));\n      }\n      after = next;\n      next = cur;\n    }\n    return next[0][k];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(profit(new int[] {7, 1, 5, 3, 6, 4}, 3, 2, false));\n  }\n}\n"
+  },
+  "Best Time to Buy and Sell Stock with Cooldown": {
+    "expected": "5",
+    "problem": "Nonnegative daily prices; at most k completed transactions, one share held at once. This lesson uses unlimited (pass n/2), fee 0, cooldown true.",
+    "approach": "State (day,holding,remainingSells). Not holding: max(skip,-price+holding tomorrow). Holding: max(skip,price-fee+notHolding after sell). A sell consumes one transaction; cooldown skips one subsequent day. Work backwards, retaining tomorrow and day-after states.",
+    "complexity": "O(n*k) time, O(k) rolling space; k is capped at floor(n/2). Unlimited variants can use constant-state O(n) algorithms instead.",
+    "trace": "On [7,1,5,3,6,4], one trade1->6 yields5; two trades1->5 and3->6 yield7; charging fee2 per sell leaves3. Cooldown forbids buying immediately after selling.",
+    "pitfalls": "For III pass k=2; IV takes arbitrary k. II/fees/cooldown use k=n/2 for unlimited trades. Fees are charged at SELL only. Bounds assume final holding has no positive salvage value.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long profit(int[] prices, int k, int fee, boolean cooldown) {\n    if (k < 0 || fee < 0) throw new IllegalArgumentException();\n    for (int p : prices) if (p < 0) throw new IllegalArgumentException();\n    k = Math.min(k, prices.length / 2);\n    long[][] next = new long[2][k + 1], after = new long[2][k + 1];\n    for (int i = prices.length - 1; i >= 0; i--) {\n      long[][] cur = new long[2][k + 1];\n      for (int t = 1; t <= k; t++) {\n        cur[0][t] = Math.max(next[0][t], -((long) prices[i]) + next[1][t]);\n        cur[1][t] =\n            Math.max(\n                next[1][t], prices[i] - (long) fee + (cooldown ? after[0][t - 1] : next[0][t - 1]));\n      }\n      after = next;\n      next = cur;\n    }\n    return next[0][k];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(profit(new int[] {7, 1, 5, 3, 6, 4}, 3, 0, true));\n  }\n}\n"
+  },
+  "Subset sum equals to target": {
+    "expected": "true",
+    "problem": "Nonnegative values; decide whether a subset sums to target>=0. Empty subset allowed.",
+    "approach": "reachable[s] |= reachable[s-x] updates take/skip states. Descending sums ensure x is used at most once, because s-x still belongs to the prior item layer.",
+    "complexity": "O(n*target) time, O(target) space.",
+    "trace": "Target6 is reached by2+4 or1+2+3.",
+    "pitfalls": "Ascending sums would allow unlimited reuse; this is a 0/1 subset problem.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static boolean[] reachable(int[] a, int target) {\n    if (target < 0) throw new IllegalArgumentException();\n    boolean[] d = new boolean[target + 1];\n    d[0] = true;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      for (int s = target; s >= x; s--) d[s] |= d[s - x];\n    }\n    return d;\n  }\n\n  public static boolean solve(int[] a, int target) {\n    return reachable(a, target)[target];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 3, 4}, 6));\n  }\n}\n"
+  },
+  "Partition equal subset sum": {
+    "expected": "true",
+    "problem": "Partition all nonnegative entries into two equal-sum subsets.",
+    "approach": "If total is odd impossible; otherwise one subset summing to total/2 leaves the complementary subset with exactly that same sum.",
+    "complexity": "O(n*totalSum) time, O(totalSum) space.",
+    "trace": "11 alone matches1+5+5=11.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static boolean[] reachable(int[] a, int target) {\n    if (target < 0) throw new IllegalArgumentException();\n    boolean[] d = new boolean[target + 1];\n    d[0] = true;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      for (int s = target; s >= x; s--) d[s] |= d[s - x];\n    }\n    return d;\n  }\n\n  static boolean subset(int[] a, int target) {\n    return reachable(a, target)[target];\n  }\n\n  public static boolean solve(int[] a) {\n    long sum = 0;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      sum += x;\n    }\n    if (sum % 2 != 0) return false;\n    if (sum / 2 > Integer.MAX_VALUE) throw new IllegalArgumentException(\"target too large\");\n    return subset(a, (int) (sum / 2));\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 5, 11, 5}));\n  }\n}\n"
+  },
+  "Partition a set into two subsets with minimum absolute sum difference": {
+    "expected": "1",
+    "problem": "Split nonnegative values minimizing absolute difference of the two subset sums.",
+    "approach": "Reachability up to half total suffices by complement symmetry. Largest reachable s<=total/2 minimizes total-2*s.",
+    "complexity": "O(n*total) time, O(total) space.",
+    "trace": "Total23; subset11 or6+5 yields difference1.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static boolean[] reachable(int[] a, int target) {\n    if (target < 0) throw new IllegalArgumentException();\n    boolean[] d = new boolean[target + 1];\n    d[0] = true;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      for (int s = target; s >= x; s--) d[s] |= d[s - x];\n    }\n    return d;\n  }\n\n  public static boolean solve(int[] a, int target) {\n    return reachable(a, target)[target];\n  }\n\n  public static long difference(int[] a) {\n    long total = 0;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      total += x;\n    }\n    if (total / 2 > Integer.MAX_VALUE) throw new IllegalArgumentException();\n    boolean[] d = reachable(a, (int) (total / 2));\n    for (int s = d.length - 1; s >= 0; s--) if (d[s]) return total - 2L * s;\n    throw new IllegalStateException();\n  }\n\n  public static void main(String[] args) {\n    System.out.println(difference(new int[] {1, 6, 11, 5}));\n  }\n}\n"
+  },
+  "Count subsets with sum K": {
+    "expected": "4",
+    "problem": "Count POSITIONAL subsets of nonnegative entries summing to target; return exact BigInteger.",
+    "approach": "Counts add take and skip branches. Descending update prevents reuse; x=0 doubles every count because taking or skipping that zero are different positional choices.",
+    "complexity": "O(n*target) BigInteger additions; O(target) stored values.",
+    "trace": "Each of two zeros is independently taken/skipped while1 is required, giving four.",
+    "pitfalls": "Do not initialize dp[0] to one after every item; that would erase zero multiplicities.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  static BigInteger count(int[] a, int target) {\n    if (target < 0) return BigInteger.ZERO;\n    BigInteger[] d = new BigInteger[target + 1];\n    Arrays.fill(d, BigInteger.ZERO);\n    d[0] = BigInteger.ONE;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      for (int s = target; s >= x; s--) d[s] = d[s].add(d[s - x]);\n    }\n    return d[target];\n  }\n\n  public static BigInteger solve(int[] a, int target) {\n    return count(a, target);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {0, 0, 1}, 1));\n  }\n}\n"
+  },
+  "Count partitions with given difference": {
+    "expected": "5",
+    "problem": "Count assignments of every nonnegative entry to two labeled sides with s1-s2=difference; Target sum interprets these as + and - signs.",
+    "approach": "s1+s2=total and s1-s2=d imply s2=(total-d)/2. If that is not an integer in [0,total], return zero; otherwise count positional subsets for the minus side.",
+    "complexity": "O(n*derivedTarget) BigInteger additions and O(derivedTarget) values.",
+    "trace": "For five ones and difference3, choose any one as minus and four as plus: five assignments.",
+    "pitfalls": "Zeros double assignments. Negative difference is allowed; labeled partitions/sign assignments are not unordered partitions.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  static BigInteger count(int[] a, int target) {\n    if (target < 0) return BigInteger.ZERO;\n    BigInteger[] d = new BigInteger[target + 1];\n    Arrays.fill(d, BigInteger.ZERO);\n    d[0] = BigInteger.ONE;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      for (int s = target; s >= x; s--) d[s] = d[s].add(d[s - x]);\n    }\n    return d[target];\n  }\n\n  static BigInteger subsets(int[] a, int target) {\n    return count(a, target);\n  }\n\n  public static BigInteger solve(int[] a, int difference) {\n    long sum = 0;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      sum += x;\n    }\n    long target = sum - (long) difference;\n    if (target < 0 || target % 2 != 0 || target / 2 > sum) return BigInteger.ZERO;\n    if (target / 2 > Integer.MAX_VALUE) throw new IllegalArgumentException();\n    return count(a, (int) (target / 2));\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 1, 1, 1, 1}, 3));\n  }\n}\n"
+  },
+  "0 and 1 Knapsack": {
+    "expected": "9",
+    "problem": "Positive integer weights; maximize total value within capacity. Each input item can appear once. Empty selection allowed.",
+    "approach": "dp[c]=max(skip,value[i]+dp[c-weight[i]]). Descending capacities read the prior item layer, preventing reuse.",
+    "complexity": "O(n*capacity) time, O(capacity) space.",
+    "trace": "Capacity6: 0/1 takes weights2+3 for value9; unlimited takes three weight2 items for12.",
+    "pitfalls": "Zero weight with positive value makes unlimited optimum infinite; positive weights are required.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[] weight, int[] value, int capacity) {\n    if (capacity < 0 || weight.length != value.length) throw new IllegalArgumentException();\n    long[] d = new long[capacity + 1];\n    for (int i = 0; i < weight.length; i++) {\n      if (weight[i] <= 0) throw new IllegalArgumentException();\n      for (int c = capacity; c >= weight[i]; c--)\n        d[c] = Math.max(d[c], value[i] + d[c - weight[i]]);\n    }\n    return d[capacity];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {2, 3}, new int[] {4, 5}, 6));\n  }\n}\n"
+  },
+  "Minimum coins": {
+    "expected": "3",
+    "problem": "Unlimited positive denominations; minimize coins summing EXACTLY to target, -1 absent.",
+    "approach": "For each denomination, ascending sums allow reuse; minimize1+prior count. target+1 is an impossible-count sentinel because every usable coin is at least one.",
+    "complexity": "O(n*target) time, O(target) space.",
+    "trace": "11=5+5+1 uses three coins.",
+    "pitfalls": "target must leave room for target+1 without int overflow and fit memory. Denomination duplicates do not affect minimum.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] coins, int target) {\n    if (target < 0) throw new IllegalArgumentException();\n    int[] d = new int[target + 1];\n    Arrays.fill(d, target + 1);\n    d[0] = 0;\n    for (int coin : coins) {\n      if (coin <= 0) throw new IllegalArgumentException();\n      for (int s = coin; s <= target; s++) d[s] = Math.min(d[s], 1 + d[s - coin]);\n    }\n    return d[target] > target ? -1 : d[target];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 5}, 11));\n  }\n}\n"
+  },
+  "Target sum": {
+    "expected": "5",
+    "problem": "Count assignments of every nonnegative entry to two labeled sides with s1-s2=difference; Target sum interprets these as + and - signs.",
+    "approach": "s1+s2=total and s1-s2=d imply s2=(total-d)/2. If that is not an integer in [0,total], return zero; otherwise count positional subsets for the minus side.",
+    "complexity": "O(n*derivedTarget) BigInteger additions and O(derivedTarget) values.",
+    "trace": "For five ones and difference3, choose any one as minus and four as plus: five assignments.",
+    "pitfalls": "Zeros double assignments. Negative difference is allowed; labeled partitions/sign assignments are not unordered partitions.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  static BigInteger count(int[] a, int target) {\n    if (target < 0) return BigInteger.ZERO;\n    BigInteger[] d = new BigInteger[target + 1];\n    Arrays.fill(d, BigInteger.ZERO);\n    d[0] = BigInteger.ONE;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      for (int s = target; s >= x; s--) d[s] = d[s].add(d[s - x]);\n    }\n    return d[target];\n  }\n\n  static BigInteger subsets(int[] a, int target) {\n    return count(a, target);\n  }\n\n  public static BigInteger solve(int[] a, int difference) {\n    long sum = 0;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      sum += x;\n    }\n    long target = sum - (long) difference;\n    if (target < 0 || target % 2 != 0 || target / 2 > sum) return BigInteger.ZERO;\n    if (target / 2 > Integer.MAX_VALUE) throw new IllegalArgumentException();\n    return count(a, (int) (target / 2));\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 1, 1, 1, 1}, 3));\n  }\n}\n"
+  },
+  "Coin change II": {
+    "expected": "4",
+    "problem": "Count unordered combinations of unlimited DISTINCT positive coin denominations summing to target; exact BigInteger.",
+    "approach": "Process coin types outside and sums ascending inside, so each combination is counted once by its last processed type. Reversing loops would count ordered sequences.",
+    "complexity": "O(coins*target) BigInteger additions; O(target) stored values.",
+    "trace": "Target5: five1s, three1s+2, one1+two2s, or one5 ->four.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  public static BigInteger solve(int[] coins, int target) {\n    if (target < 0) throw new IllegalArgumentException();\n    Set<Integer> seen = new HashSet<>();\n    BigInteger[] d = new BigInteger[target + 1];\n    Arrays.fill(d, BigInteger.ZERO);\n    d[0] = BigInteger.ONE;\n    for (int coin : coins) {\n      if (coin <= 0 || !seen.add(coin))\n        throw new IllegalArgumentException(\"distinct positive denominations required\");\n      for (int s = coin; s <= target; s++) d[s] = d[s].add(d[s - coin]);\n    }\n    return d[target];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 5}, 5));\n  }\n}\n"
+  },
+  "Unbounded knapsack": {
+    "expected": "12",
+    "problem": "Positive integer weights; maximize total value within capacity. Each type can repeat. Empty selection allowed.",
+    "approach": "dp[c]=max(skip,value[i]+dp[c-weight[i]]). Ascending capacities read the current item layer, allowing reuse.",
+    "complexity": "O(n*capacity) time, O(capacity) space.",
+    "trace": "Capacity6: 0/1 takes weights2+3 for value9; unlimited takes three weight2 items for12.",
+    "pitfalls": "Zero weight with positive value makes unlimited optimum infinite; positive weights are required.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[] weight, int[] value, int capacity) {\n    if (capacity < 0 || weight.length != value.length) throw new IllegalArgumentException();\n    long[] d = new long[capacity + 1];\n    for (int i = 0; i < weight.length; i++) {\n      if (weight[i] <= 0) throw new IllegalArgumentException();\n      for (int c = weight[i]; c <= capacity; c++)\n        d[c] = Math.max(d[c], value[i] + d[c - weight[i]]);\n    }\n    return d[capacity];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {2, 3}, new int[] {4, 5}, 6));\n  }\n}\n"
+  },
+  "Rod cutting problem": {
+    "expected": "12",
+    "problem": "prices[i] is sale value of length i+1. Cut and sell the WHOLE rod of length prices.length, pieces reusable.",
+    "approach": "dp[length]=max over first cut of price[cut-1]+dp[length-cut]. Smaller lengths are available first; exact length is required even for negative prices.",
+    "complexity": "O(n²) time, O(n) space.",
+    "trace": "Length5 can split2+2+1 for5+5+2=12.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[] prices) {\n    long[] d = new long[prices.length + 1];\n    Arrays.fill(d, Long.MIN_VALUE / 4);\n    d[0] = 0;\n    for (int length = 1; length <= prices.length; length++)\n      for (int cut = 1; cut <= length; cut++)\n        d[length] = Math.max(d[length], prices[cut - 1] + d[length - cut]);\n    return d[prices.length];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {2, 5, 7, 8, 10}));\n  }\n}\n"
+  },
+  "Longest Increasing Subsequence": {
+    "expected": "4",
+    "problem": "Return length of a STRICTLY increasing subsequence, not necessarily contiguous.",
+    "approach": "tails[len-1] is the smallest attainable ending value of a subsequence of length len. Replacing a tail with a smaller value preserves length while helping future extension. Lower bound makes equality replace instead of extend.",
+    "complexity": "O(n log n) time, O(n) space.",
+    "trace": "Tails evolve toward [2,3,7,18], giving length4.",
+    "pitfalls": "The tails array itself need not correspond to one actual subsequence; reconstruction needs predecessors.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a) {\n    int[] tails = new int[a.length];\n    int size = 0;\n    for (int x : a) {\n      int l = 0, r = size;\n      while (l < r) {\n        int m = l + (r - l) / 2;\n        if (tails[m] < x) l = m + 1;\n        else r = m;\n      }\n      tails[l] = x;\n      if (l == size) size++;\n    }\n    return size;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {10, 9, 2, 5, 3, 7, 101, 18}));\n  }\n}\n"
+  },
+  "Print Longest Increasing Subsequence": {
+    "expected": "[2, 5, 7, 101]",
+    "problem": "Return one actual strictly increasing subsequence of maximum length, retaining first-found ties.",
+    "approach": "dp[i]=1+max dp[j] for j<i,a[j]<a[i]. Save the chosen predecessor and follow the best endpoint backwards to reconstruct.",
+    "complexity": "O(n²) time, O(n) space.",
+    "trace": "At101, predecessor7 points to5 then2; reversing produces2,5,7,101.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static List<Integer> solve(int[] a) {\n    int n = a.length;\n    int[] d = new int[n], parent = new int[n];\n    Arrays.fill(d, 1);\n    Arrays.fill(parent, -1);\n    int best = -1;\n    for (int i = 0; i < n; i++) {\n      for (int j = 0; j < i; j++)\n        if (a[j] < a[i] && d[j] + 1 > d[i]) {\n          d[i] = d[j] + 1;\n          parent[i] = j;\n        }\n      if (best < 0 || d[i] > d[best]) best = i;\n    }\n    List<Integer> out = new ArrayList<>();\n    while (best >= 0) {\n      out.add(a[best]);\n      best = parent[best];\n    }\n    Collections.reverse(out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {10, 9, 2, 5, 3, 7, 101, 18}));\n  }\n}\n"
+  },
+  "Largest Divisible Subset": {
+    "expected": "[1, 2, 4, 8]",
+    "problem": "Positive integers; return a largest subset where every pair divides in one direction.",
+    "approach": "Sort and build a longest chain with a[i]%a[j]==0. Divisibility is transitive, so adjacent chain compatibility guarantees all pairs are compatible; reconstruct with predecessors.",
+    "complexity": "O(n²) time, O(n) space.",
+    "trace": "1 divides2 divides4 divides8, so all four fit.",
+    "pitfalls": "Zero would make divisor remainder invalid; negative-divisibility ordering needs a different contract.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static List<Integer> solve(int[] input) {\n    int[] a = input.clone();\n    for (int x : a) if (x <= 0) throw new IllegalArgumentException();\n    Arrays.sort(a);\n    int[] d = new int[a.length], parent = new int[a.length];\n    Arrays.fill(d, 1);\n    Arrays.fill(parent, -1);\n    int best = -1;\n    for (int i = 0; i < a.length; i++) {\n      for (int j = 0; j < i; j++)\n        if (a[i] % a[j] == 0 && d[j] + 1 > d[i]) {\n          d[i] = d[j] + 1;\n          parent[i] = j;\n        }\n      if (best < 0 || d[i] > d[best]) best = i;\n    }\n    List<Integer> out = new ArrayList<>();\n    while (best >= 0) {\n      out.add(a[best]);\n      best = parent[best];\n    }\n    Collections.reverse(out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 4, 8}));\n  }\n}\n"
+  },
+  "Longest String Chain": {
+    "expected": "4",
+    "problem": "Each next chain word is formed by inserting exactly one character into its predecessor. Return maximum chain length.",
+    "approach": "Sort by length, then delete each character of a word to generate all possible predecessors. Their lengths are already processed; use the best chain stored by full string.",
+    "complexity": "O(n log n+sum(wordLength²)) expected time due to string copying/hashing; O(total word characters) stored keys.",
+    "trace": "a->ba->bca->bdca has four words.",
+    "pitfalls": "Equal-length words are not predecessors. Deleting from an empty string has no candidates but its own chain length is one.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(String[] input) {\n    String[] a = input.clone();\n    Arrays.sort(a, Comparator.comparingInt(String::length));\n    Map<String, Integer> best = new HashMap<>();\n    int answer = 0;\n    for (String s : a) {\n      int length = 1;\n      for (int i = 0; i < s.length(); i++) {\n        String prev = s.substring(0, i) + s.substring(i + 1);\n        length = Math.max(length, best.getOrDefault(prev, 0) + 1);\n      }\n      best.put(s, Math.max(length, best.getOrDefault(s, 0)));\n      answer = Math.max(answer, length);\n    }\n    return answer;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new String[] {\"a\", \"b\", \"ba\", \"bca\", \"bda\", \"bdca\"}));\n  }\n}\n"
+  },
+  "Longest Bitonic Subsequence": {
+    "expected": "6",
+    "problem": "A bitonic subsequence strictly increases then strictly decreases; either side may have length one.",
+    "approach": "At every peak i combine LIS ending at i and decreasing sequence starting at i; subtract one because peak is counted twice.",
+    "complexity": "O(n²) time, O(n) space.",
+    "trace": "1,2,10,4,2,1 has six values.",
+    "pitfalls": "Some judges require both slopes nonempty; require up[i]>1 and down[i]>1 for that variant.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static int[] lisLengths(int[] a) {\n    int[] d = new int[a.length];\n    Arrays.fill(d, 1);\n    for (int i = 0; i < a.length; i++)\n      for (int j = 0; j < i; j++) if (a[j] < a[i]) d[i] = Math.max(d[i], d[j] + 1);\n    return d;\n  }\n\n  public static int solve(int[] a) {\n    int[] up = lisLengths(a), down = new int[a.length];\n    Arrays.fill(down, 1);\n    for (int i = a.length - 1; i >= 0; i--)\n      for (int j = i + 1; j < a.length; j++)\n        if (a[j] < a[i]) down[i] = Math.max(down[i], down[j] + 1);\n    int best = 0;\n    for (int i = 0; i < a.length; i++) best = Math.max(best, up[i] + down[i] - 1);\n    return best;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 11, 2, 10, 4, 5, 2, 1}));\n  }\n}\n"
+  },
+  "Number of Longest Increasing Subsequences": {
+    "expected": "2",
+    "problem": "Count positional STRICT LISs of maximum length; empty input returns zero.",
+    "approach": "For each endpoint track best length and count. Better predecessor resets count; equal-best predecessor adds count. Finally sum counts at global-best endpoints.",
+    "complexity": "O(n²) BigInteger additions; O(n) stored length/count states.",
+    "trace": "1,3,5,7 and1,3,4,7 are the two length4 LISs.",
+    "pitfalls": "Equal values do not extend an increasing sequence but distinct positions can give distinct length1 choices.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  public static BigInteger solve(int[] a) {\n    if (a.length == 0) return BigInteger.ZERO;\n    int[] length = new int[a.length];\n    BigInteger[] count = new BigInteger[a.length];\n    Arrays.fill(length, 1);\n    Arrays.fill(count, BigInteger.ONE);\n    int best = 1;\n    for (int i = 0; i < a.length; i++) {\n      for (int j = 0; j < i; j++)\n        if (a[j] < a[i]) {\n          if (length[j] + 1 > length[i]) {\n            length[i] = length[j] + 1;\n            count[i] = count[j];\n          } else if (length[j] + 1 == length[i]) count[i] = count[i].add(count[j]);\n        }\n      best = Math.max(best, length[i]);\n    }\n    BigInteger answer = BigInteger.ZERO;\n    for (int i = 0; i < a.length; i++) if (length[i] == best) answer = answer.add(count[i]);\n    return answer;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 3, 5, 4, 7}));\n  }\n}\n"
+  },
+  "Longest common subsequence": {
+    "expected": "3",
+    "problem": "Return length of longest common subsequence of two UTF-16 strings.",
+    "approach": "dp[i][j] uses prefixes of lengths i,j. Equal last characters extend dp[i-1][j-1]; otherwise skip one last character and take max(dp[i-1][j],dp[i][j-1]).",
+    "complexity": "O(n*m) time/space; rolling rows can reduce auxiliary space to O(min(n,m)).",
+    "trace": "a,c,e match in order, though not contiguously, giving3.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static int[][] table(String a, String b) {\n    int[][] d = new int[a.length() + 1][b.length() + 1];\n    for (int i = 1; i <= a.length(); i++)\n      for (int j = 1; j <= b.length(); j++)\n        d[i][j] =\n            a.charAt(i - 1) == b.charAt(j - 1)\n                ? 1 + d[i - 1][j - 1]\n                : Math.max(d[i - 1][j], d[i][j - 1]);\n    return d;\n  }\n\n  public static int solve(String a, String b) {\n    return table(a, b)[a.length()][b.length()];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"abcde\", \"ace\"));\n  }\n}\n"
+  },
+  "Longest common substring": {
+    "expected": "4",
+    "problem": "Longest common CONTIGUOUS substring length.",
+    "approach": "dp[i][j] is matching suffix length ending at these positions. Equal characters extend diagonal; a mismatch resets to zero. Maximize over all endpoints.",
+    "complexity": "O(n*m) time, O(m) space.",
+    "trace": "abcd occurs contiguously in both strings with length4.",
+    "pitfalls": "Unlike LCS, mismatches cannot inherit top/left values or contiguity would break.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(String a, String b) {\n    int[] prev = new int[b.length() + 1];\n    int best = 0;\n    for (int i = 1; i <= a.length(); i++) {\n      int[] next = new int[prev.length];\n      for (int j = 1; j <= b.length(); j++)\n        if (a.charAt(i - 1) == b.charAt(j - 1)) {\n          next[j] = 1 + prev[j - 1];\n          best = Math.max(best, next[j]);\n        }\n      prev = next;\n    }\n    return best;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"abcdxyz\", \"xyzabcd\"));\n  }\n}\n"
+  },
+  "Longest palindromic subsequence": {
+    "expected": "4",
+    "problem": "Return longest palindromic SUBSEQUENCE length.",
+    "approach": "The longest palindromic subsequence length equals LCS(s,reverse(s)); keeping it requires mirroring only the remaining n-LPS characters for the minimum-insertion problem.",
+    "complexity": "O(n²) time/space in this LCS-table version.",
+    "trace": "bbbab has LPS bbbb length4; one inserted a can pair the unmatched a to make a whole-string palindrome.",
+    "pitfalls": "Interview strings here are ASCII/BMP; surrogate-pair semantics need code-point adaptation. This computes a length, not arbitrary LCS reconstruction as a guaranteed palindrome.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static int[][] table(String a, String b) {\n    int[][] d = new int[a.length() + 1][b.length() + 1];\n    for (int i = 1; i <= a.length(); i++)\n      for (int j = 1; j <= b.length(); j++)\n        d[i][j] =\n            a.charAt(i - 1) == b.charAt(j - 1)\n                ? 1 + d[i - 1][j - 1]\n                : Math.max(d[i - 1][j], d[i][j - 1]);\n    return d;\n  }\n\n  static int common(String a, String b) {\n    return table(a, b)[a.length()][b.length()];\n  }\n\n  public static int solve(String s) {\n    int length = common(s, new StringBuilder(s).reverse().toString());\n    return length;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"bbbab\"));\n  }\n}\n"
+  },
+  "Minimum insertions to make string palindrome": {
+    "expected": "1",
+    "problem": "Return minimum insertions to make a palindrome.",
+    "approach": "The longest palindromic subsequence length equals LCS(s,reverse(s)); keeping it requires mirroring only the remaining n-LPS characters for the minimum-insertion problem.",
+    "complexity": "O(n²) time/space in this LCS-table version.",
+    "trace": "bbbab has LPS bbbb length4; one inserted a can pair the unmatched a to make a whole-string palindrome.",
+    "pitfalls": "Interview strings here are ASCII/BMP; surrogate-pair semantics need code-point adaptation. This computes a length, not arbitrary LCS reconstruction as a guaranteed palindrome.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static int[][] table(String a, String b) {\n    int[][] d = new int[a.length() + 1][b.length() + 1];\n    for (int i = 1; i <= a.length(); i++)\n      for (int j = 1; j <= b.length(); j++)\n        d[i][j] =\n            a.charAt(i - 1) == b.charAt(j - 1)\n                ? 1 + d[i - 1][j - 1]\n                : Math.max(d[i - 1][j], d[i][j - 1]);\n    return d;\n  }\n\n  static int common(String a, String b) {\n    return table(a, b)[a.length()][b.length()];\n  }\n\n  public static int solve(String s) {\n    int length = common(s, new StringBuilder(s).reverse().toString());\n    return s.length() - length;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"bbbab\"));\n  }\n}\n"
+  },
+  "Minimum insertions or deletions to convert string A to B": {
+    "expected": "3",
+    "problem": "Only insertions/deletions are allowed, not substitution; return minimum operations.",
+    "approach": "Keep an LCS unchanged. Delete n-LCS from a and insert m-LCS to reach b; any preserved sequence cannot exceed LCS, proving optimality.",
+    "complexity": "O(n*m) time/space.",
+    "trace": "Keep ea; delete h,p from heap and insert p at front ->pea, three operations.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static int[][] table(String a, String b) {\n    int[][] d = new int[a.length() + 1][b.length() + 1];\n    for (int i = 1; i <= a.length(); i++)\n      for (int j = 1; j <= b.length(); j++)\n        d[i][j] =\n            a.charAt(i - 1) == b.charAt(j - 1)\n                ? 1 + d[i - 1][j - 1]\n                : Math.max(d[i - 1][j], d[i][j - 1]);\n    return d;\n  }\n\n  static int common(String a, String b) {\n    return table(a, b)[a.length()][b.length()];\n  }\n\n  public static int solve(String a, String b) {\n    return a.length() + b.length() - 2 * common(a, b);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"heap\", \"pea\"));\n  }\n}\n"
+  },
+  "Shortest common supersequence": {
+    "expected": "cabac",
+    "problem": "Return a shortest string containing both inputs as subsequences; ties use the stated backtracking choice.",
+    "approach": "Backtrack LCS table. Equal characters are emitted once; otherwise emit the character from the side whose remaining LCS is longer. This shares exactly an LCS and gives length n+m-LCS.",
+    "complexity": "O(n*m) time/space plus output.",
+    "trace": "cabac contains cab and abac in order, length5.",
+    "pitfalls": "Shortest output need not be unique. The table backtrack determines one valid answer, not necessarily lexicographically smallest.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static int[][] table(String a, String b) {\n    int[][] d = new int[a.length() + 1][b.length() + 1];\n    for (int i = 1; i <= a.length(); i++)\n      for (int j = 1; j <= b.length(); j++)\n        d[i][j] =\n            a.charAt(i - 1) == b.charAt(j - 1)\n                ? 1 + d[i - 1][j - 1]\n                : Math.max(d[i - 1][j], d[i][j - 1]);\n    return d;\n  }\n\n  public static int solve(String a, String b) {\n    return table(a, b)[a.length()][b.length()];\n  }\n\n  public static String supersequence(String a, String b) {\n    int[][] d = table(a, b);\n    int i = a.length(), j = b.length();\n    StringBuilder out = new StringBuilder();\n    while (i > 0 && j > 0) {\n      if (a.charAt(i - 1) == b.charAt(j - 1)) {\n        out.append(a.charAt(--i));\n        j--;\n      } else if (d[i - 1][j] >= d[i][j - 1]) out.append(a.charAt(--i));\n      else out.append(b.charAt(--j));\n    }\n    while (i > 0) out.append(a.charAt(--i));\n    while (j > 0) out.append(b.charAt(--j));\n    return out.reverse().toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.println(supersequence(\"abac\", \"cab\"));\n  }\n}\n"
+  },
+  "Distinct subsequences": {
+    "expected": "3",
+    "problem": "Count positional subsequences of source equal to target; exact count, empty target one.",
+    "approach": "dp[j] counts matches of target prefix j. For each source character, matching positions add dp[j-1]; descend j so one source position cannot serve multiple target positions.",
+    "complexity": "O(n*m) BigInteger additions, O(m) stored counts.",
+    "trace": "Choose any two of the three middle bs to form rabbit: three ways.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  public static BigInteger solve(String source, String target) {\n    BigInteger[] d = new BigInteger[target.length() + 1];\n    Arrays.fill(d, BigInteger.ZERO);\n    d[0] = BigInteger.ONE;\n    for (char c : source.toCharArray())\n      for (int j = target.length(); j >= 1; j--)\n        if (c == target.charAt(j - 1)) d[j] = d[j].add(d[j - 1]);\n    return d[target.length()];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"rabbbit\", \"rabbit\"));\n  }\n}\n"
+  },
+  "Edit distance": {
+    "expected": "3",
+    "problem": "Minimum unit-cost insert,delete,replace operations converting a to b.",
+    "approach": "Equal last characters cost no new operation; otherwise take1+min(replace diagonal,delete above,insert left). Empty-prefix cost equals its length.",
+    "complexity": "O(n*m) time, O(m) space.",
+    "trace": "horse ->rorse (replace h), ->rose (delete r), ->ros (delete e): three.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(String a, String b) {\n    int[] prev = new int[b.length() + 1];\n    for (int j = 0; j < prev.length; j++) prev[j] = j;\n    for (int i = 1; i <= a.length(); i++) {\n      int[] next = new int[prev.length];\n      next[0] = i;\n      for (int j = 1; j < next.length; j++)\n        next[j] =\n            a.charAt(i - 1) == b.charAt(j - 1)\n                ? prev[j - 1]\n                : 1 + Math.min(prev[j - 1], Math.min(prev[j], next[j - 1]));\n      prev = next;\n    }\n    return prev[b.length()];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"horse\", \"ros\"));\n  }\n}\n"
+  },
+  "Wildcard matching": {
+    "expected": "true",
+    "problem": "Match the WHOLE text; ? matches one character, * matches any sequence including empty.",
+    "approach": "For *, either skip the star (current row left) or let it consume a text character (prior row same column). Other matches consume one character on each side.",
+    "complexity": "O(n*m) time, O(m) space.",
+    "trace": "* before a can match empty; middle * consumes dce; final b matches b.",
+    "pitfalls": "This is wildcard matching, not regex; regex * repeats a preceding element instead.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(String text, String pattern) {\n    boolean[] prev = new boolean[pattern.length() + 1];\n    prev[0] = true;\n    for (int j = 1; j < prev.length; j++) prev[j] = prev[j - 1] && pattern.charAt(j - 1) == '*';\n    for (int i = 1; i <= text.length(); i++) {\n      boolean[] next = new boolean[prev.length];\n      for (int j = 1; j < next.length; j++) {\n        char p = pattern.charAt(j - 1);\n        next[j] =\n            p == '*'\n                ? next[j - 1] || prev[j]\n                : (p == '?' || p == text.charAt(i - 1)) && prev[j - 1];\n      }\n      prev = next;\n    }\n    return prev[pattern.length()];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"adceb\", \"*a*b\"));\n  }\n}\n"
+  },
+  "Word Break": {
+    "expected": "true",
+    "problem": "Decide whether the whole string segments into reusable nonempty dictionary words; empty string succeeds.",
+    "approach": "dp[end] is true if some reachable prefix start precedes a dictionary suffix ending there. Bound search by longest word length.",
+    "complexity": "O(n*L²) worst expected time including Java substring/hash costs; O(n+dictionary size) state.",
+    "trace": "dp[4] from leet is true; then code makes dp[8] true.",
+    "pitfalls": "Empty dictionary tokens are ignored by the start<end loops. This returns existence, not every segmentation.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(String s, Set<String> words) {\n    boolean[] d = new boolean[s.length() + 1];\n    d[0] = true;\n    int max = 0;\n    for (String w : words) max = Math.max(max, w.length());\n    for (int end = 1; end <= s.length(); end++)\n      for (int start = Math.max(0, end - max); start < end; start++)\n        if (d[start] && words.contains(s.substring(start, end))) {\n          d[end] = true;\n          break;\n        }\n    return d[s.length()];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"leetcode\", new HashSet<>(Arrays.asList(\"leet\", \"code\"))));\n  }\n}\n"
+  },
+  "Count Palindromic Subsequences": {
+    "expected": "7",
+    "problem": "Count NONEMPTY positional palindromic subsequences, counting equal values at different indices separately. Exact BigInteger.",
+    "approach": "Different endpoints: add counts excluding either endpoint and subtract doubly counted middle. Equal endpoints: the newly wrapped middle subsequences and endpoint pair replace the subtraction, simplifying to left+right+1.",
+    "complexity": "O(n²) BigInteger additions/subtractions and stored values.",
+    "trace": "aaa has three singletons,three pairs,and one triple =seven.",
+    "pitfalls": "This is not count of distinct palindrome VALUES (aaa has only three distinct values). That variant needs next/previous equal-character bounds.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  public static BigInteger solve(String s) {\n    int n = s.length();\n    if (n == 0) return BigInteger.ZERO;\n    BigInteger[][] d = new BigInteger[n][n];\n    for (int i = n - 1; i >= 0; i--) {\n      d[i][i] = BigInteger.ONE;\n      for (int j = i + 1; j < n; j++) {\n        BigInteger middle = j == i + 1 ? BigInteger.ZERO : d[i + 1][j - 1];\n        d[i][j] =\n            s.charAt(i) == s.charAt(j)\n                ? d[i + 1][j].add(d[i][j - 1]).add(BigInteger.ONE)\n                : d[i + 1][j].add(d[i][j - 1]).subtract(middle);\n      }\n    }\n    return d[0][n - 1];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"aaa\"));\n  }\n}\n"
+  },
+  "Matrix chain multiplication": {
+    "expected": "26000",
+    "problem": "Matrix i has dims[i] x dims[i+1]; minimize scalar multiplication count, exact BigInteger.",
+    "approach": "For interval[i,j], split at every k; subinterval costs add dims[i]*dims[k+1]*dims[j+1]. Compute increasing interval lengths; singleton cost zero.",
+    "complexity": "O(n³) BigInteger operations and O(n²) values.",
+    "trace": "Choose grouping ((A1*(A2*A3))*A4):6000+8000+12000=26000.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  public static BigInteger solve(int[] dims) {\n    if (dims.length < 2) return BigInteger.ZERO;\n    for (int x : dims) if (x <= 0) throw new IllegalArgumentException();\n    int n = dims.length - 1;\n    BigInteger[][] d = new BigInteger[n][n];\n    for (int i = 0; i < n; i++) d[i][i] = BigInteger.ZERO;\n    for (int len = 2; len <= n; len++)\n      for (int i = 0; i + len <= n; i++) {\n        int j = i + len - 1;\n        for (int k = i; k < j; k++) {\n          BigInteger cost =\n              d[i][k]\n                  .add(d[k + 1][j])\n                  .add(\n                      BigInteger.valueOf(dims[i])\n                          .multiply(BigInteger.valueOf(dims[k + 1]))\n                          .multiply(BigInteger.valueOf(dims[j + 1])));\n          if (d[i][j] == null || cost.compareTo(d[i][j]) < 0) d[i][j] = cost;\n        }\n      }\n    return d[0][n - 1];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {40, 20, 30, 10, 30}));\n  }\n}\n"
+  },
+  "Burst balloons": {
+    "expected": "167",
+    "problem": "Burst every nonnegative balloon, earning product of its current neighbors and itself; outside neighbor values one.",
+    "approach": "Choose the LAST balloon k in an interval so its outside neighbors remain fixed. Then solve independent left/right intervals and add the final product.",
+    "complexity": "O(n³) BigInteger operations, O(n²) values.",
+    "trace": "Burst1 then5 then3 then8 in [3,1,5,8] earns15+120+24+8=167.",
+    "pitfalls": "Choosing first makes changing neighbors entangle intervals; choosing last makes boundaries stable.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  public static BigInteger solve(int[] values) {\n    int n = values.length;\n    BigInteger[] a = new BigInteger[n + 2];\n    a[0] = a[n + 1] = BigInteger.ONE;\n    for (int i = 0; i < n; i++) {\n      if (values[i] < 0) throw new IllegalArgumentException();\n      a[i + 1] = BigInteger.valueOf(values[i]);\n    }\n    BigInteger[][] d = new BigInteger[n + 2][n + 2];\n    for (BigInteger[] row : d) Arrays.fill(row, BigInteger.ZERO);\n    for (int len = 1; len <= n; len++)\n      for (int l = 1; l + len - 1 <= n; l++) {\n        int r = l + len - 1;\n        for (int k = l; k <= r; k++) {\n          BigInteger cost =\n              d[l][k - 1].add(d[k + 1][r]).add(a[l - 1].multiply(a[k]).multiply(a[r + 1]));\n          d[l][r] = d[l][r].max(cost);\n        }\n      }\n    return d[1][n];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {3, 1, 5, 8}));\n  }\n}\n"
+  },
+  "Palindrome partitioning II": {
+    "expected": "1",
+    "problem": "Minimum cuts partitioning the whole string into palindromic substrings; empty input zero.",
+    "approach": "Precompute palindrome intervals. parts[i]=min1+parts[j+1] over palindromic prefixes s[i..j]; number of cuts is parts-1.",
+    "complexity": "O(n²) time/space.",
+    "trace": "aa|b uses two parts, hence one cut.",
+    "pitfalls": "Subtract one only for nonempty strings; otherwise the empty suffix base would produce -1.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static boolean[][] palindromes(String s) {\n    int n = s.length();\n    boolean[][] p = new boolean[n][n];\n    for (int i = n - 1; i >= 0; i--)\n      for (int j = i; j < n; j++)\n        p[i][j] = s.charAt(i) == s.charAt(j) && (j - i < 2 || p[i + 1][j - 1]);\n    return p;\n  }\n\n  public static int solve(String s) {\n    int n = s.length();\n    if (n == 0) return 0;\n    boolean[][] p = palindromes(s);\n    int[] parts = new int[n + 1];\n    for (int i = n - 1; i >= 0; i--) {\n      parts[i] = n;\n      for (int j = i; j < n; j++) if (p[i][j]) parts[i] = Math.min(parts[i], 1 + parts[j + 1]);\n    }\n    return parts[0] - 1;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"aab\"));\n  }\n}\n"
+  },
+  "Partition Array for Maximum Sum": {
+    "expected": "84",
+    "problem": "Partition all entries into blocks of length<=k; each entry in a block becomes the block maximum. Maximize total; negatives allowed.",
+    "approach": "For each start i try every allowed first-block endpoint j, track running maximum, and add its length*maximum plus optimal suffix dp[j+1].",
+    "complexity": "O(n*k) time, O(n) space.",
+    "trace": "[1,15,7]->45, [9]->9, [2,5,10]->30, totaling84.",
+    "pitfalls": "Validate nonnegative size/target parameters and respect the stated input domain. Java array dimensions must fit memory; recursion alternatives may exhaust the call stack.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[] a, int k) {\n    if (k < 1) throw new IllegalArgumentException();\n    long[] d = new long[a.length + 1];\n    for (int i = a.length - 1; i >= 0; i--) {\n      long best = Long.MIN_VALUE;\n      int max = Integer.MIN_VALUE;\n      for (int j = i; j < a.length && j - i < k; j++) {\n        max = Math.max(max, a[j]);\n        best = Math.max(best, (long) max * (j - i + 1) + d[j + 1]);\n      }\n      d[i] = best;\n    }\n    return d[0];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 15, 7, 9, 2, 5, 10}, 3));\n  }\n}\n"
+  },
+  "Minimum cost to cut the stick": {
+    "expected": "16",
+    "problem": "Cut a nonnegative length stick at distinct interior coordinates; each cut costs length of the current piece.",
+    "approach": "Sort cuts with endpoints0,length. Choose FIRST cut k of each interval: current length is paid once, then left/right pieces are independent. Compute increasing spans.",
+    "complexity": "O(c³) time, O(c²) space.",
+    "trace": "Cut at3 costs7; optimal subpiece cuts total9; total16.",
+    "pitfalls": "Distinct interior cuts are required. No cuts costs zero, including a zero-length stick. Use sorted coordinates and long aggregate cost.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int length, int[] input) {\n    if (length < 0) throw new IllegalArgumentException();\n    if (input.length == 0) return 0;\n    int[] cuts = new int[input.length + 2];\n    cuts[cuts.length - 1] = length;\n    for (int i = 0; i < input.length; i++) {\n      if (input[i] <= 0 || input[i] >= length) throw new IllegalArgumentException();\n      cuts[i + 1] = input[i];\n    }\n    Arrays.sort(cuts);\n    for (int i = 1; i < cuts.length; i++)\n      if (cuts[i] == cuts[i - 1]) throw new IllegalArgumentException();\n    long[][] d = new long[cuts.length][cuts.length];\n    for (int span = 2; span < cuts.length; span++)\n      for (int l = 0; l + span < cuts.length; l++) {\n        int r = l + span;\n        d[l][r] = Long.MAX_VALUE;\n        for (int k = l + 1; k < r; k++)\n          d[l][r] = Math.min(d[l][r], cuts[r] - cuts[l] + d[l][k] + d[k][r]);\n      }\n    return d[0][cuts.length - 1];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(7, new int[] {1, 3, 4, 5}));\n  }\n}\n"
+  },
+  "Different Ways to Evaluate a Boolean Expression": {
+    "expected": "4",
+    "problem": "Operands T/F alternating binary &,|,^; count parenthesizations evaluating TRUE, exact BigInteger.",
+    "approach": "State(interval,truthValue). Split at every operator and combine all four left/right truth pairs, multiplying independent counts into the appropriate truth result.",
+    "complexity": "O(n³) BigInteger multiply/add operations, O(n²) stored counts for n operands.",
+    "trace": "Four of the five parenthesizations of T|T&F^T evaluate true.",
+    "pitfalls": "This counts parenthesizations, not assignments to variable symbols. Operator evaluation follows each chosen parenthesization, overriding ordinary precedence.",
+    "alternatives": "Direct recursion follows the stated recurrence but may repeat overlapping states exponentially. Memoize the complete state to compute each once; tabulation in dependency order removes recursive frames. Rolling storage is valid only when all still-needed dependencies are retained. The provided code implements the method described above; alternative variants are explanations unless a separately named method is present.",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  public static BigInteger solve(String s) {\n    if (s.isEmpty()) return BigInteger.ZERO;\n    if (s.length() % 2 == 0) throw new IllegalArgumentException();\n    int n = (s.length() + 1) / 2;\n    BigInteger[][][] d = new BigInteger[n][n][2];\n    for (int i = 0; i < n; i++) {\n      char c = s.charAt(2 * i);\n      if (c != 'T' && c != 'F') throw new IllegalArgumentException();\n      d[i][i][0] = c == 'F' ? BigInteger.ONE : BigInteger.ZERO;\n      d[i][i][1] = c == 'T' ? BigInteger.ONE : BigInteger.ZERO;\n    }\n    for (int len = 2; len <= n; len++)\n      for (int l = 0; l + len <= n; l++) {\n        int r = l + len - 1;\n        d[l][r][0] = d[l][r][1] = BigInteger.ZERO;\n        for (int k = l; k < r; k++) {\n          char op = s.charAt(2 * k + 1);\n          if (op != '&' && op != '|' && op != '^') throw new IllegalArgumentException();\n          for (int a = 0; a < 2; a++)\n            for (int b = 0; b < 2; b++) {\n              int value = op == '&' ? (a & b) : op == '|' ? (a | b) : (a ^ b);\n              d[l][r][value] = d[l][r][value].add(d[l][k][a].multiply(d[k + 1][r][b]));\n            }\n        }\n      }\n    return d[0][n - 1][1];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"T|T&F^T\"));\n  }\n}\n"
+  },
+  "Minimum Path Sum in Grid": {
+    "expected": "7",
+    "problem": "Minimum sum of a top-left to bottom-right path moving only right/down; include both endpoint cells.",
+    "approach": "dp[r][c]=cell+min(above,left). At boundaries only one predecessor exists. In the rolling row d[c] is above and d[c-1] is current left.",
+    "complexity": "O(R*C) time, O(C) space.",
+    "trace": "1->3->1->1->1 sums7.",
+    "pitfalls": "Negative values are supported because the movement graph is acyclic. This differs from falling-path diagonal movement.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[][] a) {\n    if (a.length == 0 || a[0].length == 0) return 0;\n    long[] d = new long[a[0].length];\n    for (int r = 0; r < a.length; r++)\n      for (int c = 0; c < d.length; c++) {\n        if (r == 0 && c == 0) d[c] = a[r][c];\n        else if (r == 0) d[c] = d[c - 1] + a[r][c];\n        else if (c == 0) d[c] += a[r][c];\n        else d[c] = Math.min(d[c], d[c - 1]) + a[r][c];\n      }\n    return d[d.length - 1];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[][] {{1, 3, 1}, {1, 5, 1}, {4, 2, 1}}));\n  }\n}\n"
+  },
+  "Print Longest Common Subsequence": {
+    "expected": "ace",
+    "problem": "Return one actual LCS, using upper-state ties during backtracking.",
+    "approach": "Equal last characters are part of an optimal LCS and move diagonally; otherwise move to a predecessor preserving the larger length. Collected matches are reversed at the end.",
+    "complexity": "O(n*m) time/space plus O(LCS length) output.",
+    "trace": "Backtrack e,c,a and reverse to ace.",
+    "pitfalls": "One-dimensional LCS lengths alone do not retain the predecessor information needed for this simple reconstruction.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static int[][] table(String a, String b) {\n    int[][] d = new int[a.length() + 1][b.length() + 1];\n    for (int i = 1; i <= a.length(); i++)\n      for (int j = 1; j <= b.length(); j++)\n        d[i][j] =\n            a.charAt(i - 1) == b.charAt(j - 1)\n                ? 1 + d[i - 1][j - 1]\n                : Math.max(d[i - 1][j], d[i][j - 1]);\n    return d;\n  }\n\n  public static int solve(String a, String b) {\n    return table(a, b)[a.length()][b.length()];\n  }\n\n  public static String reconstruct(String a, String b) {\n    int[][] d = table(a, b);\n    int i = a.length(), j = b.length();\n    StringBuilder out = new StringBuilder();\n    while (i > 0 && j > 0) {\n      if (a.charAt(i - 1) == b.charAt(j - 1)) {\n        out.append(a.charAt(--i));\n        j--;\n      } else if (d[i - 1][j] >= d[i][j - 1]) i--;\n      else j--;\n    }\n    return out.reverse().toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.println(reconstruct(\"abcde\", \"ace\"));\n  }\n}\n"
+  }
+}

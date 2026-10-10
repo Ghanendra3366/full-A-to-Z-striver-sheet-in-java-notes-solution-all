@@ -63,3 +63,6 @@ Follow the section order below. Pending items are listed in the [full coverage i
 - [Delete all occurrences of a key in DLL](faqs-dll/delete-all-occurrences-of-a-key-in-dll/README.md) — implemented
 - [Remove duplicates from sorted DLL](faqs-dll/remove-duplicates-from-sorted-dll/README.md) — implemented
 - [Find Pairs with Given Sum in Doubly Linked List](faqs-dll/find-pairs-with-given-sum-in-doubly-linked-list/README.md) — implemented
+## Reference supplements
+
+- [Append to Doubly Linked List](reference-supplements/append-to-doubly-linked-list/README.md) — implemented

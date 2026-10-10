@@ -1,0 +1,152 @@
+{
+  "Assign Cookies": {
+    "expected": "1",
+    "problem": "Each child needs one cookie of at least its greed value; each cookie serves at most one child. Maximize satisfied children.",
+    "approach": "Sort both lists. Give the smallest sufficient cookie to the least greedy remaining child. An exchange replacing a larger cookie with this one cannot hurt the child and preserves larger cookies for others.",
+    "complexity": "O(n log n+m log m) time; O(n+m) copy space.",
+    "trace": "Cookie 1 satisfies greed 1; second cookie 1 cannot satisfy greed 2.",
+    "pitfalls": "Arrays are copied; zero children/cookies is valid. Values are assumed nonnegative.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] greed, int[] sizes) {\n    int[] g = greed.clone(), s = sizes.clone();\n    Arrays.sort(g);\n    Arrays.sort(s);\n    int i = 0;\n    for (int x : s) if (i < g.length && x >= g[i]) i++;\n    return i;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 3}, new int[] {1, 1}));\n  }\n}\n"
+  },
+  "Lemonade Change": {
+    "expected": "true",
+    "problem": "A drink costs 5. Customers pay 5,10,20 in order; start with no cash and return whether every change can be made.",
+    "approach": "For a 20 bill prefer 10+5 over 5+5+5 because fives are the only way to change a future 10. Twenties never help make change.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "Three fives -> one ten consumes a five -> twenty uses ten+five.",
+    "pitfalls": "Future bills cannot pay current change; do not aggregate the whole queue first.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(int[] bills) {\n    int five = 0, ten = 0;\n    for (int b : bills) {\n      if (b == 5) five++;\n      else if (b == 10) {\n        if (five == 0) return false;\n        five--;\n        ten++;\n      } else if (b == 20) {\n        if (ten > 0 && five > 0) {\n          ten--;\n          five--;\n        } else if (five >= 3) five -= 3;\n        else return false;\n      } else throw new IllegalArgumentException();\n    }\n    return true;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {5, 5, 5, 10, 20}));\n  }\n}\n"
+  },
+  "Fractional Knapsack": {
+    "expected": "240.0",
+    "problem": "Items are [value,positive weight], nonnegative values. Fractions are allowed; maximize value within integer capacity.",
+    "approach": "Sort by value per weight. An exchange of equal weight from a lower-density portion to a higher-density portion never decreases value, so consume densities in descending order.",
+    "complexity": "O(n log n) time; O(n) copy space.",
+    "trace": "Take 10 weight for 60, 20 for 100, then 20/30 of 120 for 80; total 240.",
+    "pitfalls": "This greedy proof relies on divisible items. The 0/1 version requires a different algorithm.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static double solve(int[][] items, int capacity) {\n    if (capacity < 0) throw new IllegalArgumentException();\n    int[][] a = new int[items.length][];\n    for (int i = 0; i < a.length; i++) {\n      a[i] = items[i].clone();\n      if (a[i][0] < 0 || a[i][1] <= 0) throw new IllegalArgumentException();\n    }\n    Arrays.sort(a, (x, y) -> Double.compare((double) y[0] / y[1], (double) x[0] / x[1]));\n    double value = 0;\n    int remaining = capacity;\n    for (int[] item : a) {\n      int take = Math.min(remaining, item[1]);\n      value += (double) item[0] * take / item[1];\n      remaining -= take;\n      if (remaining == 0) break;\n    }\n    return value;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[][] {{60, 10}, {100, 20}, {120, 30}}, 50));\n  }\n}\n"
+  },
+  "Jump Game - I": {
+    "expected": "true",
+    "problem": "Nonnegative jump lengths allow any jump up to a[i]; determine whether last index is reachable from zero. Empty input is false.",
+    "approach": "All indices up to far are reachable. If next i lies outside far there is a gap no prior jump crosses; otherwise update the frontier.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "At 0 frontier 2; at 1 frontier 4, reaching the last index.",
+    "pitfalls": "Use long for i+a[i]. A singleton is reachable without a jump.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(int[] a) {\n    long far = 0;\n    for (int i = 0; i < a.length; i++) {\n      if (i > far) return false;\n      if (a[i] < 0) throw new IllegalArgumentException();\n      far = Math.max(far, (long) i + a[i]);\n    }\n    return a.length > 0;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {2, 3, 1, 1, 4}));\n  }\n}\n"
+  },
+  "Shortest Job First": {
+    "expected": "1.3333333333333333",
+    "problem": "All jobs arrive at time zero; nonpreemptive jobs have nonnegative durations. Return average waiting time.",
+    "approach": "Run shortest duration first. Swapping a longer-then-shorter adjacent pair reduces the waiting contributed to the shorter job without changing later completion time.",
+    "complexity": "O(n log n) time; O(n) copy space.",
+    "trace": "Sorted 1,2,3 gives waits 0,1,3; average 4/3.",
+    "pitfalls": "Different arrival times require scheduling with a priority queue; this contract has simultaneous arrivals.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static double solve(int[] bursts) {\n    if (bursts.length == 0) return 0;\n    int[] a = bursts.clone();\n    Arrays.sort(a);\n    long elapsed = 0, total = 0;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      total += elapsed;\n      elapsed += x;\n    }\n    return (double) total / a.length;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {3, 1, 2}));\n  }\n}\n"
+  },
+  "Job sequencing Problem": {
+    "expected": "[3, 142]",
+    "problem": "Each job takes one time unit and is [deadline,profit]. Maximize profit by completing before deadlines; return [jobs done,total profit]. Nonpositive-profit jobs may be skipped.",
+    "approach": "Consider profit descending and schedule at the latest free slot before its deadline. This keeps earlier slots available for tighter deadlines. Unit-duration deadline scheduling admits this greedy exchange.",
+    "complexity": "O(n log n+n*min(n,maxDeadline)) time; O(min(n,maxDeadline)) slot space plus sorted copy.",
+    "trace": "Schedule profit 100 at slot 2, profit 27 at slot 1, profit 15 at slot 3; total 142.",
+    "pitfalls": "The algorithm does not apply to variable-duration jobs. Deadlines <=0 are unschedulable.",
+    "alternatives": "A disjoint-set latest-free-slot structure improves scheduling to near-linear after sorting.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long[] solve(int[][] jobs) {\n    int[][] a = jobs.clone();\n    Arrays.sort(a, (x, y) -> Integer.compare(y[1], x[1]));\n    int max = 0;\n    for (int[] j : a) max = Math.max(max, j[0]);\n    int[] slot = new int[Math.min(max, a.length) + 1];\n    Arrays.fill(slot, -1);\n    long profit = 0, count = 0;\n    for (int[] j : a) {\n      if (j[1] <= 0) continue;\n      for (int t = Math.min(j[0], slot.length - 1); t >= 1; t--)\n        if (slot[t] == -1) {\n          slot[t] = 1;\n          count++;\n          profit += j[1];\n          break;\n        }\n    }\n    return new long[] {count, profit};\n  }\n\n  public static void main(String[] args) {\n    System.out.println(\n        Arrays.toString(solve(new int[][] {{2, 100}, {1, 19}, {2, 27}, {1, 25}, {3, 15}})));\n  }\n}\n"
+  },
+  "N meetings in one room": {
+    "expected": "4",
+    "problem": "Maximize nonoverlapping meetings [start,end]. This variant requires the next start STRICTLY after the previous end.",
+    "approach": "Always choose the earliest finishing compatible meeting. Replacing an optimal first choice with this earlier finisher leaves at least as much time for remaining meetings.",
+    "complexity": "O(n log n) time; O(n) copy space.",
+    "trace": "Choose [1,2],[3,4],[5,7],[8,9].",
+    "pitfalls": "Some judges allow touching endpoints; change > to >= for that contract. Equal finish times are harmless to count.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[][] sorted(int[][] intervals) {\n    int[][] a = new int[intervals.length][];\n    for (int i = 0; i < a.length; i++) {\n      a[i] = intervals[i].clone();\n      if (a[i][0] > a[i][1]) throw new IllegalArgumentException();\n    }\n    return a;\n  }\n\n  public static int solve(int[][] input) {\n    int[][] a = sorted(input);\n    Arrays.sort(a, (x, y) -> Integer.compare(x[1], y[1]));\n    long end = Long.MIN_VALUE;\n    int count = 0;\n    for (int[] x : a)\n      if (x[0] > end) {\n        count++;\n        end = x[1];\n      }\n    return count;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[][] {{1, 2}, {3, 4}, {0, 6}, {5, 7}, {8, 9}, {5, 9}}));\n  }\n}\n"
+  },
+  "Non-overlapping Intervals": {
+    "expected": "1",
+    "problem": "Return minimum intervals to remove so remaining intervals do not overlap; touching endpoints are allowed.",
+    "approach": "Maximize kept intervals with earliest finishing compatible choices, then subtract from total. The earliest-finish exchange argument proves the kept count is optimal.",
+    "complexity": "O(n log n) time; O(n) copy space.",
+    "trace": "Keep [1,2],[2,3],[3,4], removing [1,3].",
+    "pitfalls": "This contract uses >= unlike strict meeting scheduling.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[][] sorted(int[][] intervals) {\n    int[][] a = new int[intervals.length][];\n    for (int i = 0; i < a.length; i++) {\n      a[i] = intervals[i].clone();\n      if (a[i][0] > a[i][1]) throw new IllegalArgumentException();\n    }\n    return a;\n  }\n\n  public static int solve(int[][] input) {\n    int[][] a = sorted(input);\n    Arrays.sort(a, (x, y) -> Integer.compare(x[1], y[1]));\n    long end = Long.MIN_VALUE;\n    int kept = 0;\n    for (int[] x : a)\n      if (x[0] >= end) {\n        kept++;\n        end = x[1];\n      }\n    return a.length - kept;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[][] {{1, 2}, {2, 3}, {3, 4}, {1, 3}}));\n  }\n}\n"
+  },
+  "Insert Interval": {
+    "expected": "[[1, 5], [6, 9]]",
+    "problem": "Insert a closed interval and merge overlaps. This implementation accepts unsorted input too.",
+    "approach": "Append the new interval and reuse general sort-and-merge. Correctness follows from the merge invariant.",
+    "complexity": "O(n log n) time; O(n) space.",
+    "trace": "Sort [1,3],[2,5],[6,9], merging the first two.",
+    "pitfalls": "When original input is already sorted and disjoint, a three-phase scan gives O(n) time: copy before, merge overlaps, copy after.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[][] sorted(int[][] intervals) {\n    int[][] a = new int[intervals.length][];\n    for (int i = 0; i < a.length; i++) {\n      a[i] = intervals[i].clone();\n      if (a[i][0] > a[i][1]) throw new IllegalArgumentException();\n    }\n    return a;\n  }\n\n  public static int[][] merge(int[][] input) {\n    int[][] a = sorted(input);\n    Arrays.sort(a, (x, y) -> Integer.compare(x[0], y[0]));\n    List<int[]> out = new ArrayList<>();\n    for (int[] x : a) {\n      if (out.isEmpty() || out.get(out.size() - 1)[1] < x[0]) out.add(x.clone());\n      else {\n        int[] last = out.get(out.size() - 1);\n        last[1] = Math.max(last[1], x[1]);\n      }\n    }\n    return out.toArray(new int[out.size()][]);\n  }\n\n  public static int[][] solve(int[][] a, int[] x) {\n    int[][] all = Arrays.copyOf(a, a.length + 1);\n    all[a.length] = x;\n    return merge(all);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.deepToString(solve(new int[][] {{1, 3}, {6, 9}}, new int[] {2, 5})));\n  }\n}\n"
+  },
+  "Merge Intervals": {
+    "expected": "[[1, 6], [8, 10], [15, 18]]",
+    "problem": "Merge overlapping closed intervals; touching endpoints merge. Return a new array.",
+    "approach": "Sort by start. A new interval either extends the last merged block or starts a new disjoint block. Future starts cannot overlap earlier blocks without also reaching the last.",
+    "complexity": "O(n log n) time; O(n) space.",
+    "trace": "[1,3] and [2,6] combine to [1,6]; subsequent starts 8 and 15 create new blocks.",
+    "pitfalls": "Use max on end: a contained interval must not shrink a block. Inputs are copied.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[][] sorted(int[][] intervals) {\n    int[][] a = new int[intervals.length][];\n    for (int i = 0; i < a.length; i++) {\n      a[i] = intervals[i].clone();\n      if (a[i][0] > a[i][1]) throw new IllegalArgumentException();\n    }\n    return a;\n  }\n\n  public static int[][] solve(int[][] input) {\n    int[][] a = sorted(input);\n    Arrays.sort(a, (x, y) -> Integer.compare(x[0], y[0]));\n    List<int[]> out = new ArrayList<>();\n    for (int[] x : a) {\n      if (out.isEmpty() || out.get(out.size() - 1)[1] < x[0]) out.add(x.clone());\n      else {\n        int[] last = out.get(out.size() - 1);\n        last[1] = Math.max(last[1], x[1]);\n      }\n    }\n    return out.toArray(new int[out.size()][]);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.deepToString(solve(new int[][] {{1, 3}, {2, 6}, {8, 10}, {15, 18}})));\n  }\n}\n"
+  },
+  "Minimum number of platforms required for a railway": {
+    "expected": "3",
+    "problem": "Each train has arrival<=departure on the same day. Count minimum simultaneous platforms; an arrival exactly at a departure needs another platform.",
+    "approach": "Sort event times independently and sweep. An arrival increases active platforms; a departure frees one. Maximum concurrent active trains is both necessary and sufficient.",
+    "complexity": "O(n log n) time; O(n) copies.",
+    "trace": "At 1100 the trains arriving 940,950,1100 overlap until 1120, requiring three.",
+    "pitfalls": "Overnight trains need a normalized day-aware timeline. Change <= to < if touching times may reuse a platform.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] arrival, int[] departure) {\n    if (arrival.length != departure.length) throw new IllegalArgumentException();\n    int[] a = arrival.clone(), d = departure.clone();\n    Arrays.sort(a);\n    Arrays.sort(d);\n    int i = 0, j = 0, active = 0, best = 0;\n    while (i < a.length) {\n      if (j == d.length || a[i] <= d[j]) {\n        active++;\n        best = Math.max(best, active);\n        i++;\n      } else {\n        active--;\n        j++;\n      }\n    }\n    return best;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(\n        solve(\n            new int[] {900, 940, 950, 1100, 1500, 1800},\n            new int[] {910, 1200, 1120, 1130, 1900, 2000}));\n  }\n}\n"
+  },
+  "Valid Paranthesis Checker": {
+    "expected": "true",
+    "problem": "For (,),* where * may be (,),or empty, decide if some replacement gives balanced parentheses.",
+    "approach": "Track a RANGE of possible open counts. * expands low down/high up; clamp low to zero because negative opens are invalid. If high becomes negative, every interpretation fails. At the end zero must be in the range.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "(*)): ranges [1,1] -> [0,2] -> [0,1] -> [0,0].",
+    "pitfalls": "This is the wildcard-parentheses variant; ordinary bracket matching uses a stack.",
+    "alternatives": "Trying all three meanings of every star is O(3^stars). DP memoizes index/open states.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(String s) {\n    int low = 0, high = 0;\n    for (char c : s.toCharArray()) {\n      if (c == '(') {\n        low++;\n        high++;\n      } else if (c == ')') {\n        low--;\n        high--;\n      } else if (c == '*') {\n        low--;\n        high++;\n      } else throw new IllegalArgumentException();\n      if (high < 0) return false;\n      low = Math.max(low, 0);\n    }\n    return low == 0;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"(*))\"));\n  }\n}\n"
+  },
+  "Candy": {
+    "expected": "5",
+    "problem": "Every child receives at least one candy; higher rating than either neighbor needs strictly more candy. Minimize total.",
+    "approach": "Left-to-right enforces the left-neighbor constraint minimally. Right-to-left enforces the right constraint using max to preserve the left one. Each assigned count is the minimum satisfying both slopes.",
+    "complexity": "O(n) time; O(n) space.",
+    "trace": "[1,0,2] left pass [1,1,2], right pass [2,1,2], sum 5.",
+    "pitfalls": "Equal ratings impose no ordering requirement. Total needs long for long slopes.",
+    "alternatives": "A slope-based one-pass method uses O(1) space but must carefully subtract the shared peak when joining ascent and descent.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[] a) {\n    if (a.length == 0) return 0;\n    int[] candy = new int[a.length];\n    Arrays.fill(candy, 1);\n    for (int i = 1; i < a.length; i++) if (a[i] > a[i - 1]) candy[i] = candy[i - 1] + 1;\n    for (int i = a.length - 2; i >= 0; i--)\n      if (a[i] > a[i + 1]) candy[i] = Math.max(candy[i], candy[i + 1] + 1);\n    long sum = 0;\n    for (int x : candy) sum += x;\n    return sum;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 0, 2}));\n  }\n}\n"
+  },
+  "Jump Game II": {
+    "expected": "2",
+    "problem": "Return the minimum jumps to the last index or -1 if unreachable, with nonnegative max jump lengths.",
+    "approach": "Process reachable indices in BFS-like layers. end is the boundary reachable with current jumps; far is the next layer frontier. Cross each layer boundary once.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "First layer from index 0 reaches 2; scanning indices 1,2 extends next frontier to 4, requiring two jumps.",
+    "pitfalls": "Do not increment jumps for each frontier increase. Zero-length progress at a layer boundary means unreachable.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a) {\n    if (a.length == 0) return -1;\n    long end = 0, far = 0;\n    int jumps = 0;\n    for (int i = 0; i < a.length - 1; i++) {\n      if (a[i] < 0) throw new IllegalArgumentException();\n      if (i > far) return -1;\n      far = Math.max(far, (long) i + a[i]);\n      if (i == end) {\n        if (far == end) return -1;\n        jumps++;\n        end = far;\n        if (end >= a.length - 1) return jumps;\n      }\n    }\n    return 0;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {2, 3, 1, 1, 4}));\n  }\n}\n"
+  },
+  "Greedy Minimum Coins for a Canonical System": {
+    "expected": "[50, 20, 20, 2, 1]",
+    "problem": "Minimum coins for the explicitly fixed canonical denominations1,2,5,10,20,50,100. Return coins descending.",
+    "approach": "Take the largest fitting denomination. For this decimal1/2/5 hierarchy, enough lower coins to replace a larger one can always be exchanged without using more coins; normalize these exchanges until the greedy counts remain.",
+    "complexity": "O(number of returned coins+7) time/output; O(1) auxiliary state.",
+    "trace": "93=50+20+20+2+1, five coins.",
+    "pitfalls": "Greedy is not valid for arbitrary denominations:1,3,4 target6 greedily uses4+1+1, while3+3 is optimal. Use the DP Minimum coins lesson for general systems. This is an algorithmic coin system, not a claim about current currency circulation.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static List<Integer> solve(int amount) {\n    if (amount < 0) throw new IllegalArgumentException();\n    int[] coins = {100, 50, 20, 10, 5, 2, 1};\n    List<Integer> out = new ArrayList<>();\n    for (int coin : coins)\n      while (amount >= coin) {\n        amount -= coin;\n        out.add(coin);\n      }\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(93));\n  }\n}\n"
+  }
+}

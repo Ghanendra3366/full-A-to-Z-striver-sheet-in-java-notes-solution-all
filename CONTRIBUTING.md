@@ -1,6 +1,6 @@
 # Contributing
 
-Add or improve a complete question in `tools/content/`, then regenerate with
+Add or improve a complete question in the module JSON in `tools/content/`, then regenerate with
 `python tools/build_catalog.py`. Use the title from `curriculum/manifest.json`.
 
 Every solution needs an explicit contract, readable Java 8 code, a worked example,
@@ -8,7 +8,11 @@ reasoning about correctness, time and space costs, and edge cases. State limitat
 such as lowercase ASCII, positive input, or input mutation. Never mark a problem
 implemented merely because a folder exists.
 
-Run `python tools/verify.py` before committing. For algorithm changes add meaningful
+Edit the `source` field for the complete Java class, and the corresponding note fields.
+Additional reference entries are registered in `curriculum/supplements.json`.
+
+Run `python tools/verify.py`, `python tools/regression.py` and `python tools/audit.py`
+before committing. For algorithm changes add meaningful
 edge or differential checks, especially negatives, zeros, duplicates and overflow.
 Prefer one coherent topic or correction per commit. Use your real Git author identity
 and current timestamps. Do not make empty commits or split unrelated formatting lines

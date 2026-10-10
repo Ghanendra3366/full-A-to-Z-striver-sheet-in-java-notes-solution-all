@@ -42,3 +42,6 @@ Follow the section order below. Pending items are listed in the [full coverage i
 - [Reverse Pairs](faqs-hard/reverse-pairs/README.md) — implemented
 - [Maximum Product Subarray in an Array](faqs-hard/maximum-product-subarray-in-an-array/README.md) — implemented
 - [Merge two sorted arrays without extra space](faqs-hard/merge-two-sorted-arrays-without-extra-space/README.md) — implemented
+## Reference supplements
+
+- [Second Smallest Distinct Element](reference-supplements/second-smallest-distinct-element/README.md) — implemented

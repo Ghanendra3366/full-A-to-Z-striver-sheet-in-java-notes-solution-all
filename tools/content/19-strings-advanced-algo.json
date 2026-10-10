@@ -1,0 +1,85 @@
+{
+  "Reverse every word in a string": {
+    "expected": "blue is sky the",
+    "problem": "Interpret this sheet item as reverse WORD ORDER, retaining letters within words and normalizing whitespace.",
+    "approach": "Tokenize whitespace-delimited words, then append them in reverse index order with one separating space.",
+    "complexity": "O(n) time and O(n) storage.",
+    "trace": "the,sky,is,blue -> blue,is,sky,the.",
+    "pitfalls": "The title can also mean reverse letters within each word. This lesson explicitly states its word-order contract; use per-word reversal for the other variant.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(String s) {\n    String[] words = s.trim().split(\"\\\\s+\");\n    StringBuilder out = new StringBuilder();\n    for (int i = words.length - 1; i >= 0; i--) {\n      if (words[i].isEmpty()) continue;\n      if (out.length() > 0) out.append(' ');\n      out.append(words[i]);\n    }\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"  the sky   is blue  \"));\n  }\n}\n"
+  },
+  "Minimum number of bracket reversals to make an expression balanced": {
+    "expected": "3",
+    "problem": "For a string of { and }, reverse individual braces to make it balanced; return minimum reversals or -1.",
+    "approach": "Cancel matched pairs. Remaining unmatched braces consist of closes then opens. Two closes or two opens need one reversal; odd leftover counts each need rounding up.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "After cancellation, compute ceil(unmatchedOpen/2)+ceil(unmatchedClose/2).",
+    "pitfalls": "An odd total length can never balance. Parenthesis-type mixing requires a different contract.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(String s) {\n    if (s.length() % 2 == 1) return -1;\n    int open = 0, close = 0;\n    for (char c : s.toCharArray()) {\n      if (c == '{') open++;\n      else if (c == '}') {\n        if (open > 0) open--;\n        else close++;\n      } else throw new IllegalArgumentException();\n    }\n    return (open + 1) / 2 + (close + 1) / 2;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"}{{}}{{{\"));\n  }\n}\n"
+  },
+  "Count and say": {
+    "expected": "111221",
+    "problem": "Starting at term 1=\"1\", each next term describes runs of the previous term.",
+    "approach": "For every maximal run, append its length then its character. Runs partition the old term, producing one unambiguous next term.",
+    "complexity": "O(sum of generated term lengths) time; O(max consecutive term lengths) memory.",
+    "trace": "1 -> 11 -> 21 -> 1211 -> 111221.",
+    "pitfalls": "n is one-based. Read a completed previous string; do not mutate it while discovering runs.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(int n) {\n    if (n < 1) throw new IllegalArgumentException();\n    String s = \"1\";\n    for (int step = 1; step < n; step++) {\n      StringBuilder next = new StringBuilder();\n      for (int i = 0; i < s.length(); ) {\n        int j = i + 1;\n        while (j < s.length() && s.charAt(j) == s.charAt(i)) j++;\n        next.append(j - i).append(s.charAt(i));\n        i = j;\n      }\n      s = next.toString();\n    }\n    return s;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(5));\n  }\n}\n"
+  },
+  "Hashing In Strings | Theory": {
+    "theory": "Polynomial hash represents a sequence by a modular weighted sum. Prefix hashes plus powers permit O(1) substring-hash calculation after O(n) preprocessing. Equal hashes do NOT prove equal strings: collisions exist. Double hashing reduces accidental collisions but does not make equality exact. For exact matching verify candidate characters or use KMP/Z. Java long multiplication may overflow before modulo; choose a modulus/base whose intermediate product fits, or use an overflow-safe multiply. Normalize subtraction modulo a positive modulus. A rolling hash removes the outgoing high-order digit, multiplies by base, and adds the incoming digit."
+  },
+  "Rabin Karp Algorithm": {
+    "expected": "[0, 2]",
+    "problem": "Find all exact pattern matches, using rolling hashes as a filter and direct verification for collisions.",
+    "approach": "Compute the initial polynomial hash, then remove the outgoing character's contribution, shift by base, and add the incoming character. Matching hashes trigger exact regionMatches.",
+    "complexity": "O(n+m+candidateCount*m) time; O(1) auxiliary space plus output. Worst case O(n*m), including repetitive true matches.",
+    "trace": "aba hash matches window 0 and window 2; both are verified before emitting.",
+    "pitfalls": "Hash equality alone is not exact matching. Products fit long for this chosen base/modulus and UTF-16 alphabet.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static List<Integer> solve(String text, String pattern) {\n    final long mod = 1000000007L, base = 257;\n    int n = text.length(), m = pattern.length();\n    List<Integer> out = new ArrayList<>();\n    if (m > n) return out;\n    if (m == 0) {\n      for (int i = 0; i <= n; i++) out.add(i);\n      return out;\n    }\n    long high = 1, wanted = 0, current = 0;\n    for (int i = 0; i < m; i++) {\n      wanted = (wanted * base + pattern.charAt(i)) % mod;\n      current = (current * base + text.charAt(i)) % mod;\n      if (i < m - 1) high = high * base % mod;\n    }\n    for (int i = 0; i <= n - m; i++) {\n      if (current == wanted && text.regionMatches(i, pattern, 0, m)) out.add(i);\n      if (i < n - m) {\n        current = (current - text.charAt(i) * high % mod + mod) % mod;\n        current = (current * base + text.charAt(i + m)) % mod;\n      }\n    }\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"ababa\", \"aba\"));\n  }\n}\n"
+  },
+  "Z function": {
+    "expected": "[0, 4, 3, 2, 1]",
+    "problem": "z[i] is the longest prefix matching the suffix beginning at i; z[0]=0 by convention.",
+    "approach": "Maintain the rightmost prefix-matching box [l,r]. Inside it, reuse the corresponding earlier Z value capped at the box boundary, then extend comparisons beyond that boundary.",
+    "complexity": "O(n) time; O(n) returned array, O(1) extra state.",
+    "trace": "aaaaa: from position 1 match four letters, then reuse progressively shorter box matches.",
+    "pitfalls": "Index 0 has differing conventions; here it is explicitly zero. Use a separator absent from the alphabet for pattern+separator+text matching.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(String s) {\n    int[] z = new int[s.length()];\n    int l = 0, r = 0;\n    for (int i = 1; i < s.length(); i++) {\n      if (i <= r) z[i] = Math.min(r - i + 1, z[i - l]);\n      while (i + z[i] < s.length() && s.charAt(z[i]) == s.charAt(i + z[i])) z[i]++;\n      if (i + z[i] - 1 > r) {\n        l = i;\n        r = i + z[i] - 1;\n      }\n    }\n    return z;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(\"aaaaa\")));\n  }\n}\n"
+  },
+  "KMP Algorithm or LPS array": {
+    "expected": "[0, 2]",
+    "problem": "Return all zero-based starts of pattern in text, including overlapping matches. Empty pattern matches every boundary.",
+    "approach": "LPS stores each prefix's longest proper prefix that is also suffix. On mismatch, fall back to that border rather than rechecking known characters. After a match, fall back to allow overlaps.",
+    "complexity": "O(n+m) time; O(m) failure array plus output.",
+    "trace": "ababa contains aba at 0; after matching, keep border a and match again at 2.",
+    "pitfalls": "Do not reset pattern index to zero after every full match; that loses the efficiency/border invariant.",
+    "alternatives": "Direct comparison at each start is O(n*m) worst time and O(1) auxiliary space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] lps(String s) {\n    int[] a = new int[s.length()];\n    for (int i = 1, len = 0; i < s.length(); ) {\n      if (s.charAt(i) == s.charAt(len)) a[i++] = ++len;\n      else if (len > 0) len = a[len - 1];\n      else a[i++] = 0;\n    }\n    return a;\n  }\n\n  public static List<Integer> solve(String text, String pattern) {\n    List<Integer> out = new ArrayList<>();\n    if (pattern.isEmpty()) {\n      for (int i = 0; i <= text.length(); i++) out.add(i);\n      return out;\n    }\n    int[] fail = lps(pattern);\n    for (int i = 0, j = 0; i < text.length(); ) {\n      if (text.charAt(i) == pattern.charAt(j)) {\n        i++;\n        j++;\n        if (j == pattern.length()) {\n          out.add(i - j);\n          j = fail[j - 1];\n        }\n      } else if (j > 0) j = fail[j - 1];\n      else i++;\n    }\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"ababa\", \"aba\"));\n  }\n}\n"
+  },
+  "Shortest Palindrome": {
+    "expected": "aaacecaaa",
+    "problem": "Add characters only at the FRONT to make a shortest palindrome. Input is ASCII/ordinary BMP characters, excluding surrogate-pair semantics.",
+    "approach": "Find the longest palindromic prefix via LPS on s, a unique sentinel, and reverse(s). The unmatched suffix must be mirrored in front; no shorter addition could cover it.",
+    "complexity": "O(n) time/space.",
+    "trace": "Longest palindromic prefix is aacecaa; unmatched a is mirrored in front.",
+    "pitfalls": "A literal separator might appear in input; integer sentinel -1 cannot equal a char value. StringBuilder.reverse handles surrogate pairs differently from the code-unit LPS, so the stated character contract matters.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(String s) {\n    int[] a = new int[2 * s.length() + 1];\n    for (int i = 0; i < s.length(); i++) a[i] = s.charAt(i);\n    a[s.length()] = -1;\n    for (int i = 0; i < s.length(); i++) a[s.length() + 1 + i] = s.charAt(s.length() - 1 - i);\n    int[] fail = new int[a.length];\n    for (int i = 1, j = 0; i < a.length; i++) {\n      while (j > 0 && a[i] != a[j]) j = fail[j - 1];\n      if (a[i] == a[j]) j++;\n      fail[i] = j;\n    }\n    int palindrome = fail[a.length - 1];\n    return new StringBuilder(s.substring(palindrome)).reverse().append(s).toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"aacecaaa\"));\n  }\n}\n"
+  },
+  "Longest happy prefix": {
+    "expected": "l",
+    "problem": "Return the longest NONEMPTY proper prefix that is also suffix, or empty if none.",
+    "approach": "The final LPS entry is exactly the largest proper border length for the entire string.",
+    "complexity": "O(n) time and O(n) failure-array space plus output.",
+    "trace": "level begins and ends with l, but no longer proper prefix matches its suffix.",
+    "pitfalls": "The full string is not a proper prefix. Empty input has no nonempty border.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] lps(String s) {\n    int[] a = new int[s.length()];\n    for (int i = 1, len = 0; i < s.length(); ) {\n      if (s.charAt(i) == s.charAt(len)) a[i++] = ++len;\n      else if (len > 0) len = a[len - 1];\n      else a[i++] = 0;\n    }\n    return a;\n  }\n\n  public static String solve(String s) {\n    return s.isEmpty() ? \"\" : s.substring(0, lps(s)[s.length() - 1]);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"level\"));\n  }\n}\n"
+  }
+}

@@ -22,7 +22,7 @@ O(n) time; O(number of pairs) output space.
 
 ## Edge cases and Java 8 mistakes
 
-This duplicate-skipping kernel assumes unique values for its crossing test after an equality; for heavy duplicate multiplicities use a counted-value variant. Demo/input study contract is distinct sorted values.
+Track pointer positions as well as references so skipping duplicate runs stops safely when positions cross. Two separate equal-valued nodes can form a pair; one node cannot pair with itself.
 
 ## Run
 
@@ -41,4 +41,4 @@ Expected output:
 
 Code: [Solution.java](Solution.java). Methods are reusable; `main` is a deterministic example.
 
-[Curriculum index](../../../../COVERAGE.md)
+[Curriculum index](../../../../curriculum/COVERAGE.md)

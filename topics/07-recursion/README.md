@@ -34,3 +34,8 @@ Follow the section order below. Pending items are listed in the [full coverage i
 - [M Coloring Problem](faqs-hard/m-coloring-problem/README.md) — implemented
 - [Sudoku Solver](faqs-hard/sudoku-solver/README.md) — implemented
 - [Expression Add Operators](faqs-hard/expression-add-operators/README.md) — implemented
+## Reference supplements
+
+- [Sort a Stack Using Recursion](reference-supplements/sort-a-stack-using-recursion/README.md) — implemented
+- [Subset Sums Enumeration](reference-supplements/subset-sums-enumeration/README.md) — implemented
+- [Recursive String to Integer](reference-supplements/recursive-string-to-integer/README.md) — implemented

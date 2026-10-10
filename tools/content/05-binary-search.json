@@ -1,0 +1,322 @@
+{
+  "Binary Search": {
+    "expected": "2",
+    "problem": "Find any occurrence of x in a nondecreasing array, returning index or -1.",
+    "approach": "Comparison with the middle discards a half that cannot contain x. The interval length strictly decreases.",
+    "complexity": "O(log n) time; O(1) space.",
+    "trace": "mid 1 is 3<5, search [2,3]; mid 2 matches.",
+    "pitfalls": "Use l+(r-l)/2 to avoid addition overflow. A duplicate result need not be first.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a, int x) {\n    int l = 0, r = a.length - 1;\n    while (l <= r) {\n      int m = l + (r - l) / 2;\n      if (a[m] == x) return m;\n      if (a[m] < x) l = m + 1;\n      else r = m - 1;\n    }\n    return -1;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 3, 5, 7}, 5));\n  }\n}\n"
+  },
+  "Lower Bound": {
+    "expected": "1",
+    "problem": "On a nondecreasing array return first index with value >= x, or length if absent.",
+    "approach": "Use half-open [l,r). The answer is never excluded: qualifying mid keeps the left half including mid; a nonqualifying mid moves l past mid. l==r is the insertion boundary.",
+    "complexity": "O(log n) time; O(1) space.",
+    "trace": "For [1,2,2,4], lower boundary for 2 is 1 and upper is 3.",
+    "pitfalls": "Empty array returns 0. Boundary index length is valid as a result but cannot be dereferenced.",
+    "alternatives": "A scan is O(n); binary search exploits sorted order.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int bound(int[] a, int x, boolean upper) {\n    int l = 0, r = a.length;\n    while (l < r) {\n      int m = l + (r - l) / 2;\n      if (a[m] < x || upper && a[m] == x) l = m + 1;\n      else r = m;\n    }\n    return l;\n  }\n\n  public static int solve(int[] a, int x) {\n    return bound(a, x, false);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 2, 4}, 2));\n  }\n}\n"
+  },
+  "Upper Bound": {
+    "expected": "3",
+    "problem": "On a nondecreasing array return first index with value > x, or length if absent.",
+    "approach": "Use half-open [l,r). The answer is never excluded: qualifying mid keeps the left half including mid; a nonqualifying mid moves l past mid. l==r is the insertion boundary.",
+    "complexity": "O(log n) time; O(1) space.",
+    "trace": "For [1,2,2,4], lower boundary for 2 is 1 and upper is 3.",
+    "pitfalls": "Empty array returns 0. Boundary index length is valid as a result but cannot be dereferenced.",
+    "alternatives": "A scan is O(n); binary search exploits sorted order.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int bound(int[] a, int x, boolean upper) {\n    int l = 0, r = a.length;\n    while (l < r) {\n      int m = l + (r - l) / 2;\n      if (a[m] < x || upper && a[m] == x) l = m + 1;\n      else r = m;\n    }\n    return l;\n  }\n\n  public static int solve(int[] a, int x) {\n    return bound(a, x, true);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 2, 4}, 2));\n  }\n}\n"
+  },
+  "Search Insert Position": {
+    "expected": "1",
+    "problem": "On a nondecreasing array return first index with value >= x, or length if absent.",
+    "approach": "Use half-open [l,r). The answer is never excluded: qualifying mid keeps the left half including mid; a nonqualifying mid moves l past mid. l==r is the insertion boundary.",
+    "complexity": "O(log n) time; O(1) space.",
+    "trace": "For [1,2,2,4], lower boundary for 2 is 1 and upper is 3.",
+    "pitfalls": "Empty array returns 0. Boundary index length is valid as a result but cannot be dereferenced.",
+    "alternatives": "A scan is O(n); binary search exploits sorted order.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int bound(int[] a, int x, boolean upper) {\n    int l = 0, r = a.length;\n    while (l < r) {\n      int m = l + (r - l) / 2;\n      if (a[m] < x || upper && a[m] == x) l = m + 1;\n      else r = m;\n    }\n    return l;\n  }\n\n  public static int solve(int[] a, int x) {\n    return bound(a, x, false);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 2, 4}, 2));\n  }\n}\n"
+  },
+  "Floor and Ceil in Sorted Array": {
+    "expected": "3 5",
+    "problem": "Return [floor value <=x, ceil value >=x] as OptionalInts; either may be absent.",
+    "approach": "Floor is the value just before upper bound; ceil is the value at lower bound.",
+    "complexity": "O(log n) time; O(1) space.",
+    "trace": "For x=4 lower=2, upper=2; a[1]=3 and a[2]=5.",
+    "pitfalls": "Floor/ceil are values, not indices. OptionalInt avoids collision with a valid -1.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int bound(int[] a, int x, boolean upper) {\n    int l = 0, r = a.length;\n    while (l < r) {\n      int m = l + (r - l) / 2;\n      if (a[m] < x || upper && a[m] == x) l = m + 1;\n      else r = m;\n    }\n    return l;\n  }\n\n  public static OptionalInt[] solve(int[] a, int x) {\n    int lower = bound(a, x, false), upper = bound(a, x, true);\n    return new OptionalInt[] {\n      upper == 0 ? OptionalInt.empty() : OptionalInt.of(a[upper - 1]),\n      lower == a.length ? OptionalInt.empty() : OptionalInt.of(a[lower])\n    };\n  }\n\n  public static void main(String[] args) {\n    OptionalInt[] ans = solve(new int[] {1, 3, 5}, 4);\n    System.out.println(ans[0].getAsInt() + \" \" + ans[1].getAsInt());\n  }\n}\n"
+  },
+  "First and Last Occurrence": {
+    "expected": "[1, 3]",
+    "problem": "Return first/last indices of x, or [-1,-1].",
+    "approach": "Equal values occupy [lowerBound,upperBound), so the inclusive last is upper-1.",
+    "complexity": "O(log n) time; O(1) space.",
+    "trace": "The block of 2 is indices [1,4), giving [1,3].",
+    "pitfalls": "When lower==upper the value is absent, including empty input.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int bound(int[] a, int x, boolean upper) {\n    int l = 0, r = a.length;\n    while (l < r) {\n      int m = l + (r - l) / 2;\n      if (a[m] < x || upper && a[m] == x) l = m + 1;\n      else r = m;\n    }\n    return l;\n  }\n\n  public static int[] solve(int[] a, int x) {\n    int l = bound(a, x, false), r = bound(a, x, true);\n    return l == r ? new int[] {-1, -1} : new int[] {l, r - 1};\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {1, 2, 2, 2, 4}, 2)));\n  }\n}\n"
+  },
+  "Count Occurrences in Sorted Array": {
+    "expected": "3",
+    "problem": "Count occurrences of x in a nondecreasing array.",
+    "approach": "Subtract lower from upper boundary of the equal-value block.",
+    "complexity": "O(log n) time; O(1) space.",
+    "trace": "upper 4 minus lower 1 equals 3.",
+    "pitfalls": "Absent values give equal bounds and count zero.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int bound(int[] a, int x, boolean upper) {\n    int l = 0, r = a.length;\n    while (l < r) {\n      int m = l + (r - l) / 2;\n      if (a[m] < x || upper && a[m] == x) l = m + 1;\n      else r = m;\n    }\n    return l;\n  }\n\n  public static int solve(int[] a, int x) {\n    return bound(a, x, true) - bound(a, x, false);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 2, 2, 4}, 2));\n  }\n}\n"
+  },
+  "Search in Rotated Sorted Array I": {
+    "expected": "4",
+    "problem": "Search a rotated nondecreasing array of distinct values; return index or -1.",
+    "approach": "At least one side of mid is sorted. Check whether target lies in that sorted interval; keep that side or the other. Equal endpoints/mid can hide the sorted side, so trim endpoints for the duplicate variant.",
+    "complexity": "O(log n) time; O(1) space.",
+    "trace": "[4,5,6,7,0,1,2]: left of 7 is sorted, but 0 lies outside; search right and find index 4.",
+    "pitfalls": "Distinct-input reasoning alone cannot resolve all-equal endpoints. Shrinking duplicates degrades worst-case time to linear.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int search(int[] a, int x, boolean duplicates) {\n    int l = 0, r = a.length - 1;\n    while (l <= r) {\n      int m = l + (r - l) / 2;\n      if (a[m] == x) return m;\n      if (duplicates && a[l] == a[m] && a[m] == a[r]) {\n        l++;\n        r--;\n        continue;\n      }\n      if (a[l] <= a[m]) {\n        if (a[l] <= x && x < a[m]) r = m - 1;\n        else l = m + 1;\n      } else {\n        if (a[m] < x && x <= a[r]) l = m + 1;\n        else r = m - 1;\n      }\n    }\n    return -1;\n  }\n\n  public static int solve(int[] a, int x) {\n    return search(a, x, false);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {4, 5, 6, 7, 0, 1, 2}, 0));\n  }\n}\n"
+  },
+  "Search in Rotated Sorted Array II": {
+    "expected": "true",
+    "problem": "Search a rotated nondecreasing array allowing duplicates; return existence.",
+    "approach": "At least one side of mid is sorted. Check whether target lies in that sorted interval; keep that side or the other. Equal endpoints/mid can hide the sorted side, so trim endpoints for the duplicate variant.",
+    "complexity": "O(n) worst time with duplicates; O(1) space.",
+    "trace": "[4,5,6,7,0,1,2]: left of 7 is sorted, but 0 lies outside; search right and find index 4.",
+    "pitfalls": "Distinct-input reasoning alone cannot resolve all-equal endpoints. Shrinking duplicates degrades worst-case time to linear.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int search(int[] a, int x, boolean duplicates) {\n    int l = 0, r = a.length - 1;\n    while (l <= r) {\n      int m = l + (r - l) / 2;\n      if (a[m] == x) return m;\n      if (duplicates && a[l] == a[m] && a[m] == a[r]) {\n        l++;\n        r--;\n        continue;\n      }\n      if (a[l] <= a[m]) {\n        if (a[l] <= x && x < a[m]) r = m - 1;\n        else l = m + 1;\n      } else {\n        if (a[m] < x && x <= a[r]) l = m + 1;\n        else r = m - 1;\n      }\n    }\n    return -1;\n  }\n\n  public static boolean solve(int[] a, int x) {\n    return search(a, x, true) >= 0;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {4, 5, 6, 7, 0, 1, 2}, 0));\n  }\n}\n"
+  },
+  "Minimum in Rotated Sorted Array": {
+    "expected": "1",
+    "problem": "For a nonempty rotated array of DISTINCT values return its minimum value.",
+    "approach": "Compare mid with right: if mid is greater, the rotation break is to its right; otherwise mid may be the minimum, so retain it.",
+    "complexity": "O(log n) time; O(1) space.",
+    "trace": "mid at value 1 <= right 3, keep left including mid; answer index 2.",
+    "pitfalls": "With duplicates use r-- when a[mid]==a[r], with O(n) worst time. Distinctness is required by this implementation.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int minIndex(int[] a) {\n    if (a.length == 0) throw new IllegalArgumentException();\n    int l = 0, r = a.length - 1;\n    while (l < r) {\n      int m = l + (r - l) / 2;\n      if (a[m] > a[r]) l = m + 1;\n      else r = m;\n    }\n    return l;\n  }\n\n  public static int solve(int[] a) {\n    return a[minIndex(a)];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {4, 5, 1, 2, 3}));\n  }\n}\n"
+  },
+  "Rotation Count": {
+    "expected": "2",
+    "problem": "For a nonempty rotated array of DISTINCT values return number of right rotations modulo n (the minimum index).",
+    "approach": "Compare mid with right: if mid is greater, the rotation break is to its right; otherwise mid may be the minimum, so retain it.",
+    "complexity": "O(log n) time; O(1) space.",
+    "trace": "mid at value 1 <= right 3, keep left including mid; answer index 2.",
+    "pitfalls": "With duplicates use r-- when a[mid]==a[r], with O(n) worst time. Distinctness is required by this implementation.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int minIndex(int[] a) {\n    if (a.length == 0) throw new IllegalArgumentException();\n    int l = 0, r = a.length - 1;\n    while (l < r) {\n      int m = l + (r - l) / 2;\n      if (a[m] > a[r]) l = m + 1;\n      else r = m;\n    }\n    return l;\n  }\n\n  public static int solve(int[] a) {\n    return minIndex(a);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {4, 5, 1, 2, 3}));\n  }\n}\n"
+  },
+  "Single Element in Sorted Array": {
+    "expected": "2",
+    "problem": "A sorted odd-length array has one single value; every other value appears exactly twice. Return the single.",
+    "approach": "Before the single, pairs start at even indices. Force mid to be even: if mid/mid+1 match, the single is later; otherwise it is at or before mid.",
+    "complexity": "O(log n) time; O(1) space.",
+    "trace": "For [1,1,2,3,3,4,4], even mid 2 mismatches 3; left half contains single 2.",
+    "pitfalls": "Contract requires exactly paired other values. Singleton input is valid.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a) {\n    if (a.length == 0) throw new IllegalArgumentException();\n    int l = 0, r = a.length - 1;\n    while (l < r) {\n      int m = l + (r - l) / 2;\n      if (m % 2 == 1) m--;\n      if (a[m] == a[m + 1]) l = m + 2;\n      else r = m;\n    }\n    return a[l];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 1, 2, 3, 3, 4, 4}));\n  }\n}\n"
+  },
+  "Square Root of a Number": {
+    "expected": "46340",
+    "problem": "Return floor(sqrt(n)) for n>=0.",
+    "approach": "Search the largest m with m²<=n. Check m<=n/m to avoid multiplication overflow.",
+    "complexity": "O(log(n+1)) time; O(1) space.",
+    "trace": "46340²<=2147483647; 46341² is larger.",
+    "pitfalls": "Search starts at 1, so division by zero is impossible; n=0 leaves answer 0.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int n) {\n    if (n < 0) throw new IllegalArgumentException();\n    int l = 1, r = n, ans = 0;\n    while (l <= r) {\n      int m = l + (r - l) / 2;\n      if (m <= n / m) {\n        ans = m;\n        l = m + 1;\n      } else r = m - 1;\n    }\n    return ans;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(Integer.MAX_VALUE));\n  }\n}\n"
+  },
+  "Nth Root of a Number": {
+    "expected": "3",
+    "problem": "Return the exact nonnegative integer nth root for power>=1 and value>=0, or -1.",
+    "approach": "Binary search the base. During exponentiation, stop before a multiply would exceed value; this both caps work and avoids overflow.",
+    "complexity": "O(power*log(value+1)) worst time; O(1) space.",
+    "trace": "3³=27, so base 3 is an exact match.",
+    "pitfalls": "Do not use floating-point equality for exact roots. Zero root is handled separately.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static int compare(long x, int power, int value) {\n    long product = 1;\n    for (int i = 0; i < power; i++) {\n      if (x != 0 && product > value / x) return 1;\n      product *= x;\n    }\n    return Long.compare(product, value);\n  }\n\n  public static int solve(int power, int value) {\n    if (power <= 0 || value < 0) throw new IllegalArgumentException();\n    if (value == 0) return 0;\n    int l = 1, r = value;\n    while (l <= r) {\n      int m = l + (r - l) / 2, c = compare(m, power, value);\n      if (c == 0) return m;\n      if (c < 0) {\n        if (m == Integer.MAX_VALUE) break;\n        l = m + 1;\n      } else r = m - 1;\n    }\n    return -1;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(3, 27));\n  }\n}\n"
+  },
+  "Koko Eating Bananas": {
+    "expected": "4",
+    "problem": "Each nonempty pile consumes ceil(pile/speed) whole hours. Find smallest integer speed within hours, or -1 when impossible.",
+    "approach": "Feasibility is monotone: faster never needs more time. Binary search the first feasible speed between 1 and largest pile.",
+    "complexity": "O(n log maxPile) time; O(1) space.",
+    "trace": "Speed 4 requires 1+2+2+3=8; speed 3 requires 1+2+3+4=10.",
+    "pitfalls": "Use long for ceiling arithmetic and totals. One hour per nonempty pile is a necessary lower bound.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a, long hours) {\n    int max = 0, positive = 0;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      max = Math.max(max, x);\n      if (x > 0) positive++;\n    }\n    if (positive == 0) return 0;\n    if (hours < positive) return -1;\n    int l = 1, r = max;\n    while (l < r) {\n      int m = l + (r - l) / 2;\n      long needed = 0;\n      for (int x : a) needed += ((long) x + m - 1) / m;\n      if (needed <= hours) r = m;\n      else l = m + 1;\n    }\n    return l;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {3, 6, 7, 11}, 8));\n  }\n}\n"
+  },
+  "Minimum Days to Make Bouquets": {
+    "expected": "3",
+    "problem": "Make m bouquets using k adjacent, disjoint bloomed flowers each; find earliest day or -1. Bloom days are nonnegative.",
+    "approach": "For a day, count disjoint groups of k within bloomed runs. Later days can only add usable flowers, giving monotone feasibility.",
+    "complexity": "O(n log dayRange) time; O(1) space.",
+    "trace": "Day 3 blooms positions 0,2,4, enough for three single-flower bouquets.",
+    "pitfalls": "m*k needs long. Breaking adjacency resets the run; do not count merely the total bloomed flowers.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static boolean possible(int[] a, int day, int m, int k) {\n    int run = 0, made = 0;\n    for (int x : a) {\n      if (x <= day) {\n        if (++run == k) {\n          made++;\n          run = 0;\n        }\n      } else run = 0;\n    }\n    return made >= m;\n  }\n\n  public static int solve(int[] a, int m, int k) {\n    if (m < 0 || k <= 0) throw new IllegalArgumentException();\n    if (m == 0) return 0;\n    if ((long) m * k > a.length) return -1;\n    int l = Integer.MAX_VALUE, r = Integer.MIN_VALUE;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      l = Math.min(l, x);\n      r = Math.max(r, x);\n    }\n    while (l < r) {\n      int mid = l + (r - l) / 2;\n      if (possible(a, mid, m, k)) r = mid;\n      else l = mid + 1;\n    }\n    return l;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 10, 3, 10, 2}, 3, 1));\n  }\n}\n"
+  },
+  "Smallest Divisor Given a Threshold": {
+    "expected": "5",
+    "problem": "For nonnegative values, find the smallest positive divisor d for which sum ceil(a[i]/d)<=threshold.",
+    "approach": "The ceiling sum is nonincreasing as divisor increases. Search its first threshold-satisfying point.",
+    "complexity": "O(n log maxValue) time; O(1) space.",
+    "trace": "d=5 yields 1+1+1+2=5; d=4 yields 1+1+2+3=7.",
+    "pitfalls": "An all-zero array admits divisor 1. Threshold smaller than the count of positive values is impossible.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a, long threshold) {\n    int max = 0, positive = 0;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      max = Math.max(max, x);\n      if (x > 0) positive++;\n    }\n    if (positive == 0) return 1;\n    if (threshold < positive) return -1;\n    int l = 1, r = max;\n    while (l < r) {\n      int m = l + (r - l) / 2;\n      long sum = 0;\n      for (int x : a) sum += ((long) x + m - 1) / m;\n      if (sum <= threshold) r = m;\n      else l = m + 1;\n    }\n    return l;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 5, 9}, 6));\n  }\n}\n"
+  },
+  "Capacity to Ship Packages Within D Days": {
+    "expected": "18",
+    "problem": "Partition nonnegative ordered weights/pages/lengths into at most parts contiguous groups; minimize the largest group sum. Return long.",
+    "approach": "Given a candidate maximum, greedily fill each group until the next item would exceed it. This uses the fewest groups for that maximum. Feasibility becomes true monotonically as the maximum increases.",
+    "complexity": "O(n log(sum-max+1)) time; O(1) space.",
+    "trace": "At capacity 18, groups [7,2,5] sum 14 and [10,8] sum 18. Capacity 17 needs three groups.",
+    "pitfalls": "No reordering or splitting individual items. Books rejects more students than books. Painter time multipliers belong outside this common partition kernel. Negative values violate greedy monotonicity.",
+    "alternatives": "Enumerating every cut placement is exponential. DP over position and number of groups is O(parts*n²).",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[] a, int parts) {\n    if (parts <= 0) throw new IllegalArgumentException();\n    if (a.length == 0) return 0;\n    long l = 0, r = 0;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      l = Math.max(l, x);\n      r += x;\n    }\n    while (l < r) {\n      long mid = l + (r - l) / 2, load = 0;\n      int used = 1;\n      for (int x : a) {\n        if (load + x > mid) {\n          used++;\n          load = 0;\n        }\n        load += x;\n      }\n      if (used <= parts) r = mid;\n      else l = mid + 1;\n    }\n    return l;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {7, 2, 5, 10, 8}, 2));\n  }\n}\n"
+  },
+  "Kth Missing Positive Number": {
+    "expected": "9",
+    "problem": "Given strictly increasing positive integers, return kth missing positive, k>=1.",
+    "approach": "Missing count before a[i] is a[i]-(i+1). Binary search the first count at least k. Before that boundary, l actual values shift the answer to k+l.",
+    "complexity": "O(log n) time; O(1) space.",
+    "trace": "Missing positives are 1,5,6,8,9; the fifth is 9.",
+    "pitfalls": "Input must be positive, sorted and distinct; empty input returns k. Overflow is explicitly rejected.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a, int k) {\n    if (k <= 0) throw new IllegalArgumentException();\n    int l = 0, r = a.length;\n    while (l < r) {\n      int m = l + (r - l) / 2;\n      if ((long) a[m] - m - 1 < k) l = m + 1;\n      else r = m;\n    }\n    long ans = (long) l + k;\n    if (ans > Integer.MAX_VALUE) throw new ArithmeticException();\n    return (int) ans;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {2, 3, 4, 7, 11}, 5));\n  }\n}\n"
+  },
+  "Aggressive Cows": {
+    "expected": "3",
+    "problem": "Choose cows stall positions maximizing their minimum pairwise distance. Require 2<=cows<=stall count.",
+    "approach": "Sort stalls. For a candidate distance place each next cow at the earliest possible stall; choosing earlier cannot reduce future options. Search the last feasible distance.",
+    "complexity": "O(n log n+n log coordinateRange) time; O(n) copy space.",
+    "trace": "Sorted 1,2,4,8,9: distance 3 permits 1,4,8; distance 4 permits only 1,8.",
+    "pitfalls": "Use long coordinate differences for negative and extreme int coordinates. One cow has no pairwise minimum, so it is rejected.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[] input, int cows) {\n    if (cows < 2 || cows > input.length) throw new IllegalArgumentException(\"2<=cows<=n\");\n    int[] a = input.clone();\n    Arrays.sort(a);\n    long l = 0, r = (long) a[a.length - 1] - a[0];\n    while (l < r) {\n      long mid = l + (r - l + 1) / 2;\n      int placed = 1, last = a[0];\n      for (int i = 1; i < a.length; i++)\n        if ((long) a[i] - last >= mid) {\n          placed++;\n          last = a[i];\n        }\n      if (placed >= cows) l = mid;\n      else r = mid - 1;\n    }\n    return l;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 8, 4, 9}, 3));\n  }\n}\n"
+  },
+  "Find Peak Element": {
+    "expected": "2",
+    "problem": "Return a STRICT local maximum index, assuming adjacent values are unequal and outside boundaries are -infinity.",
+    "approach": "An ascending slope guarantees some peak to the right; a descending slope guarantees one on the left including mid. Retain that side.",
+    "complexity": "O(log n) time; O(1) space.",
+    "trace": "[1,2,3,1]: slope 2<3 goes right; slope 3>1 keeps index 2.",
+    "pitfalls": "Without the unequal-neighbor assumption, this finds a weak peak and may not satisfy a strict-peak judge.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a) {\n    if (a.length == 0) return -1;\n    int l = 0, r = a.length - 1;\n    while (l < r) {\n      int m = l + (r - l) / 2;\n      if (a[m] < a[m + 1]) l = m + 1;\n      else r = m;\n    }\n    return l;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 3, 1}));\n  }\n}\n"
+  },
+  "Allocate Books": {
+    "expected": "18",
+    "problem": "Partition nonnegative ordered weights/pages/lengths into exactly parts nonempty contiguous groups; minimize the largest group sum. Return long.",
+    "approach": "Given a candidate maximum, greedily fill each group until the next item would exceed it. This uses the fewest groups for that maximum. Feasibility becomes true monotonically as the maximum increases.",
+    "complexity": "O(n log(sum-max+1)) time; O(1) space.",
+    "trace": "At capacity 18, groups [7,2,5] sum 14 and [10,8] sum 18. Capacity 17 needs three groups.",
+    "pitfalls": "No reordering or splitting individual items. Books rejects more students than books. Painter time multipliers belong outside this common partition kernel. Negative values violate greedy monotonicity.",
+    "alternatives": "Enumerating every cut placement is exponential. DP over position and number of groups is O(parts*n²).",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[] a, int parts) {\n    if (parts <= 0) throw new IllegalArgumentException();\n    if (parts > a.length) return -1;\n    if (a.length == 0) return 0;\n    long l = 0, r = 0;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      l = Math.max(l, x);\n      r += x;\n    }\n    while (l < r) {\n      long mid = l + (r - l) / 2, load = 0;\n      int used = 1;\n      for (int x : a) {\n        if (load + x > mid) {\n          used++;\n          load = 0;\n        }\n        load += x;\n      }\n      if (used <= parts) r = mid;\n      else l = mid + 1;\n    }\n    return l;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {7, 2, 5, 10, 8}, 2));\n  }\n}\n"
+  },
+  "Split Array Largest Sum": {
+    "expected": "18",
+    "problem": "Partition nonnegative ordered weights/pages/lengths into at most parts contiguous groups; minimize the largest group sum. Return long.",
+    "approach": "Given a candidate maximum, greedily fill each group until the next item would exceed it. This uses the fewest groups for that maximum. Feasibility becomes true monotonically as the maximum increases.",
+    "complexity": "O(n log(sum-max+1)) time; O(1) space.",
+    "trace": "At capacity 18, groups [7,2,5] sum 14 and [10,8] sum 18. Capacity 17 needs three groups.",
+    "pitfalls": "No reordering or splitting individual items. Books rejects more students than books. Painter time multipliers belong outside this common partition kernel. Negative values violate greedy monotonicity.",
+    "alternatives": "Enumerating every cut placement is exponential. DP over position and number of groups is O(parts*n²).",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[] a, int parts) {\n    if (parts <= 0) throw new IllegalArgumentException();\n    if (a.length == 0) return 0;\n    long l = 0, r = 0;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      l = Math.max(l, x);\n      r += x;\n    }\n    while (l < r) {\n      long mid = l + (r - l) / 2, load = 0;\n      int used = 1;\n      for (int x : a) {\n        if (load + x > mid) {\n          used++;\n          load = 0;\n        }\n        load += x;\n      }\n      if (used <= parts) r = mid;\n      else l = mid + 1;\n    }\n    return l;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {7, 2, 5, 10, 8}, 2));\n  }\n}\n"
+  },
+  "Painter's Partition": {
+    "expected": "18",
+    "problem": "Partition nonnegative ordered weights/pages/lengths into at most parts contiguous groups; minimize the largest group sum. Return long.",
+    "approach": "Given a candidate maximum, greedily fill each group until the next item would exceed it. This uses the fewest groups for that maximum. Feasibility becomes true monotonically as the maximum increases.",
+    "complexity": "O(n log(sum-max+1)) time; O(1) space.",
+    "trace": "At capacity 18, groups [7,2,5] sum 14 and [10,8] sum 18. Capacity 17 needs three groups.",
+    "pitfalls": "No reordering or splitting individual items. Books rejects more students than books. Painter time multipliers belong outside this common partition kernel. Negative values violate greedy monotonicity.",
+    "alternatives": "Enumerating every cut placement is exponential. DP over position and number of groups is O(parts*n²).",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[] a, int parts) {\n    if (parts <= 0) throw new IllegalArgumentException();\n    if (a.length == 0) return 0;\n    long l = 0, r = 0;\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      l = Math.max(l, x);\n      r += x;\n    }\n    while (l < r) {\n      long mid = l + (r - l) / 2, load = 0;\n      int used = 1;\n      for (int x : a) {\n        if (load + x > mid) {\n          used++;\n          load = 0;\n        }\n        load += x;\n      }\n      if (used <= parts) r = mid;\n      else l = mid + 1;\n    }\n    return l;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {7, 2, 5, 10, 8}, 2));\n  }\n}\n"
+  },
+  "Minimize Maximum Distance Between Gas Stations": {
+    "expected": "5.000000",
+    "problem": "Add at most k stations at arbitrary real positions to minimize the largest consecutive gap.",
+    "approach": "For gap g and candidate d, ceil(g/d)-1 new stations suffice. Sum required stations and binary search the first feasible real distance using 80 iterations.",
+    "complexity": "O(n log n+80*n) time; O(n) copy space.",
+    "trace": "Gap 10 with one station splits at 5, yielding maximum gap 5.",
+    "pitfalls": "Floating-point comparisons are approximate; the returned value is intended for a judge tolerance such as 1e-6. Exact multiples require ceil-1, not floor.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static double solve(int[] input, int k) {\n    if (k < 0) throw new IllegalArgumentException();\n    if (input.length < 2) return 0;\n    int[] a = input.clone();\n    Arrays.sort(a);\n    double low = 0, high = 0;\n    for (int i = 1; i < a.length; i++) high = Math.max(high, (double) a[i] - a[i - 1]);\n    for (int it = 0; it < 80; it++) {\n      double mid = (low + high) / 2;\n      if (mid == 0) break;\n      long need = 0;\n      for (int i = 1; i < a.length; i++) {\n        double gap = (double) a[i] - a[i - 1];\n        double parts = Math.ceil(gap / mid) - 1;\n        if (parts > k - need) {\n          need = (long) k + 1;\n          break;\n        }\n        if (parts > 0) need += (long) parts;\n      }\n      if (need <= k) high = mid;\n      else low = mid;\n    }\n    return high;\n  }\n\n  public static void main(String[] args) {\n    System.out.printf(Locale.ROOT, \"%.6f%n\", solve(new int[] {0, 10}, 1));\n  }\n}\n"
+  },
+  "Median of Two Sorted Arrays": {
+    "expected": "2.5",
+    "problem": "Return the median of the sorted multiset union; at least one array must be nonempty.",
+    "approach": "Use logarithmic kth-selection. Odd length takes the middle rank; even length averages both middle ranks.",
+    "complexity": "O(log(min(n,m)+1)) time; O(1) auxiliary space.",
+    "trace": "[1,2,3,4] has middle values 2 and 3, averaging 2.5.",
+    "pitfalls": "Widen before adding middle int values. Both empty arrays have no median.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int kth(int[] a, int[] b, int k) {\n    if (k < 1 || k > a.length + b.length) throw new IllegalArgumentException();\n    if (a.length > b.length) return kth(b, a, k);\n    int l = Math.max(0, k - b.length), r = Math.min(k, a.length);\n    while (l <= r) {\n      int x = l + (r - l) / 2, y = k - x;\n      long al = x == 0 ? Long.MIN_VALUE : a[x - 1],\n          ar = x == a.length ? Long.MAX_VALUE : a[x],\n          bl = y == 0 ? Long.MIN_VALUE : b[y - 1],\n          br = y == b.length ? Long.MAX_VALUE : b[y];\n      if (al <= br && bl <= ar) return (int) Math.max(al, bl);\n      if (al > br) r = x - 1;\n      else l = x + 1;\n    }\n    throw new IllegalArgumentException(\"arrays not sorted\");\n  }\n\n  public static double solve(int[] a, int[] b) {\n    int n = a.length + b.length;\n    if (n == 0) throw new IllegalArgumentException();\n    return n % 2 == 1\n        ? kth(a, b, n / 2 + 1)\n        : ((long) kth(a, b, n / 2) + kth(a, b, n / 2 + 1)) / 2.0;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2}, new int[] {3, 4}));\n  }\n}\n"
+  },
+  "Kth Element of Two Sorted Arrays": {
+    "expected": "6",
+    "problem": "Return the ONE-based kth smallest entry of the combined sorted arrays, counting duplicates.",
+    "approach": "Partition both arrays with exactly k entries on the left. A valid partition has left maxima <= opposite right minima; its largest left value is the kth entry.",
+    "complexity": "O(log(min(n,m)+1)) time; O(1) auxiliary space.",
+    "trace": "For k=5, left sides [2,3,6] and [1,4] contain five values; max left is 6.",
+    "pitfalls": "Use long infinities so real MIN_VALUE/MAX_VALUE are not confused with boundaries. Both arrays must be sorted.",
+    "alternatives": "A two-pointer merge can stop at k in O(k) time and O(1) auxiliary space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a, int[] b, int k) {\n    if (k < 1 || k > a.length + b.length) throw new IllegalArgumentException();\n    if (a.length > b.length) return solve(b, a, k);\n    int l = Math.max(0, k - b.length), r = Math.min(k, a.length);\n    while (l <= r) {\n      int x = l + (r - l) / 2, y = k - x;\n      long al = x == 0 ? Long.MIN_VALUE : a[x - 1],\n          ar = x == a.length ? Long.MAX_VALUE : a[x],\n          bl = y == 0 ? Long.MIN_VALUE : b[y - 1],\n          br = y == b.length ? Long.MAX_VALUE : b[y];\n      if (al <= br && bl <= ar) return (int) Math.max(al, bl);\n      if (al > br) r = x - 1;\n      else l = x + 1;\n    }\n    throw new IllegalArgumentException(\"arrays not sorted\");\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {2, 3, 6, 7, 9}, new int[] {1, 4, 8, 10}, 5));\n  }\n}\n"
+  },
+  "Row with Maximum Ones": {
+    "expected": "1",
+    "problem": "Each binary row is nondecreasing; return the first row with the most ones, or -1 if no ones.",
+    "approach": "First one is lowerBound(1); subtract from row length and retain a strict improvement so ties choose the first row.",
+    "complexity": "O(rows*log(cols+1)) time; O(1) space.",
+    "trace": "Row counts are 1,2,0, so row 1 wins.",
+    "pitfalls": "Rows need to be sorted. An all-zero matrix returns -1.",
+    "alternatives": "A staircase walk from the top-right can achieve O(rows+cols) for a rectangular row-sorted binary matrix.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int bound(int[] a, int x, boolean upper) {\n    int l = 0, r = a.length;\n    while (l < r) {\n      int m = l + (r - l) / 2;\n      if (a[m] < x || upper && a[m] == x) l = m + 1;\n      else r = m;\n    }\n    return l;\n  }\n\n  public static int solve(int[][] a) {\n    int best = -1, count = 0;\n    for (int r = 0; r < a.length; r++) {\n      int ones = a[r].length - bound(a[r], 1, false);\n      if (ones > count) {\n        count = ones;\n        best = r;\n      }\n    }\n    return best;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[][] {{0, 0, 1}, {0, 1, 1}, {0, 0, 0}}));\n  }\n}\n"
+  },
+  "Search a 2D Matrix I": {
+    "expected": "true",
+    "problem": "Rectangular matrix is globally sorted in row-major order: each row sorted and every new row starts after the previous row ends.",
+    "approach": "Treat the matrix as a virtual sorted array; index m maps to row m/cols and column m%cols.",
+    "complexity": "O(log(rows*cols)) time; O(1) space.",
+    "trace": "Virtual array [1,3,5,7,9,11]; 9 is at flat index 4 -> (1,1).",
+    "pitfalls": "Row/column sorting alone is insufficient; that requires Matrix II.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(int[][] a, int x) {\n    if (a.length == 0 || a[0].length == 0) return false;\n    int n = a[0].length;\n    long l = 0, r = (long) a.length * n - 1;\n    while (l <= r) {\n      long m = l + (r - l) / 2;\n      int v = a[(int) (m / n)][(int) (m % n)];\n      if (v == x) return true;\n      if (v < x) l = m + 1;\n      else r = m - 1;\n    }\n    return false;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[][] {{1, 3, 5}, {7, 9, 11}}, 9));\n  }\n}\n"
+  },
+  "Search a 2D Matrix II": {
+    "expected": "true",
+    "problem": "Rectangular matrix has each row and column nondecreasing; search target.",
+    "approach": "Start top-right. If current is too large, its column below is too large as well; discard the column. If too small, its row to the left is too small; discard the row.",
+    "complexity": "O(rows+cols) time; O(1) space.",
+    "trace": "7>6 move left to 4; 4<6 move down to 5; 5<6 move down to 6.",
+    "pitfalls": "This staircase walk needs both row and column monotonicity.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(int[][] a, int x) {\n    if (a.length == 0 || a[0].length == 0) return false;\n    int r = 0, c = a[0].length - 1;\n    while (r < a.length && c >= 0) {\n      if (a[r][c] == x) return true;\n      if (a[r][c] > x) c--;\n      else r++;\n    }\n    return false;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[][] {{1, 4, 7}, {2, 5, 8}, {3, 6, 9}}, 6));\n  }\n}\n"
+  },
+  "Find Peak Element in a 2D Matrix": {
+    "expected": "[1, 0]",
+    "problem": "Find a cell strictly larger than its four orthogonal neighbors; assume orthogonally adjacent values differ. Outside is -infinity.",
+    "approach": "Choose the maximum in the middle column, already larger than vertical neighbors. If a horizontal neighbor is larger, a peak exists toward that side; binary search columns.",
+    "complexity": "O(rows log(cols+1)) time; O(1) space.",
+    "trace": "Column 0 maximum is 3 at row 1; its right neighbor is 2 and vertical neighbor is 1, so (1,0) is a peak.",
+    "pitfalls": "Equal adjacent values violate the strict-peak assumption. Negative values are safe with long boundary sentinels.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[][] a) {\n    if (a.length == 0 || a[0].length == 0) return new int[] {-1, -1};\n    int l = 0, r = a[0].length - 1;\n    while (l <= r) {\n      int c = l + (r - l) / 2, row = 0;\n      for (int i = 1; i < a.length; i++) if (a[i][c] > a[row][c]) row = i;\n      long left = c == 0 ? Long.MIN_VALUE : a[row][c - 1],\n          right = c + 1 == a[0].length ? Long.MIN_VALUE : a[row][c + 1];\n      if (a[row][c] > left && a[row][c] > right) return new int[] {row, c};\n      if (left > a[row][c]) r = c - 1;\n      else l = c + 1;\n    }\n    return new int[] {-1, -1};\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[][] {{1, 4}, {3, 2}})));\n  }\n}\n"
+  },
+  "Median of a Row Wise Sorted Matrix": {
+    "expected": "5",
+    "problem": "Return the median value of a rectangular row-sorted matrix with an odd number of cells.",
+    "approach": "Search VALUE space. Count values <=mid using upper bounds in each row. The median is the smallest value with more than half the cells at or below it.",
+    "complexity": "O(rows*log(cols+1)*log(valueRange+1)) time; O(1) space.",
+    "trace": "Flattened sorted values 1,2,3,3,5,6,6,9,9; fifth value is 5.",
+    "pitfalls": "Use long value bounds for the full signed-int range. This contract excludes even cell counts.",
+    "alternatives": "Flatten and sort uses O(N log N) time and O(N) storage.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[][] a) {\n    if (a.length == 0 || a[0].length == 0) throw new IllegalArgumentException();\n    int n = a[0].length;\n    long total = (long) a.length * n;\n    if (total % 2 == 0) throw new IllegalArgumentException(\"odd cell count required\");\n    long l = Integer.MAX_VALUE, r = Integer.MIN_VALUE;\n    for (int[] row : a) {\n      l = Math.min(l, row[0]);\n      r = Math.max(r, row[n - 1]);\n    }\n    while (l < r) {\n      long mid = l + (r - l) / 2, count = 0;\n      for (int[] row : a) {\n        int lo = 0, hi = n;\n        while (lo < hi) {\n          int m = lo + (hi - lo) / 2;\n          if (row[m] <= mid) lo = m + 1;\n          else hi = m;\n        }\n        count += lo;\n      }\n      if (count > total / 2) r = mid;\n      else l = mid + 1;\n    }\n    return (int) l;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[][] {{1, 3, 5}, {2, 6, 9}, {3, 6, 9}}));\n  }\n}\n"
+  }
+}

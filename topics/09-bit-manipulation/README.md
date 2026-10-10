@@ -22,3 +22,8 @@ Follow the section order below. Pending items are listed in the [full coverage i
 - [Divide two numbers without multiplication and division](problems/divide-two-numbers-without-multiplication-and-division/README.md) — implemented
 - [Power Set Bit Manipulation](problems/power-set-bit-manipulation/README.md) — implemented
 - [XOR of numbers in a given range](problems/xor-of-numbers-in-a-given-range/README.md) — implemented
+## Reference supplements
+
+- [Set the i-th Bit](reference-supplements/set-the-i-th-bit/README.md) — implemented
+- [Clear the i-th Bit](reference-supplements/clear-the-i-th-bit/README.md) — implemented
+- [Toggle the i-th Bit](reference-supplements/toggle-the-i-th-bit/README.md) — implemented

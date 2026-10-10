@@ -1,0 +1,195 @@
+{
+  "Heaps (Theory Video)": {
+    "theory": "A binary heap is a complete tree stored in an array: children of i are 2*i+1 and 2*i+2; parent is (i-1)/2. Min-heap parent<=children makes root smallest but does NOT sort the whole array. Sift-down restores order after replacing a root; sift-up after appending a leaf. Bottom-up heap construction is O(n), since most nodes sit near the leaves. PriorityQueue is a Java 8 min-heap by default. Use Collections.reverseOrder for a max-heap. Its iterator is not sorted; poll repeatedly to obtain sorted priorities. Offer/poll take O(log n), peek O(1)."
+  },
+  "Heapify Algorithm": {
+    "expected": "[1, 3, 2]",
+    "problem": "Build a min heap in place. down(a,i,n,min) is also reusable when both child subtrees are already heaps.",
+    "approach": "Visit internal nodes bottom-up. Sift each violating node toward the smaller/larger child until its subtree obeys heap order; child subtrees were already fixed.",
+    "complexity": "O(n) build time, O(log n) per sift-down, O(1) auxiliary space.",
+    "trace": "At root 3 of [3,1,2], min-heap down swaps with 1, giving [1,3,2].",
+    "pitfalls": "A heap array is not fully sorted. Calling down only at root does not fix arbitrary unsorted children.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static void down(int[] a, int i, int n, boolean min) {\n    while (true) {\n      int best = i, l = 2 * i + 1, r = l + 1;\n      if (l < n && (min ? a[l] < a[best] : a[l] > a[best])) best = l;\n      if (r < n && (min ? a[r] < a[best] : a[r] > a[best])) best = r;\n      if (best == i) return;\n      int t = a[i];\n      a[i] = a[best];\n      a[best] = t;\n      i = best;\n    }\n  }\n\n  static int[] build(int[] a, boolean min) {\n    for (int i = a.length / 2 - 1; i >= 0; i--) down(a, i, a.length, min);\n    return a;\n  }\n\n  public static int[] solve(int[] a) {\n    return build(a, true);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {3, 1, 2})));\n  }\n}\n"
+  },
+  "Build heap from a given Array": {
+    "expected": "[1, 3, 2]",
+    "problem": "Build a min heap in place. down(a,i,n,min) is also reusable when both child subtrees are already heaps.",
+    "approach": "Visit internal nodes bottom-up. Sift each violating node toward the smaller/larger child until its subtree obeys heap order; child subtrees were already fixed.",
+    "complexity": "O(n) build time, O(log n) per sift-down, O(1) auxiliary space.",
+    "trace": "At root 3 of [3,1,2], min-heap down swaps with 1, giving [1,3,2].",
+    "pitfalls": "A heap array is not fully sorted. Calling down only at root does not fix arbitrary unsorted children.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static void down(int[] a, int i, int n, boolean min) {\n    while (true) {\n      int best = i, l = 2 * i + 1, r = l + 1;\n      if (l < n && (min ? a[l] < a[best] : a[l] > a[best])) best = l;\n      if (r < n && (min ? a[r] < a[best] : a[r] > a[best])) best = r;\n      if (best == i) return;\n      int t = a[i];\n      a[i] = a[best];\n      a[best] = t;\n      i = best;\n    }\n  }\n\n  static int[] build(int[] a, boolean min) {\n    for (int i = a.length / 2 - 1; i >= 0; i--) down(a, i, a.length, min);\n    return a;\n  }\n\n  public static int[] solve(int[] a) {\n    return build(a, true);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {3, 1, 2})));\n  }\n}\n"
+  },
+  "Implement Min Heap": {
+    "expected": "[1, 2, 3]",
+    "problem": "Resizable int min heap, supporting offer,peek,poll,isEmpty. Empty peek/poll throws.",
+    "approach": "Offer appends and sifts up while beating parent. Poll removes root, places last at root, then sifts down to the better child. Only one root-to-leaf path can violate order after each operation.",
+    "complexity": "O(log n) offer/poll, O(1) peek; O(n) stored values, O(1) auxiliary state.",
+    "trace": "Insert 3 then 1 then 2; root reflects the current extremum. Repeated poll emits priority order.",
+    "pitfalls": "No comparator subtraction is used, so extreme int values are safe. ArrayList stores boxed integers.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Heap {\n    final List<Integer> a = new ArrayList<>();\n    final boolean min;\n\n    Heap(boolean min) {\n      this.min = min;\n    }\n\n    boolean better(int x, int y) {\n      return min ? x < y : x > y;\n    }\n\n    void swap(int i, int j) {\n      int t = a.get(i);\n      a.set(i, a.get(j));\n      a.set(j, t);\n    }\n\n    void offer(int x) {\n      a.add(x);\n      for (int i = a.size() - 1; i > 0; ) {\n        int p = (i - 1) / 2;\n        if (!better(a.get(i), a.get(p))) break;\n        swap(i, p);\n        i = p;\n      }\n    }\n\n    int peek() {\n      if (a.isEmpty()) throw new NoSuchElementException();\n      return a.get(0);\n    }\n\n    int poll() {\n      int ans = peek(), last = a.remove(a.size() - 1);\n      if (!a.isEmpty()) {\n        a.set(0, last);\n        for (int i = 0; ; ) {\n          int best = i, l = 2 * i + 1, r = l + 1;\n          if (l < a.size() && better(a.get(l), a.get(best))) best = l;\n          if (r < a.size() && better(a.get(r), a.get(best))) best = r;\n          if (best == i) break;\n          swap(i, best);\n          i = best;\n        }\n      }\n      return ans;\n    }\n\n    boolean isEmpty() {\n      return a.isEmpty();\n    }\n  }\n\n  public static void main(String[] args) {\n    Heap h = new Heap(true);\n    h.offer(3);\n    h.offer(1);\n    h.offer(2);\n    List<Integer> a = new ArrayList<>();\n    while (!h.isEmpty()) a.add(h.poll());\n    System.out.println(a);\n  }\n}\n"
+  },
+  "Implement Max Heap": {
+    "expected": "[3, 2, 1]",
+    "problem": "Resizable int max heap, supporting offer,peek,poll,isEmpty. Empty peek/poll throws.",
+    "approach": "Offer appends and sifts up while beating parent. Poll removes root, places last at root, then sifts down to the better child. Only one root-to-leaf path can violate order after each operation.",
+    "complexity": "O(log n) offer/poll, O(1) peek; O(n) stored values, O(1) auxiliary state.",
+    "trace": "Insert 3 then 1 then 2; root reflects the current extremum. Repeated poll emits priority order.",
+    "pitfalls": "No comparator subtraction is used, so extreme int values are safe. ArrayList stores boxed integers.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Heap {\n    final List<Integer> a = new ArrayList<>();\n    final boolean min;\n\n    Heap(boolean min) {\n      this.min = min;\n    }\n\n    boolean better(int x, int y) {\n      return min ? x < y : x > y;\n    }\n\n    void swap(int i, int j) {\n      int t = a.get(i);\n      a.set(i, a.get(j));\n      a.set(j, t);\n    }\n\n    void offer(int x) {\n      a.add(x);\n      for (int i = a.size() - 1; i > 0; ) {\n        int p = (i - 1) / 2;\n        if (!better(a.get(i), a.get(p))) break;\n        swap(i, p);\n        i = p;\n      }\n    }\n\n    int peek() {\n      if (a.isEmpty()) throw new NoSuchElementException();\n      return a.get(0);\n    }\n\n    int poll() {\n      int ans = peek(), last = a.remove(a.size() - 1);\n      if (!a.isEmpty()) {\n        a.set(0, last);\n        for (int i = 0; ; ) {\n          int best = i, l = 2 * i + 1, r = l + 1;\n          if (l < a.size() && better(a.get(l), a.get(best))) best = l;\n          if (r < a.size() && better(a.get(r), a.get(best))) best = r;\n          if (best == i) break;\n          swap(i, best);\n          i = best;\n        }\n      }\n      return ans;\n    }\n\n    boolean isEmpty() {\n      return a.isEmpty();\n    }\n  }\n\n  public static void main(String[] args) {\n    Heap h = new Heap(false);\n    h.offer(3);\n    h.offer(1);\n    h.offer(2);\n    List<Integer> a = new ArrayList<>();\n    while (!h.isEmpty()) a.add(h.poll());\n    System.out.println(a);\n  }\n}\n"
+  },
+  "Check if an array represents a min heap": {
+    "expected": "true",
+    "problem": "Check min-heap order on a complete array representation.",
+    "approach": "Every nonroot node must be no smaller than its parent. This local relation along paths makes the root a global minimum.",
+    "complexity": "O(n) time, O(1) space.",
+    "trace": "1<=3,1<=2,3<=5, so all parent-child comparisons pass.",
+    "pitfalls": "Sortedness is sufficient but not necessary for heap order. Empty/singleton arrays are heaps.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(int[] a) {\n    for (int i = 1; i < a.length; i++) if (a[(i - 1) / 2] > a[i]) return false;\n    return true;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 3, 2, 5}));\n  }\n}\n"
+  },
+  "Convert Min Heap to Max Heap": {
+    "expected": "[3, 1, 2]",
+    "problem": "Build a max heap in place. down(a,i,n,min) is also reusable when both child subtrees are already heaps.",
+    "approach": "Visit internal nodes bottom-up. Sift each violating node toward the smaller/larger child until its subtree obeys heap order; child subtrees were already fixed.",
+    "complexity": "O(n) build time, O(log n) per sift-down, O(1) auxiliary space.",
+    "trace": "At root 3 of [3,1,2], min-heap down swaps with 1, giving [1,3,2].",
+    "pitfalls": "A heap array is not fully sorted. Calling down only at root does not fix arbitrary unsorted children.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static void down(int[] a, int i, int n, boolean min) {\n    while (true) {\n      int best = i, l = 2 * i + 1, r = l + 1;\n      if (l < n && (min ? a[l] < a[best] : a[l] > a[best])) best = l;\n      if (r < n && (min ? a[r] < a[best] : a[r] > a[best])) best = r;\n      if (best == i) return;\n      int t = a[i];\n      a[i] = a[best];\n      a[best] = t;\n      i = best;\n    }\n  }\n\n  static int[] build(int[] a, boolean min) {\n    for (int i = a.length / 2 - 1; i >= 0; i--) down(a, i, a.length, min);\n    return a;\n  }\n\n  public static int[] solve(int[] a) {\n    return build(a, false);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {3, 1, 2})));\n  }\n}\n"
+  },
+  "Heap Sort": {
+    "expected": "[1, 2, 3, 4]",
+    "problem": "Sort ascending in place with a max heap.",
+    "approach": "Swap the maximum root to the last active position, shrink the active heap, and restore root order. Settled suffix is sorted and never revisited.",
+    "complexity": "O(n log n) time; O(1) space; not stable.",
+    "trace": "Heap [4,2,3,1] puts 4 last, then 3,2,1 settle in sequence.",
+    "pitfalls": "Pass the active prefix length to down; including the sorted suffix would undo progress.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static void down(int[] a, int i, int n, boolean min) {\n    while (true) {\n      int best = i, l = 2 * i + 1, r = l + 1;\n      if (l < n && (min ? a[l] < a[best] : a[l] > a[best])) best = l;\n      if (r < n && (min ? a[r] < a[best] : a[r] > a[best])) best = r;\n      if (best == i) return;\n      int t = a[i];\n      a[i] = a[best];\n      a[best] = t;\n      i = best;\n    }\n  }\n\n  static int[] build(int[] a, boolean min) {\n    for (int i = a.length / 2 - 1; i >= 0; i--) down(a, i, a.length, min);\n    return a;\n  }\n\n  public static int[] solve(int[] a) {\n    build(a, false);\n    for (int end = a.length - 1; end > 0; end--) {\n      int t = a[0];\n      a[0] = a[end];\n      a[end] = t;\n      down(a, 0, end, false);\n    }\n    return a;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {4, 1, 3, 2})));\n  }\n}\n"
+  },
+  "K-th Largest element in an array": {
+    "expected": "5",
+    "problem": "Return ONE-based kth largest entry; duplicates count individually.",
+    "approach": "Retain the largest k values in a min-heap; whenever size exceeds k, discard its smallest. Heap root is the smallest of the largest k.",
+    "complexity": "O(n log(k+1)) time; O(k) space.",
+    "trace": "For k=2, final retained values are 5 and 6; root is 5.",
+    "pitfalls": "Validate k before peek. kth distinct largest is a different contract.",
+    "alternatives": "Sort in O(n log n); randomized quickselect has expected O(n) time but worst O(n²).",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a, int k) {\n    if (k < 1 || k > a.length) throw new IllegalArgumentException();\n    PriorityQueue<Integer> q = new PriorityQueue<>();\n    for (int x : a) {\n      q.offer(x);\n      if (q.size() > k) q.poll();\n    }\n    return q.peek();\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {3, 2, 1, 5, 6, 4}, 2));\n  }\n}\n"
+  },
+  "Kth largest element in a stream of running integers": {
+    "expected": "4",
+    "problem": "Track kth largest after each inserted value; return empty until k values have arrived.",
+    "approach": "Maintain exactly the same largest-k min-heap invariant as batch selection; historical values below the threshold can be discarded permanently.",
+    "complexity": "O(log k) per update, O(k) storage.",
+    "trace": "3 then 5 retains {3,5}; 4 discards 3, leaving {4,5} and answer 4.",
+    "pitfalls": "A heap with fewer than k values cannot answer kth rank; OptionalInt makes that explicit.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class KthLargest {\n    final int k;\n    final PriorityQueue<Integer> q = new PriorityQueue<>();\n\n    KthLargest(int k) {\n      if (k < 1) throw new IllegalArgumentException();\n      this.k = k;\n    }\n\n    OptionalInt add(int x) {\n      q.offer(x);\n      if (q.size() > k) q.poll();\n      return q.size() < k ? OptionalInt.empty() : OptionalInt.of(q.peek());\n    }\n  }\n\n  public static void main(String[] args) {\n    KthLargest stream = new KthLargest(2);\n    stream.add(3);\n    stream.add(5);\n    System.out.println(stream.add(4).getAsInt());\n  }\n}\n"
+  },
+  "Sort K sorted array": {
+    "expected": "[1, 2, 3, 4, 5]",
+    "problem": "Every value is at most k positions from its final sorted location. Sort in place.",
+    "approach": "The next smallest value must lie in the next k+1 unread/queued candidates. Poll one, then add the next unread value.",
+    "complexity": "O(n log(min(n,k+1)+1)) time; O(min(n,k+1)) heap space.",
+    "trace": "First candidates 3,1,2 emit 1; insert 5, emit 2; insert 4, then emit 3,4,5.",
+    "pitfalls": "Without the k-displacement promise a small heap may produce an incorrect sort. k=0 expects already sorted input.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] a, int k) {\n    if (k < 0) throw new IllegalArgumentException();\n    PriorityQueue<Integer> q = new PriorityQueue<>();\n    int read = 0, write = 0;\n    while (read < a.length && read <= k) q.offer(a[read++]);\n    while (!q.isEmpty()) {\n      a[write++] = q.poll();\n      if (read < a.length) q.offer(a[read++]);\n    }\n    return a;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {3, 1, 2, 5, 4}, 2)));\n  }\n}\n"
+  },
+  "Merge K sorted Lists": {
+    "expected": "[1, 2, 3, 4, 5, 6]",
+    "problem": "Merge k disjoint sorted next chains by relinking nodes.",
+    "approach": "Heap holds one front per nonempty chain. The smallest front is globally smallest among remaining entries; after taking it insert only its successor.",
+    "complexity": "O(N log(k+1)) time; O(k) heap space.",
+    "trace": "Heap initially 1,2,3; polling 1 inserts 4, then polling 2 inserts 5.",
+    "pitfalls": "Shared nodes or cycles violate the contract and could duplicate nodes or create loops.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node next, prev, random, bottom;\n\n    Node(int v) {\n      value = v;\n    }\n  }\n\n  static Node list(int... values) {\n    Node dummy = new Node(0), tail = dummy;\n    for (int v : values) {\n      tail.next = new Node(v);\n      tail.next.prev = tail == dummy ? null : tail;\n      tail = tail.next;\n    }\n    return dummy.next;\n  }\n\n  static String view(Node head) {\n    List<Integer> a = new ArrayList<>();\n    for (Node n = head; n != null; n = n.next) a.add(n.value);\n    return a.toString();\n  }\n\n  public static Node solve(Node[] heads) {\n    PriorityQueue<Node> q = new PriorityQueue<>((a, b) -> Integer.compare(a.value, b.value));\n    for (Node h : heads) if (h != null) q.offer(h);\n    Node dummy = new Node(0), tail = dummy;\n    while (!q.isEmpty()) {\n      Node p = q.poll(), next = p.next;\n      tail.next = p;\n      tail = p;\n      if (next != null) q.offer(next);\n    }\n    if (tail != dummy) tail.next = null;\n    return dummy.next;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(view(solve(new Node[] {list(1, 4), list(2, 5), list(3, 6)})));\n  }\n}\n"
+  },
+  "Replace Elements by Their Rank": {
+    "expected": "[4, 1, 2, 3, 2]",
+    "problem": "Dense ranks start at one; equal values share rank, larger distinct values have larger rank.",
+    "approach": "Sort values, assign a new rank only on the first occurrence of a distinct value, then map original positions.",
+    "complexity": "O(n log n) time; O(n) space.",
+    "trace": "Distinct order 10,20,30,40 gets ranks 1,2,3,4.",
+    "pitfalls": "Rank is based on distinct values, not original indices. Input remains unchanged.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] input) {\n    int[] sorted = input.clone();\n    Arrays.sort(sorted);\n    Map<Integer, Integer> rank = new HashMap<>();\n    for (int x : sorted) if (!rank.containsKey(x)) rank.put(x, rank.size() + 1);\n    int[] out = new int[input.length];\n    for (int i = 0; i < out.length; i++) out[i] = rank.get(input[i]);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {40, 10, 20, 30, 20})));\n  }\n}\n"
+  },
+  "Task Scheduler": {
+    "expected": "8",
+    "problem": "Unit tasks A..Z, repeated same task needs at least cooldown intervening time units. Return minimum total including idle.",
+    "approach": "The most frequent tasks force max-1 frames of length cooldown+1 plus the tied maximum tasks at the tail. If other tasks fill more than this lower bound, total task count dominates; arranging tasks in those frames achieves it.",
+    "complexity": "O(n+26) time; O(26) space.",
+    "trace": "A B idle A B idle A B uses eight units for cooldown two.",
+    "pitfalls": "Idle contributes time but not tasks. Empty input returns zero via max(total,frameBound).",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(char[] tasks, int cooldown) {\n    if (cooldown < 0) throw new IllegalArgumentException();\n    int[] count = new int[26];\n    for (char c : tasks) {\n      if (c < 'A' || c > 'Z') throw new IllegalArgumentException();\n      count[c - 'A']++;\n    }\n    int max = 0, ties = 0;\n    for (int f : count) max = Math.max(max, f);\n    for (int f : count) if (f == max && f > 0) ties++;\n    return Math.max(tasks.length, (long) (max - 1) * (cooldown + 1L) + ties);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new char[] {'A', 'A', 'A', 'B', 'B', 'B'}, 2));\n  }\n}\n"
+  },
+  "Hand of Straights": {
+    "expected": "true",
+    "problem": "Partition all cards into groups of exactly group consecutive integer values, counting duplicates.",
+    "approach": "The smallest remaining card must start some group: nothing smaller remains to precede it. Remove one of each required consecutive value, repeat.",
+    "complexity": "O(n log u) time; O(u) space.",
+    "trace": "Groups [1,2,3],[2,3,4],[6,7,8] consume all cards.",
+    "pitfalls": "Check total divisibility first; value arithmetic uses long to reject range overflow.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(int[] hand, int group) {\n    if (group <= 0) throw new IllegalArgumentException();\n    if (hand.length % group != 0) return false;\n    TreeMap<Integer, Integer> count = new TreeMap<>();\n    for (int x : hand) count.put(x, count.getOrDefault(x, 0) + 1);\n    while (!count.isEmpty()) {\n      int start = count.firstKey();\n      for (int i = 0; i < group; i++) {\n        long value = (long) start + i;\n        if (value > Integer.MAX_VALUE) return false;\n        int x = (int) value;\n        Integer f = count.get(x);\n        if (f == null) return false;\n        if (f == 1) count.remove(x);\n        else count.put(x, f - 1);\n      }\n    }\n    return true;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 3, 6, 2, 3, 4, 7, 8}, 3));\n  }\n}\n"
+  },
+  "Design Twitter": {
+    "expected": "[6, 5]\n[5]",
+    "problem": "In-memory post/follow/unfollow/feed API. Feed includes own posts and followed users, newest first, limited to ten.",
+    "approach": "Assign a monotone timestamp per post. For a feed scan eligible histories retaining the newest ten in a min-heap, then reverse their extracted order.",
+    "complexity": "O(1) amortized post/follow/unfollow with hash maps; O(H log 10) feed time for H eligible historical posts; O(total posts+follow edges) stored state.",
+    "trace": "User 1 sees own tweet 5 and followed user 2's newer 6; after unfollow only 5 remains.",
+    "pitfalls": "Self-follow is harmless because feed users form a set. This reference prioritizes clarity; a k-way heap over each user's last post reduces feed work to O(followees+10 log followees).",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Twitter {\n    static class Tweet {\n      int id;\n      long time;\n\n      Tweet(int id, long time) {\n        this.id = id;\n        this.time = time;\n      }\n    }\n\n    long clock;\n    final Map<Integer, List<Tweet>> posts = new HashMap<>();\n    final Map<Integer, Set<Integer>> following = new HashMap<>();\n\n    void postTweet(int user, int id) {\n      posts.computeIfAbsent(user, k -> new ArrayList<>()).add(new Tweet(id, clock++));\n    }\n\n    void follow(int user, int other) {\n      following.computeIfAbsent(user, k -> new HashSet<>()).add(other);\n    }\n\n    void unfollow(int user, int other) {\n      Set<Integer> set = following.get(user);\n      if (set != null) set.remove(other);\n    }\n\n    List<Integer> getNewsFeed(int user) {\n      Set<Integer> users = new HashSet<>(following.getOrDefault(user, Collections.emptySet()));\n      users.add(user);\n      PriorityQueue<Tweet> q = new PriorityQueue<>((a, b) -> Long.compare(a.time, b.time));\n      for (int u : users)\n        for (Tweet t : posts.getOrDefault(u, Collections.emptyList())) {\n          q.offer(t);\n          if (q.size() > 10) q.poll();\n        }\n      List<Integer> out = new ArrayList<>();\n      while (!q.isEmpty()) out.add(q.poll().id);\n      Collections.reverse(out);\n      return out;\n    }\n  }\n\n  public static void main(String[] args) {\n    Twitter t = new Twitter();\n    t.postTweet(1, 5);\n    t.follow(1, 2);\n    t.postTweet(2, 6);\n    System.out.println(t.getNewsFeed(1));\n    t.unfollow(1, 2);\n    System.out.println(t.getNewsFeed(1));\n  }\n}\n"
+  },
+  "Minimum Cost to Connect Sticks": {
+    "expected": "14",
+    "problem": "Joining two nonnegative stick lengths costs their sum and creates one new stick; minimize total.",
+    "approach": "Always merge the two shortest. The optimal merge-tree exchange argument places the two smallest leaves deepest as siblings; collapsing them reduces to the same smaller problem.",
+    "complexity": "O(n log n) time; O(n) heap space.",
+    "trace": "2+3=5 costs 5, then 4+5=9 costs 9, total 14.",
+    "pitfalls": "Zero/singleton input costs zero. Use long for joined lengths and cost; extremely large aggregate cost may require BigInteger.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[] a) {\n    PriorityQueue<Long> q = new PriorityQueue<>();\n    for (int x : a) {\n      if (x < 0) throw new IllegalArgumentException();\n      q.offer((long) x);\n    }\n    long cost = 0;\n    while (q.size() > 1) {\n      long joined = q.poll() + q.poll();\n      cost += joined;\n      q.offer(joined);\n    }\n    return cost;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {2, 4, 3}));\n  }\n}\n"
+  },
+  "Maximum Sum Combination": {
+    "expected": "[10, 9, 9]",
+    "problem": "Return the k largest pair sums a[i]+b[j], counting distinct index pairs even if sums repeat.",
+    "approach": "Sorted arrays form a monotone sum grid. Begin at its largest corner, pop the largest candidate and add its lower-index neighbors. The frontier contains the next possible largest values; a set prevents revisiting pairs.",
+    "complexity": "O(n log n+m log m+k log(k+1)) time; O(n+m+k) space.",
+    "trace": "4+6=10; its neighbors 3+6 and 4+5 both give 9.",
+    "pitfalls": "Deduplicate coordinate pairs, not sums. Validate k against number of possible pairs.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Pair {\n    int i, j;\n    long sum;\n\n    Pair(int i, int j, int[] a, int[] b) {\n      this.i = i;\n      this.j = j;\n      sum = (long) a[i] + b[j];\n    }\n  }\n\n  public static List<Long> solve(int[] aa, int[] bb, int k) {\n    if (k < 0 || (long) k > (long) aa.length * bb.length) throw new IllegalArgumentException();\n    int[] a = aa.clone(), b = bb.clone();\n    Arrays.sort(a);\n    Arrays.sort(b);\n    List<Long> out = new ArrayList<>();\n    if (k == 0) return out;\n    PriorityQueue<Pair> q = new PriorityQueue<>((x, y) -> Long.compare(y.sum, x.sum));\n    Set<Long> seen = new HashSet<>();\n    int i = a.length - 1, j = b.length - 1;\n    q.offer(new Pair(i, j, a, b));\n    seen.add(((long) i << 32) | (j & 0xffffffffL));\n    while (out.size() < k) {\n      Pair p = q.poll();\n      out.add(p.sum);\n      for (int[] index : new int[][] {{p.i - 1, p.j}, {p.i, p.j - 1}})\n        if (index[0] >= 0 && index[1] >= 0) {\n          long key = ((long) index[0] << 32) | (index[1] & 0xffffffffL);\n          if (seen.add(key)) q.offer(new Pair(index[0], index[1], a, b));\n        }\n    }\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 4, 2, 3}, new int[] {2, 5, 1, 6}, 3));\n  }\n}\n"
+  },
+  "Find Median from Data Stream": {
+    "expected": "1.5\n2.0",
+    "problem": "After each insertion return the median of all seen values; no value exists before the first insertion.",
+    "approach": "Max-heap low contains the smaller half; min-heap high the larger. Keep low the same size or one larger and every low value<=every high value. Middle value(s) are the roots.",
+    "complexity": "O(log n) insertion, O(1) median; O(n) storage.",
+    "trace": "After 1,2 roots are 1 and 2 ->1.5; after 3 low root 2 ->2.",
+    "pitfalls": "Widen before averaging roots to avoid int overflow. Heap iterators do not give sorted order.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class MedianFinder {\n    final PriorityQueue<Integer> low = new PriorityQueue<>(Collections.reverseOrder()),\n        high = new PriorityQueue<>();\n\n    void add(int x) {\n      if (low.isEmpty() || x <= low.peek()) low.offer(x);\n      else high.offer(x);\n      if (low.size() > high.size() + 1) high.offer(low.poll());\n      if (high.size() > low.size()) low.offer(high.poll());\n    }\n\n    double median() {\n      if (low.isEmpty()) throw new NoSuchElementException();\n      return low.size() > high.size() ? low.peek() : ((long) low.peek() + high.peek()) / 2.0;\n    }\n  }\n\n  public static void main(String[] args) {\n    MedianFinder m = new MedianFinder();\n    m.add(1);\n    m.add(2);\n    System.out.println(m.median());\n    m.add(3);\n    System.out.println(m.median());\n  }\n}\n"
+  },
+  "Top K Frequent Elements": {
+    "expected": "[1, 2]",
+    "problem": "Return k distinct values ranked by descending frequency then ascending value.",
+    "approach": "Count once and sort distinct keys using the stated tie comparator. Take the first k.",
+    "complexity": "Expected O(n+u log u) time; O(u) space.",
+    "trace": "Counts 1:3,2:2,3:1 give top two 1,2.",
+    "pitfalls": "k<=distinct count, not input length. For large u and small k use a size-k heap in O(n+u log k), or frequency buckets.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static List<Integer> solve(int[] a, int k) {\n    Map<Integer, Integer> f = new HashMap<>();\n    for (int x : a) f.put(x, f.getOrDefault(x, 0) + 1);\n    if (k < 0 || k > f.size()) throw new IllegalArgumentException();\n    List<Integer> keys = new ArrayList<>(f.keySet());\n    keys.sort(\n        (x, y) -> {\n          int c = Integer.compare(f.get(y), f.get(x));\n          return c != 0 ? c : Integer.compare(x, y);\n        });\n    return new ArrayList<>(keys.subList(0, k));\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 1, 1, 2, 2, 3}, 2));\n  }\n}\n"
+  }
+}

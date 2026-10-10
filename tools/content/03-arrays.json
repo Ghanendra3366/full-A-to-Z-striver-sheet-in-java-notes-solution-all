@@ -1,0 +1,332 @@
+{
+  "Linear Search": {
+    "expected": "0",
+    "problem": "Return the first zero-based index matching target, or -1.",
+    "approach": "Check entries from left to right. A match is first because all earlier entries were already checked.",
+    "complexity": "O(n) worst time; O(1) space.",
+    "trace": "[4,2,4], target 4: index 0 matches immediately.",
+    "pitfalls": "Empty input returns -1. An unsorted array cannot use binary search safely.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a, int target) {\n    for (int i = 0; i < a.length; i++) if (a[i] == target) return i;\n    return -1;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {4, 2, 4}, 4));\n  }\n}\n"
+  },
+  "Largest Element": {
+    "expected": "-2",
+    "problem": "Return the maximum of a nonempty array.",
+    "approach": "Initialize from a real entry, then maintain the largest processed value.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "-5 -> max(-5,-2)=-2 -> max(-2,-9)=-2.",
+    "pitfalls": "Starting best at zero is wrong for all-negative inputs.",
+    "alternatives": "Sorting takes O(n log n) and may mutate input unnecessarily.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a) {\n    if (a.length == 0) throw new IllegalArgumentException(\"nonempty input required\");\n    int best = a[0];\n    for (int x : a) best = Math.max(best, x);\n    return best;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {-5, -2, -9}));\n  }\n}\n"
+  },
+  "Second Largest Element": {
+    "expected": "2",
+    "problem": "Return the second largest DISTINCT value, or OptionalInt.empty if it does not exist.",
+    "approach": "Maintain largest and second-largest distinct processed values. A new maximum demotes the old maximum; an intermediate distinct value only updates second.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "4 sets first; duplicate 4 changes nothing; 2 sets second; -1 changes nothing.",
+    "pitfalls": "A sentinel like -1 is ambiguous. MIN_VALUE can be a valid second largest.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static OptionalInt solve(int[] a) {\n    Integer first = null, second = null;\n    for (int x : a) {\n      if (first == null || x > first) {\n        second = first;\n        first = x;\n      } else if (x < first && (second == null || x > second)) second = x;\n    }\n    return second == null ? OptionalInt.empty() : OptionalInt.of(second);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {4, 4, 2, -1}).getAsInt());\n  }\n}\n"
+  },
+  "Maximum Consecutive Ones": {
+    "expected": "3",
+    "problem": "For a binary array return the longest consecutive run of ones.",
+    "approach": "Keep the length of the suffix consisting only of ones, reset on zero, and record the largest suffix length.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "Run lengths 1,2,0,1,2,3 give maximum 3.",
+    "pitfalls": "Empty array returns zero; a non-one value is treated as a separator.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a) {\n    int run = 0, best = 0;\n    for (int x : a) {\n      run = x == 1 ? run + 1 : 0;\n      best = Math.max(best, run);\n    }\n    return best;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 1, 0, 1, 1, 1}));\n  }\n}\n"
+  },
+  "Left Rotate Array by One": {
+    "expected": "[2, 3, 1]",
+    "problem": "Rotate left by one in place.",
+    "approach": "Save the first value before shifting; place it at the last index.",
+    "complexity": "O(n) time and O(1) space.",
+    "trace": "Save 1, shift 2 and 3 left, append saved 1.",
+    "pitfalls": "Empty and singleton arrays need no change.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] a) {\n    if (a.length == 0) return a;\n    int first = a[0];\n    for (int i = 1; i < a.length; i++) a[i - 1] = a[i];\n    a[a.length - 1] = first;\n    return a;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {1, 2, 3})));\n  }\n}\n"
+  },
+  "Left Rotate Array by K Places": {
+    "expected": "[3, 4, 5, 1, 2]",
+    "problem": "Rotate left by k in place. Negative k rotates right; normalize by length.",
+    "approach": "Split into A (first k) and B (rest). reverse(A), reverse(B), then reverse(all) gives BA, with internal order restored.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "[1,2]|[3,4,5] -> [2,1]|[5,4,3] -> [3,4,5,1,2].",
+    "pitfalls": "Handle empty input before modulo. Math.floorMod supports negative k.",
+    "alternatives": "A temporary output array takes O(n) space. Repeating one-step rotation k times takes O(nk) time.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static void reverse(int[] a, int l, int r) {\n    while (l < r) {\n      int t = a[l];\n      a[l++] = a[r];\n      a[r--] = t;\n    }\n  }\n\n  public static int[] solve(int[] a, int k) {\n    if (a.length == 0) return a;\n    k = Math.floorMod(k, a.length);\n    reverse(a, 0, k - 1);\n    reverse(a, k, a.length - 1);\n    reverse(a, 0, a.length - 1);\n    return a;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {1, 2, 3, 4, 5}, 2)));\n  }\n}\n"
+  },
+  "Move Zeros to End": {
+    "expected": "[1, 3, 2, 0, 0]",
+    "problem": "Move zeros to the end in place while preserving the order of nonzero entries.",
+    "approach": "Compact nonzero values into a prefix, then fill the remaining suffix with zeros. write never overtakes the read position.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "write receives 1,3,2 at positions 0,1,2; fill positions 3,4 with zero.",
+    "pitfalls": "The enhanced loop is safe here because writes only affect earlier/current positions.",
+    "alternatives": "A second array is a simpler O(n)-space approach.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] a) {\n    int write = 0;\n    for (int x : a) if (x != 0) a[write++] = x;\n    while (write < a.length) a[write++] = 0;\n    return a;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {0, 1, 0, 3, 2})));\n  }\n}\n"
+  },
+  "Remove duplicates from sorted array": {
+    "expected": "[1, 2, 3]",
+    "problem": "For a nondecreasing array, return unique-prefix length and place distinct values in that prefix. Entries beyond the length are unspecified.",
+    "approach": "Adjacent equal values form one block; copy only the first of each block.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "1 copied, next 1 skipped; 2 copied, next 2 skipped; 3 copied.",
+    "pitfalls": "Input MUST be sorted; length zero is valid. Do not print the unused suffix.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a) {\n    int write = 0;\n    for (int x : a) if (write == 0 || a[write - 1] != x) a[write++] = x;\n    return write;\n  }\n\n  public static void main(String[] args) {\n    int[] a = {1, 1, 2, 2, 3};\n    int length = solve(a);\n    System.out.println(Arrays.toString(Arrays.copyOf(a, length)));\n  }\n}\n"
+  },
+  "Find missing number": {
+    "expected": "2",
+    "problem": "n distinct values from [0,n] contain exactly one missing value; return it.",
+    "approach": "XOR all indices 0..n and all entries. Each present value appears twice and cancels, leaving the missing one.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "(0^1^2^3)^(3^0^1)=2.",
+    "pitfalls": "Duplicates or values outside [0,n] violate the contract.",
+    "alternatives": "Summation uses n*(n+1)/2 minus array sum, but widen before multiplication; XOR avoids that arithmetic overflow.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a) {\n    int x = a.length;\n    for (int i = 0; i < a.length; i++) x ^= i ^ a[i];\n    return x;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {3, 0, 1}));\n  }\n}\n"
+  },
+  "Union of two sorted arrays": {
+    "expected": "[1, 2, 3, 4]",
+    "problem": "Return sorted distinct union of two nondecreasing arrays.",
+    "approach": "Two sorted fronts let us discard the smaller unmatched value for intersection, or emit the smaller available value for union. Each pointer only moves forward.",
+    "complexity": "O(n+m) time; O(output length) space.",
+    "trace": "A=[1,2,2,4], B=[2,2,3]: equal fronts at the two occurrences of 2 contribute intersection; union emits every distinct value once.",
+    "pitfalls": "Intersection here uses multiplicity; adapt by suppressing equal outputs if the judge asks for set intersection. Both inputs must be sorted.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static List<Integer> solve(int[] a, int[] b) {\n    List<Integer> result = new ArrayList<>();\n    int i = 0, j = 0;\n    while (i < a.length || j < b.length) {\n      int x = j == b.length || (i < a.length && a[i] <= b[j]) ? a[i++] : b[j++];\n      if (result.isEmpty() || result.get(result.size() - 1) != x) result.add(x);\n    }\n    return result;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 2, 4}, new int[] {2, 2, 3}));\n  }\n}\n"
+  },
+  "Intersection of two sorted arrays": {
+    "expected": "[2, 2]",
+    "problem": "Return sorted multiset intersection (duplicates appear min(countA,countB) times).",
+    "approach": "Two sorted fronts let us discard the smaller unmatched value for intersection, or emit the smaller available value for union. Each pointer only moves forward.",
+    "complexity": "O(n+m) time; O(output length) space.",
+    "trace": "A=[1,2,2,4], B=[2,2,3]: equal fronts at the two occurrences of 2 contribute intersection; union emits every distinct value once.",
+    "pitfalls": "Intersection here uses multiplicity; adapt by suppressing equal outputs if the judge asks for set intersection. Both inputs must be sorted.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static List<Integer> solve(int[] a, int[] b) {\n    List<Integer> result = new ArrayList<>();\n    int i = 0, j = 0;\n    while (i < a.length && j < b.length) {\n      if (a[i] == b[j]) {\n        result.add(a[i]);\n        i++;\n        j++;\n      } else if (a[i] < b[j]) i++;\n      else j++;\n    }\n    return result;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 2, 4}, new int[] {2, 2, 3}));\n  }\n}\n"
+  },
+  "Majority Element-I": {
+    "expected": "2",
+    "problem": "Return the value occurring more than floor(n/2) times, or empty if absent.",
+    "approach": "Boyer-Moore cancels pairs of unequal values. A strict majority cannot be entirely cancelled. A second pass verifies the candidate.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "2 gives vote 1, another 2 gives 2, 1 reduces to 1, final 2 gives 2; count is 3>2.",
+    "pitfalls": "Verification is required unless existence is guaranteed. Empty input returns empty.",
+    "alternatives": "HashMap counting uses expected O(n) time and O(n) space; sorting uses O(n log n) time.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static OptionalInt solve(int[] a) {\n    int candidate = 0, votes = 0;\n    for (int x : a) {\n      if (votes == 0) candidate = x;\n      votes += x == candidate ? 1 : -1;\n    }\n    int count = 0;\n    for (int x : a) if (x == candidate) count++;\n    return count > a.length / 2 ? OptionalInt.of(candidate) : OptionalInt.empty();\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {2, 2, 1, 2}).getAsInt());\n  }\n}\n"
+  },
+  "Leaders in an Array": {
+    "expected": "[17, 5, 2]",
+    "problem": "A leader is STRICTLY greater than every value to its right. Return leaders in original order.",
+    "approach": "Scan from the right while maintaining the largest right-side value. A value is a leader exactly when it beats that maximum.",
+    "complexity": "O(n) time; O(number of leaders) output space.",
+    "trace": "From right: keep 2, keep 5, skip 3 and 4, keep 17, skip 16; reverse kept list.",
+    "pitfalls": "Some platforms use >= rather than >; this contract is strict. Long.MIN_VALUE allows Integer.MIN_VALUE to be a leader.",
+    "alternatives": "Brute force checks every right suffix in O(n²) time.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static List<Integer> solve(int[] a) {\n    List<Integer> out = new ArrayList<>();\n    long best = Long.MIN_VALUE;\n    for (int i = a.length - 1; i >= 0; i--)\n      if (a[i] > best) {\n        out.add(a[i]);\n        best = a[i];\n      }\n    Collections.reverse(out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {16, 17, 4, 3, 5, 2}));\n  }\n}\n"
+  },
+  "Rearrange array elements by sign": {
+    "expected": "[3, -2, 1, -5, 2, -4]",
+    "problem": "Stable alternate nonnegative and negative values, starting nonnegative. If counts differ, append the remaining values. Return a new array.",
+    "approach": "Split into stable sign lists, then weave them. Each sign list preserves its original relative order.",
+    "complexity": "O(n) time and O(n) space.",
+    "trace": "pos=[3,1,2], neg=[-2,-5,-4]; weave the corresponding fronts.",
+    "pitfalls": "Zero is classified as nonnegative. Equal sign counts are not required.",
+    "alternatives": "With exactly equal counts and no zero, write positives to even positions and negatives to odd positions in one pass.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] a) {\n    List<Integer> pos = new ArrayList<>(), neg = new ArrayList<>();\n    for (int x : a)\n      if (x >= 0) pos.add(x);\n      else neg.add(x);\n    int[] out = new int[a.length];\n    int p = 0, q = 0, i = 0;\n    while (p < pos.size() && q < neg.size()) {\n      out[i++] = pos.get(p++);\n      out[i++] = neg.get(q++);\n    }\n    while (p < pos.size()) out[i++] = pos.get(p++);\n    while (q < neg.size()) out[i++] = neg.get(q++);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {3, 1, -2, -5, 2, -4})));\n  }\n}\n"
+  },
+  "Print the matrix in spiral manner": {
+    "expected": "[1, 2, 3, 6, 9, 8, 7, 4, 5]",
+    "problem": "Return clockwise spiral order of a rectangular matrix.",
+    "approach": "Visit top, right, bottom, left boundaries, then shrink them. Guard bottom and left traversals after shrinking to avoid duplicate visits in a single row or column.",
+    "complexity": "O(rows*cols) time and output space; O(1) auxiliary state.",
+    "trace": "Outer ring 1,2,3,6,9,8,7,4; remaining center is 5.",
+    "pitfalls": "Ragged arrays are outside the contract. Empty rows/columns return empty.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static List<Integer> solve(int[][] a) {\n    List<Integer> out = new ArrayList<>();\n    if (a.length == 0 || a[0].length == 0) return out;\n    int top = 0, bottom = a.length - 1, left = 0, right = a[0].length - 1;\n    while (top <= bottom && left <= right) {\n      for (int c = left; c <= right; c++) out.add(a[top][c]);\n      top++;\n      for (int r = top; r <= bottom; r++) out.add(a[r][right]);\n      right--;\n      if (top <= bottom) {\n        for (int c = right; c >= left; c--) out.add(a[bottom][c]);\n        bottom--;\n      }\n      if (left <= right) {\n        for (int r = bottom; r >= top; r--) out.add(a[r][left]);\n        left++;\n      }\n    }\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[][] {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}));\n  }\n}\n"
+  },
+  "Pascal's Triangle I": {
+    "expected": "6",
+    "problem": "Return an entry using ONE-based row and column coordinates.",
+    "approach": "Row r column c equals C(r-1,c-1). The multiplicative formula keeps exact intermediate binomial values.",
+    "complexity": "O(min(c-1,r-c)) BigInteger multiply/divide operations; storage grows with result bits.",
+    "trace": "Row 5 is [1,4,6,4,1]; column 3 is C(4,2)=6.",
+    "pitfalls": "Do not mix one-based coordinates with zero-based combinatorial parameters.",
+    "alternatives": "",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  public static BigInteger choose(int n, int r) {\n    if (n < 0 || r < 0 || r > n) throw new IllegalArgumentException();\n    r = Math.min(r, n - r);\n    BigInteger v = BigInteger.ONE;\n    for (int i = 1; i <= r; i++)\n      v = v.multiply(BigInteger.valueOf(n - r + i)).divide(BigInteger.valueOf(i));\n    return v;\n  }\n\n  public static BigInteger solve(int row, int col) {\n    return choose(row - 1, col - 1);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(5, 3));\n  }\n}\n"
+  },
+  "Pascal's Triangle II": {
+    "expected": "[1, 4, 6, 4, 1]",
+    "problem": "Return the whole ONE-based row as exact BigIntegers.",
+    "approach": "Start from C(n,0)=1 and use C(n,k+1)=C(n,k)*(n-k)/(k+1). The division is exact.",
+    "complexity": "O(row) BigInteger arithmetic operations and O(row) output values; bit cost depends on row.",
+    "trace": "1 -> 1*4/1=4 -> 4*3/2=6 -> 6*2/3=4 -> 4*1/4=1.",
+    "pitfalls": "row=1 returns [1]. Large rows overflow int/long, hence BigInteger.",
+    "alternatives": "",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  public static BigInteger choose(int n, int r) {\n    if (n < 0 || r < 0 || r > n) throw new IllegalArgumentException();\n    r = Math.min(r, n - r);\n    BigInteger v = BigInteger.ONE;\n    for (int i = 1; i <= r; i++)\n      v = v.multiply(BigInteger.valueOf(n - r + i)).divide(BigInteger.valueOf(i));\n    return v;\n  }\n\n  public static List<BigInteger> solve(int row) {\n    if (row < 1) throw new IllegalArgumentException();\n    List<BigInteger> out = new ArrayList<>();\n    BigInteger v = BigInteger.ONE;\n    for (int c = 0; c < row; c++) {\n      out.add(v);\n      v = v.multiply(BigInteger.valueOf(row - 1 - c)).divide(BigInteger.valueOf(c + 1));\n    }\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(5));\n  }\n}\n"
+  },
+  "Pascal's Triangle III": {
+    "expected": "[[1], [1, 1], [1, 2, 1], [1, 3, 3, 1]]",
+    "problem": "Generate the first n rows, n>=0.",
+    "approach": "Boundary cells are one; each interior cell sums the two parents directly above it. Induction on row proves Pascal recurrence.",
+    "complexity": "O(n²) BigInteger additions; O(n²) output values, whose bit size grows with row.",
+    "trace": "Rows: [1], [1,1], [1,2,1], then [1,3,3,1].",
+    "pitfalls": "n=0 returns an empty list. Returned rows are separate objects.",
+    "alternatives": "",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  public static List<List<BigInteger>> solve(int n) {\n    if (n < 0) throw new IllegalArgumentException();\n    List<List<BigInteger>> out = new ArrayList<>();\n    for (int r = 0; r < n; r++) {\n      List<BigInteger> row = new ArrayList<>();\n      for (int c = 0; c <= r; c++)\n        row.add(\n            c == 0 || c == r\n                ? BigInteger.ONE\n                : out.get(r - 1).get(c - 1).add(out.get(r - 1).get(c)));\n      out.add(row);\n    }\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(4));\n  }\n}\n"
+  },
+  "Rotate matrix by 90 degrees": {
+    "expected": "[[3, 1], [4, 2]]",
+    "problem": "Rotate a square matrix clockwise by 90 degrees in place.",
+    "approach": "Transpose maps (r,c) to (c,r); reversing each row then maps to (c,n-1-r), the clockwise position.",
+    "complexity": "O(n²) time, O(1) auxiliary space.",
+    "trace": "[[1,2],[3,4]] -> transpose [[1,3],[2,4]] -> reverse rows [[3,1],[4,2]].",
+    "pitfalls": "Only transpose above the diagonal; transposing both halves would undo swaps. Rectangular matrices need a new differently shaped array.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[][] solve(int[][] a) {\n    int n = a.length;\n    for (int[] row : a)\n      if (row.length != n) throw new IllegalArgumentException(\"square matrix required\");\n    for (int r = 0; r < n; r++)\n      for (int c = r + 1; c < n; c++) {\n        int t = a[r][c];\n        a[r][c] = a[c][r];\n        a[c][r] = t;\n      }\n    for (int[] row : a)\n      for (int l = 0, h = n - 1; l < h; l++, h--) {\n        int t = row[l];\n        row[l] = row[h];\n        row[h] = t;\n      }\n    return a;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.deepToString(solve(new int[][] {{1, 2}, {3, 4}})));\n  }\n}\n"
+  },
+  "Set Matrix Zeroes": {
+    "expected": "[[1, 0, 1], [0, 0, 0], [1, 0, 1]]",
+    "problem": "For every ORIGINAL zero, set its whole row and column to zero in place. Matrix is rectangular.",
+    "approach": "Use first row/column as markers, while saving whether those original borders themselves need zeroing. Read all interior markers before overwriting the borders.",
+    "complexity": "O(mn) time; O(1) auxiliary space.",
+    "trace": "Center zero marks a[1][0] and a[0][1]; interior pass zeros row 1 and column 1.",
+    "pitfalls": "Zeroing immediately while discovering zeros propagates false zeros. Empty matrix is valid.",
+    "alternatives": "A copy costs O(mn) space; separate row/column flags cost O(m+n) space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[][] solve(int[][] a) {\n    if (a.length == 0 || a[0].length == 0) return a;\n    int m = a.length, n = a[0].length;\n    boolean firstRow = false, firstCol = false;\n    for (int c = 0; c < n; c++) if (a[0][c] == 0) firstRow = true;\n    for (int r = 0; r < m; r++) if (a[r][0] == 0) firstCol = true;\n    for (int r = 1; r < m; r++)\n      for (int c = 1; c < n; c++)\n        if (a[r][c] == 0) {\n          a[r][0] = 0;\n          a[0][c] = 0;\n        }\n    for (int r = 1; r < m; r++)\n      for (int c = 1; c < n; c++) if (a[r][0] == 0 || a[0][c] == 0) a[r][c] = 0;\n    if (firstRow) Arrays.fill(a[0], 0);\n    if (firstCol) for (int r = 0; r < m; r++) a[r][0] = 0;\n    return a;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.deepToString(solve(new int[][] {{1, 1, 1}, {1, 0, 1}, {1, 1, 1}})));\n  }\n}\n"
+  },
+  "Two Sum": {
+    "expected": "[0, 1]",
+    "problem": "Return two distinct zero-based indices summing to target, or [-1,-1]. Any pair is acceptable.",
+    "approach": "Before inserting current value, look for its complement among earlier entries. This guarantees different indices.",
+    "complexity": "Expected O(n) time and O(n) space.",
+    "trace": "At 2 look for 7 and store index 0; at 7 look for 2 and return [0,1].",
+    "pitfalls": "Widen complement subtraction to long; repeated equal values need two positions.",
+    "alternatives": "Nested pair enumeration takes O(n²) time and O(1) space. Sorting plus two pointers takes O(n log n) but needs index tracking.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] a, int target) {\n    Map<Long, Integer> seen = new HashMap<>();\n    for (int i = 0; i < a.length; i++) {\n      Integer j = seen.get((long) target - a[i]);\n      if (j != null) return new int[] {j, i};\n      seen.put((long) a[i], i);\n    }\n    return new int[] {-1, -1};\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {2, 7, 11, 15}, 9)));\n  }\n}\n"
+  },
+  "3 Sum": {
+    "expected": "[[-1, -1, 2], [-1, 0, 1]]",
+    "problem": "Return unique value triples with zero sum, using distinct indices. Input is not mutated.",
+    "approach": "Sort a copy. Fix the first value, then move left/right based on sum. Sorted order proves that when sum is low, increasing left is the only useful direction. Skip equal fixed and endpoint values.",
+    "complexity": "O(n²) time after sorting; O(n) copy plus result space.",
+    "trace": "Sorted [-4,-1,-1,0,1,2]; with fixed -1 find (-1,2), then (0,1).",
+    "pitfalls": "Use long sum to avoid int overflow. Unique value triples differ from unique index triples.",
+    "alternatives": "Enumerating all index triples takes O(n³), plus deduplication storage.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static List<List<Integer>> solve(int[] input) {\n    int[] a = input.clone();\n    Arrays.sort(a);\n    List<List<Integer>> out = new ArrayList<>();\n    for (int i = 0; i < a.length - 2; i++) {\n      if (i > 0 && a[i] == a[i - 1]) continue;\n      int l = i + 1, r = a.length - 1;\n      while (l < r) {\n        long sum = (long) a[i] + a[l] + a[r];\n        if (sum < 0) l++;\n        else if (sum > 0) r--;\n        else {\n          out.add(Arrays.asList(a[i], a[l], a[r]));\n          int x = a[l], y = a[r];\n          while (l < r && a[l] == x) l++;\n          while (l < r && a[r] == y) r--;\n        }\n      }\n    }\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {-1, 0, 1, 2, -1, -4}));\n  }\n}\n"
+  },
+  "4 Sum": {
+    "expected": "[[-2, -1, 1, 2], [-2, 0, 0, 2], [-1, 0, 0, 1]]",
+    "problem": "Return unique sorted value quadruples summing to target, using four different indices.",
+    "approach": "Fix two sorted positions, then solve two-sum on the suffix. Skip duplicates at both fixed positions and both moving endpoints.",
+    "complexity": "O(n³) time, O(n) copy plus output storage.",
+    "trace": "Fix -2,-1 -> need 3, giving 1,2; fix -2,0 -> need 2, giving 0,2.",
+    "pitfalls": "Widen the FIRST addition. Casting a sum after int arithmetic is too late.",
+    "alternatives": "Four nested loops take O(n⁴); pair-sum hashing can improve time with substantial duplicate/index bookkeeping and O(n²) storage.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static List<List<Integer>> solve(int[] input, long target) {\n    int[] a = input.clone();\n    Arrays.sort(a);\n    List<List<Integer>> out = new ArrayList<>();\n    for (int i = 0; i < a.length - 3; i++) {\n      if (i > 0 && a[i] == a[i - 1]) continue;\n      for (int j = i + 1; j < a.length - 2; j++) {\n        if (j > i + 1 && a[j] == a[j - 1]) continue;\n        int l = j + 1, r = a.length - 1;\n        while (l < r) {\n          long sum = (long) a[i] + a[j] + a[l] + a[r];\n          if (sum < target) l++;\n          else if (sum > target) r--;\n          else {\n            out.add(Arrays.asList(a[i], a[j], a[l], a[r]));\n            int x = a[l], y = a[r];\n            while (l < r && a[l] == x) l++;\n            while (l < r && a[r] == y) r--;\n          }\n        }\n      }\n    }\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 0, -1, 0, -2, 2}, 0));\n  }\n}\n"
+  },
+  "Sort an array of 0's 1's and 2's": {
+    "expected": "[0, 0, 1, 1, 2, 2]",
+    "problem": "Sort an array containing only 0,1,2 in place.",
+    "approach": "Dutch National Flag invariant: [0,low) zeros, [low,mid) ones, [mid,high] unknown, (high,n) twos. Every step shrinks the unknown region.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "A 2 swaps to the high boundary; recheck the incoming unknown value. A 0 swaps to low, a 1 simply advances mid.",
+    "pitfalls": "Do not advance mid after swapping with high: the incoming element has not been classified.",
+    "alternatives": "Counting 0/1/2 then overwriting also takes O(n) time and O(1) space, but uses two passes.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] a) {\n    for (int x : a) if (x < 0 || x > 2) throw new IllegalArgumentException();\n    int low = 0, mid = 0, high = a.length - 1;\n    while (mid <= high) {\n      if (a[mid] == 0) {\n        int t = a[low];\n        a[low++] = a[mid];\n        a[mid++] = t;\n      } else if (a[mid] == 1) mid++;\n      else {\n        int t = a[high];\n        a[high--] = a[mid];\n        a[mid] = t;\n      }\n    }\n    return a;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {2, 0, 2, 1, 1, 0})));\n  }\n}\n"
+  },
+  "Kadane's Algorithm": {
+    "expected": "6",
+    "problem": "Return the maximum sum of a NONEMPTY contiguous subarray of a nonempty array.",
+    "approach": "Best subarray ending at i either starts at i or extends the best ending at i-1. Global best is the maximum of these ending states.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "At 4 start a fresh subarray; extend with -1,2,1 to reach 6. The -5 lowers the ending sum but does not erase global best.",
+    "pitfalls": "Initializing best to zero would allow an empty subarray and fail all-negative inputs. Use long sum.",
+    "alternatives": "Enumerate each start/end with a running sum in O(n²); recomputing each sum would be O(n³).",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[] a) {\n    if (a.length == 0) throw new IllegalArgumentException();\n    long end = a[0], best = a[0];\n    for (int i = 1; i < a.length; i++) {\n      end = Math.max(a[i], end + a[i]);\n      best = Math.max(best, end);\n    }\n    return best;\n  }\n\n  public static long brute(int[] a) {\n    if (a.length == 0) throw new IllegalArgumentException();\n    long best = Long.MIN_VALUE;\n    for (int l = 0; l < a.length; l++) {\n      long sum = 0;\n      for (int r = l; r < a.length; r++) {\n        sum += a[r];\n        best = Math.max(best, sum);\n      }\n    }\n    return best;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {-2, 1, -3, 4, -1, 2, 1, -5, 4}));\n  }\n}\n"
+  },
+  "Next Permutation": {
+    "expected": "[1, 3, 2]",
+    "problem": "Mutate to the next lexicographic permutation. If none exists, wrap to the smallest.",
+    "approach": "Find the rightmost ascending pivot. Swap with the smallest greater suffix value, found from the right because the suffix is descending. Reverse the suffix to make the increase minimal.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "[1,2,3]: pivot 2, swap with 3, suffix [2] already minimal.",
+    "pitfalls": "A descending array has no pivot; reverse the entire array. Equal values require >= when finding the pivot.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] a) {\n    int i = a.length - 2;\n    while (i >= 0 && a[i] >= a[i + 1]) i--;\n    if (i >= 0) {\n      int j = a.length - 1;\n      while (a[j] <= a[i]) j--;\n      int t = a[i];\n      a[i] = a[j];\n      a[j] = t;\n    }\n    for (int l = i + 1, r = a.length - 1; l < r; l++, r--) {\n      int t = a[l];\n      a[l] = a[r];\n      a[r] = t;\n    }\n    return a;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {1, 2, 3})));\n  }\n}\n"
+  },
+  "Majority Element-II": {
+    "expected": "[1, 2]",
+    "problem": "Return all values occurring more than floor(n/3) times, sorted. At most two values qualify.",
+    "approach": "Cancel triples of distinct values using two candidate counters. A value exceeding n/3 survives cancellation; recount both survivors to verify.",
+    "complexity": "O(n) time; O(1) auxiliary space and at most two outputs.",
+    "trace": "[1,1,1,2,2,2,3]: candidates 1,2 lose one vote to 3; actual counts both 3>2.",
+    "pitfalls": "Candidate equality checks must precede empty-slot checks. Recount rather than trusting residual votes.",
+    "alternatives": "HashMap frequency counting is simpler but uses O(n) space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static List<Integer> solve(int[] a) {\n    int x = 0, y = 1, cx = 0, cy = 0;\n    for (int v : a) {\n      if (v == x) cx++;\n      else if (v == y) cy++;\n      else if (cx == 0) {\n        x = v;\n        cx = 1;\n      } else if (cy == 0) {\n        y = v;\n        cy = 1;\n      } else {\n        cx--;\n        cy--;\n      }\n    }\n    cx = cy = 0;\n    for (int v : a) {\n      if (v == x) cx++;\n      else if (v == y) cy++;\n    }\n    List<Integer> out = new ArrayList<>();\n    if (cx > a.length / 3) out.add(x);\n    if (cy > a.length / 3) out.add(y);\n    Collections.sort(out);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 1, 1, 2, 2, 2, 3}));\n  }\n}\n"
+  },
+  "Find the repeating and missing number": {
+    "expected": "[3, 4]",
+    "problem": "Input has n entries from [1,n], exactly one duplicate appearing twice and one missing. Return [repeating,missing].",
+    "approach": "Mark values in a presence array. A repeated mark detects the duplicate; an unmarked number is missing.",
+    "complexity": "O(n) time and O(n) space.",
+    "trace": "3 is marked twice; index 4 stays unmarked.",
+    "pitfalls": "This simple reference does not validate every structural constraint. Sum-of-squares formulas can overflow long for large n.",
+    "alternatives": "XOR partitioning by a set bit separates the two anomalies in O(1) space; a final scan identifies which anomaly is repeated.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] a) {\n    boolean[] seen = new boolean[a.length + 1];\n    int repeat = -1;\n    for (int x : a) {\n      if (x < 1 || x > a.length) throw new IllegalArgumentException();\n      if (seen[x]) repeat = x;\n      seen[x] = true;\n    }\n    int missing = -1;\n    for (int x = 1; x <= a.length; x++) if (!seen[x]) missing = x;\n    return new int[] {repeat, missing};\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {3, 1, 2, 5, 3})));\n  }\n}\n"
+  },
+  "Count Inversions": {
+    "expected": "5",
+    "problem": "Count index pairs i<j with a[i]>a[j].",
+    "approach": "Merge sort counts pairs inside both halves recursively. For cross pairs, both halves are sorted; a monotone right pointer counts valid partners for each left value before the merge destroys half boundaries.",
+    "complexity": "O(n log n) time and O(n) space including the copy; return long for pair counts.",
+    "trace": "For [2,4,3,5,1], reverse pairs are (4,1),(3,1),(5,1); inversions additionally include (2,1),(4,3).",
+    "pitfalls": "Widen to 2L*a[j] before multiplying. Negative inputs are supported. Count cross pairs before merging.",
+    "alternatives": "A double loop over i<j is an O(n²) reference with O(1) auxiliary space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static long count(int[] a, int[] tmp, int l, int r, boolean reverse) {\n    if (r - l < 2) return 0;\n    int m = l + (r - l) / 2;\n    long ans = count(a, tmp, l, m, reverse) + count(a, tmp, m, r, reverse);\n    int j = m;\n    for (int i = l; i < m; i++) {\n      while (j < r && (reverse ? (long) a[i] > 2L * a[j] : a[i] > a[j])) j++;\n      ans += j - m;\n    }\n    int i = l, k = l;\n    j = m;\n    while (i < m && j < r) tmp[k++] = a[i] <= a[j] ? a[i++] : a[j++];\n    while (i < m) tmp[k++] = a[i++];\n    while (j < r) tmp[k++] = a[j++];\n    System.arraycopy(tmp, l, a, l, r - l);\n    return ans;\n  }\n\n  public static long solve(int[] input) {\n    int[] a = input.clone();\n    return count(a, new int[a.length], 0, a.length, false);\n  }\n\n  public static long brute(int[] a) {\n    long ans = 0;\n    for (int i = 0; i < a.length; i++)\n      for (int j = i + 1; j < a.length; j++) if (a[i] > a[j]) ans++;\n    return ans;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {2, 4, 3, 5, 1}));\n  }\n}\n"
+  },
+  "Reverse Pairs": {
+    "expected": "3",
+    "problem": "Count index pairs i<j with a[i]>2*a[j].",
+    "approach": "Merge sort counts pairs inside both halves recursively. For cross pairs, both halves are sorted; a monotone right pointer counts valid partners for each left value before the merge destroys half boundaries.",
+    "complexity": "O(n log n) time and O(n) space including the copy; return long for pair counts.",
+    "trace": "For [2,4,3,5,1], reverse pairs are (4,1),(3,1),(5,1); inversions additionally include (2,1),(4,3).",
+    "pitfalls": "Widen to 2L*a[j] before multiplying. Negative inputs are supported. Count cross pairs before merging.",
+    "alternatives": "A double loop over i<j is an O(n²) reference with O(1) auxiliary space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static long count(int[] a, int[] tmp, int l, int r, boolean reverse) {\n    if (r - l < 2) return 0;\n    int m = l + (r - l) / 2;\n    long ans = count(a, tmp, l, m, reverse) + count(a, tmp, m, r, reverse);\n    int j = m;\n    for (int i = l; i < m; i++) {\n      while (j < r && (reverse ? (long) a[i] > 2L * a[j] : a[i] > a[j])) j++;\n      ans += j - m;\n    }\n    int i = l, k = l;\n    j = m;\n    while (i < m && j < r) tmp[k++] = a[i] <= a[j] ? a[i++] : a[j++];\n    while (i < m) tmp[k++] = a[i++];\n    while (j < r) tmp[k++] = a[j++];\n    System.arraycopy(tmp, l, a, l, r - l);\n    return ans;\n  }\n\n  public static long solve(int[] input) {\n    int[] a = input.clone();\n    return count(a, new int[a.length], 0, a.length, true);\n  }\n\n  public static long brute(int[] a) {\n    long ans = 0;\n    for (int i = 0; i < a.length; i++)\n      for (int j = i + 1; j < a.length; j++) if ((long) a[i] > 2L * a[j]) ans++;\n    return ans;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {2, 4, 3, 5, 1}));\n  }\n}\n"
+  },
+  "Maximum Product Subarray in an Array": {
+    "expected": "6",
+    "problem": "Return the exact maximum product of a nonempty contiguous subarray.",
+    "approach": "Track both maximum and minimum products ending at each position. Multiplying by a negative swaps the roles of extremes; include the singleton value to allow starting over.",
+    "complexity": "O(n) BigInteger multiply operations; bit cost and retained storage depend on product length.",
+    "trace": "2 -> hi=6 at 3 -> at -2 hi=-2,lo=-12 -> at 4 hi=4,lo=-48; best remains 6.",
+    "pitfalls": "Zero resets ending products. BigInteger avoids silent overflow for long products.",
+    "alternatives": "Enumerate all subarrays in O(n²) multiplications for a reference approach.",
+    "source": "import java.math.BigInteger;\nimport java.util.*;\n\npublic class Solution {\n  public static BigInteger solve(int[] a) {\n    if (a.length == 0) throw new IllegalArgumentException();\n    BigInteger hi = BigInteger.valueOf(a[0]), lo = hi, best = hi;\n    for (int i = 1; i < a.length; i++) {\n      BigInteger x = BigInteger.valueOf(a[i]), p = hi.multiply(x), q = lo.multiply(x);\n      hi = x.max(p).max(q);\n      lo = x.min(p).min(q);\n      best = best.max(hi);\n    }\n    return best;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {2, 3, -2, 4}));\n  }\n}\n"
+  },
+  "Merge two sorted arrays without extra space": {
+    "expected": "[1, 2, 3]\n[4, 8, 9]",
+    "problem": "Both arrays are sorted. Rearrange in place so conceptual a followed by b is globally sorted, keeping array lengths fixed.",
+    "approach": "Compare positions separated by a shrinking ceiling-half gap in the conceptual concatenation. The gap method exploits that the two initial runs are sorted; halve until the adjacent pass completes the merge.",
+    "complexity": "O((n+m) log(n+m)) time, O(1) auxiliary space.",
+    "trace": "Conceptual [1,4,8,2,3,9]; gap 3 then 2 then 1 moves smaller second-run values into the first run.",
+    "pitfalls": "This gap sequence is a merge technique for two sorted runs, not a general sorting guarantee for arbitrary input. Empty arrays are supported.",
+    "alternatives": "Merge into a temporary array in O(n+m) time/O(n+m) space. Repeated insertion shifting uses O(nm) time and O(1) space.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static void solve(int[] a, int[] b) {\n    int total = a.length + b.length;\n    for (int gap = (total + 1) / 2; gap > 0; gap = gap == 1 ? 0 : (gap + 1) / 2) {\n      for (int i = 0, j = gap; j < total; i++, j++) {\n        int x = i < a.length ? a[i] : b[i - a.length], y = j < a.length ? a[j] : b[j - a.length];\n        if (x > y) {\n          if (i < a.length) a[i] = y;\n          else b[i - a.length] = y;\n          if (j < a.length) a[j] = x;\n          else b[j - a.length] = x;\n        }\n      }\n    }\n  }\n\n  public static void main(String[] args) {\n    int[] a = {1, 4, 8}, b = {2, 3, 9};\n    solve(a, b);\n    System.out.println(Arrays.toString(a));\n    System.out.println(Arrays.toString(b));\n  }\n}\n"
+  },
+  "Second Smallest Distinct Element": {
+    "expected": "2",
+    "problem": "Return the second DISTINCT minimum, absent if fewer than two distinct values.",
+    "approach": "Maintain the smallest two distinct processed values. A new minimum demotes the old one; a strictly intermediate value changes only second.",
+    "complexity": "O(n) time, O(1) space.",
+    "trace": "4 becomes first;1 demotes4; duplicate1 does nothing;2 replaces second4.",
+    "pitfalls": "OptionalInt supports every int value without a sentinel collision.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static OptionalInt solve(int[] a) {\n    Integer first = null, second = null;\n    for (int x : a) {\n      if (first == null || x < first) {\n        second = first;\n        first = x;\n      } else if (x > first && (second == null || x < second)) second = x;\n    }\n    return second == null ? OptionalInt.empty() : OptionalInt.of(second);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {4, 1, 1, 2}).getAsInt());\n  }\n}\n"
+  }
+}

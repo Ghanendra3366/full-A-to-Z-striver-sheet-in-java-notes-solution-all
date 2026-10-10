@@ -22,3 +22,6 @@ Follow the section order below. Pending items are listed in the [full coverage i
 - [Valid Paranthesis Checker](hard/valid-paranthesis-checker/README.md) — implemented
 - [Candy](hard/candy/README.md) — implemented
 - [Jump Game II](hard/jump-game-ii/README.md) — implemented
+## Reference supplements
+
+- [Greedy Minimum Coins for a Canonical System](reference-supplements/greedy-minimum-coins-for-a-canonical-system/README.md) — implemented

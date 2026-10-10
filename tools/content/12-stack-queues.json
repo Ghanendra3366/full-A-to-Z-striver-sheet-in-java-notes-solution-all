@@ -1,0 +1,305 @@
+{
+  "Implementation using different DS": {
+    "theory": "Stack is LIFO: push/pop at the same end. Queue is FIFO: append at tail, remove at head. Use ArrayDeque in Java 8 for both. For stack call push/pop/peek; for queue offer/poll/peek. ArrayDeque prohibits null. Array-based fixed-capacity implementations must detect overflow and underflow; a circular queue tracks size to distinguish empty/full when head==tail. Linked structures allocate nodes and update empty head/tail cases. See the six concrete implementation lessons below."
+  },
+  "Implement Stack using Arrays": {
+    "expected": "2",
+    "problem": "Implement the named integer data structure; empty removal throws NoSuchElementException.",
+    "approach": "Top is the next free array index minus one; push increments size and pop decrements it.",
+    "complexity": "Array/linked primitives O(1) each; queue-via-two-stacks O(1) amortized with O(n) worst transfer; stack-via-one-queue push O(n), pop O(1). O(capacity) fixed-array or O(n) dynamic storage.",
+    "trace": "Insert 1 then 2: a stack removes 2; a queue removes 1.",
+    "pitfalls": "No sentinels collide with valid integer values. Array capacity overflow throws; linked/collection storage grows dynamically.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class StackDS {\n    final int[] a;\n    int size;\n\n    StackDS(int capacity) {\n      if (capacity < 0) throw new IllegalArgumentException();\n      a = new int[capacity];\n    }\n\n    void push(int x) {\n      if (size == a.length) throw new IllegalStateException(\"full\");\n      a[size++] = x;\n    }\n\n    int pop() {\n      if (size == 0) throw new NoSuchElementException();\n      return a[--size];\n    }\n  }\n\n  public static void main(String[] args) {\n    StackDS s = new StackDS(3);\n    s.push(1);\n    s.push(2);\n    System.out.println(s.pop());\n  }\n}\n"
+  },
+  "Implement Queue using Arrays": {
+    "expected": "1",
+    "problem": "Implement the named integer data structure; empty removal throws NoSuchElementException.",
+    "approach": "Wrap head and tail modulo capacity; explicit size distinguishes empty from full.",
+    "complexity": "Array/linked primitives O(1) each; queue-via-two-stacks O(1) amortized with O(n) worst transfer; stack-via-one-queue push O(n), pop O(1). O(capacity) fixed-array or O(n) dynamic storage.",
+    "trace": "Insert 1 then 2: a stack removes 2; a queue removes 1.",
+    "pitfalls": "No sentinels collide with valid integer values. Array capacity overflow throws; linked/collection storage grows dynamically.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class QueueDS {\n    final int[] a;\n    int head, tail, size;\n\n    QueueDS(int capacity) {\n      if (capacity < 1) throw new IllegalArgumentException();\n      a = new int[capacity];\n    }\n\n    void offer(int x) {\n      if (size == a.length) throw new IllegalStateException(\"full\");\n      a[tail] = x;\n      tail = (tail + 1) % a.length;\n      size++;\n    }\n\n    int poll() {\n      if (size == 0) throw new NoSuchElementException();\n      int x = a[head];\n      head = (head + 1) % a.length;\n      size--;\n      return x;\n    }\n  }\n\n  public static void main(String[] args) {\n    QueueDS q = new QueueDS(3);\n    q.offer(1);\n    q.offer(2);\n    System.out.println(q.poll());\n  }\n}\n"
+  },
+  "Implement Stack using Queue": {
+    "expected": "2",
+    "problem": "Implement the named integer data structure; empty removal throws NoSuchElementException.",
+    "approach": "After appending a new top, rotate all old entries behind it. Queue front is always the most recent stack value.",
+    "complexity": "Array/linked primitives O(1) each; queue-via-two-stacks O(1) amortized with O(n) worst transfer; stack-via-one-queue push O(n), pop O(1). O(capacity) fixed-array or O(n) dynamic storage.",
+    "trace": "Insert 1 then 2: a stack removes 2; a queue removes 1.",
+    "pitfalls": "No sentinels collide with valid integer values. Array capacity overflow throws; linked/collection storage grows dynamically.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class StackDS {\n    final Queue<Integer> q = new ArrayDeque<>();\n\n    void push(int x) {\n      q.offer(x);\n      for (int size = q.size() - 1; size > 0; size--) q.offer(q.remove());\n    }\n\n    int pop() {\n      return q.remove();\n    }\n  }\n\n  public static void main(String[] args) {\n    StackDS s = new StackDS();\n    s.push(1);\n    s.push(2);\n    System.out.println(s.pop());\n  }\n}\n"
+  },
+  "Implement Queue using Stack": {
+    "expected": "1",
+    "problem": "Implement the named integer data structure; empty removal throws NoSuchElementException.",
+    "approach": "Incoming stack holds recent values; transfer to outgoing only when it is empty, reversing them into FIFO order.",
+    "complexity": "Array/linked primitives O(1) each; queue-via-two-stacks O(1) amortized with O(n) worst transfer; stack-via-one-queue push O(n), pop O(1). O(capacity) fixed-array or O(n) dynamic storage.",
+    "trace": "Insert 1 then 2: a stack removes 2; a queue removes 1.",
+    "pitfalls": "No sentinels collide with valid integer values. Array capacity overflow throws; linked/collection storage grows dynamically.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class QueueDS {\n    final Deque<Integer> in = new ArrayDeque<>(), out = new ArrayDeque<>();\n\n    void offer(int x) {\n      in.push(x);\n    }\n\n    int poll() {\n      if (out.isEmpty()) while (!in.isEmpty()) out.push(in.pop());\n      if (out.isEmpty()) throw new NoSuchElementException();\n      return out.pop();\n    }\n  }\n\n  public static void main(String[] args) {\n    QueueDS q = new QueueDS();\n    q.offer(1);\n    q.offer(2);\n    System.out.println(q.poll());\n  }\n}\n"
+  },
+  "Implement stack using Linkedlist": {
+    "expected": "2",
+    "problem": "Implement the named integer data structure; empty removal throws NoSuchElementException.",
+    "approach": "Use the singly-list head as stack top so both push/pop touch only one node.",
+    "complexity": "Array/linked primitives O(1) each; queue-via-two-stacks O(1) amortized with O(n) worst transfer; stack-via-one-queue push O(n), pop O(1). O(capacity) fixed-array or O(n) dynamic storage.",
+    "trace": "Insert 1 then 2: a stack removes 2; a queue removes 1.",
+    "pitfalls": "No sentinels collide with valid integer values. Array capacity overflow throws; linked/collection storage grows dynamically.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node next;\n\n    Node(int x) {\n      value = x;\n    }\n  }\n\n  static class StackDS {\n    Node head;\n\n    void push(int x) {\n      Node n = new Node(x);\n      n.next = head;\n      head = n;\n    }\n\n    int pop() {\n      if (head == null) throw new NoSuchElementException();\n      int x = head.value;\n      head = head.next;\n      return x;\n    }\n  }\n\n  public static void main(String[] args) {\n    StackDS s = new StackDS();\n    s.push(1);\n    s.push(2);\n    System.out.println(s.pop());\n  }\n}\n"
+  },
+  "Implement queue using Linkedlist": {
+    "expected": "1",
+    "problem": "Implement the named integer data structure; empty removal throws NoSuchElementException.",
+    "approach": "Maintain both head and tail; removing the last node must reset tail to null.",
+    "complexity": "Array/linked primitives O(1) each; queue-via-two-stacks O(1) amortized with O(n) worst transfer; stack-via-one-queue push O(n), pop O(1). O(capacity) fixed-array or O(n) dynamic storage.",
+    "trace": "Insert 1 then 2: a stack removes 2; a queue removes 1.",
+    "pitfalls": "No sentinels collide with valid integer values. Array capacity overflow throws; linked/collection storage grows dynamically.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node next;\n\n    Node(int x) {\n      value = x;\n    }\n  }\n\n  static class QueueDS {\n    Node head, tail;\n\n    void offer(int x) {\n      Node n = new Node(x);\n      if (tail == null) head = n;\n      else tail.next = n;\n      tail = n;\n    }\n\n    int poll() {\n      if (head == null) throw new NoSuchElementException();\n      int x = head.value;\n      head = head.next;\n      if (head == null) tail = null;\n      return x;\n    }\n  }\n\n  public static void main(String[] args) {\n    QueueDS q = new QueueDS();\n    q.offer(1);\n    q.offer(2);\n    System.out.println(q.poll());\n  }\n}\n"
+  },
+  "Balanced Paranthesis": {
+    "expected": "true",
+    "problem": "Check well-nested (),[],{} only.",
+    "approach": "A closing delimiter must match the most recent unmatched opening delimiter, so LIFO is the correct invariant. No openings may remain at end.",
+    "complexity": "O(n) time; O(n) worst stack.",
+    "trace": "{ then [ then ( are pushed; ),],} pop the matching reverse order.",
+    "pitfalls": "Matching counts alone do not ensure correct nesting: ([)] is invalid.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(String s) {\n    Deque<Character> stack = new ArrayDeque<>();\n    for (char c : s.toCharArray()) {\n      if (c == '(' || c == '[' || c == '{') stack.push(c);\n      else if (c == ')' || c == ']' || c == '}') {\n        if (stack.isEmpty()) return false;\n        char open = stack.pop();\n        if (c == ')' && open != '(' || c == ']' && open != '[' || c == '}' && open != '{')\n          return false;\n      } else throw new IllegalArgumentException();\n    }\n    return stack.isEmpty();\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"{[()]}\"));\n  }\n}\n"
+  },
+  "Infix to Postfix Conversion": {
+    "expected": "abc*+",
+    "problem": "Convert valid binary expressions with SINGLE-character operands, operators +,-,*,/,^ and parentheses where applicable. ^ denotes right-associative exponentiation for this parser, not Java XOR.",
+    "approach": "Infix uses an operator stack by precedence, popping equal precedence except for right-associative ^. Prefix/postfix conversion scans in the appropriate direction and combines the two operand expressions in their original left/right order.",
+    "complexity": "Infix-to-postfix O(n) time/space; string-building conversions can be O(n²) worst time/storage due to immutable intermediate concatenations. Expression trees/StringBuilder traversals can improve output construction.",
+    "trace": "a+b*c groups multiplication before addition: postfix abc*+, prefix +a*bc, fully parenthesized infix (a+(b*c)).",
+    "pitfalls": "Unary minus and multi-character tokens are outside the grammar. The parser assumes a valid infix token sequence; it checks mismatched parentheses and conversion stack underflow.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static boolean operand(char c) {\n    return Character.isLetterOrDigit(c);\n  }\n\n  static int priority(char c) {\n    if (c == '^') return 3;\n    if (c == '*' || c == '/') return 2;\n    if (c == '+' || c == '-') return 1;\n    throw new IllegalArgumentException();\n  }\n\n  static String postfix(String infix) {\n    StringBuilder out = new StringBuilder();\n    Deque<Character> ops = new ArrayDeque<>();\n    for (char c : infix.toCharArray()) {\n      if (Character.isWhitespace(c)) continue;\n      if (operand(c)) out.append(c);\n      else if (c == '(') ops.push(c);\n      else if (c == ')') {\n        while (!ops.isEmpty() && ops.peek() != '(') out.append(ops.pop());\n        if (ops.isEmpty()) throw new IllegalArgumentException();\n        ops.pop();\n      } else {\n        int p = priority(c);\n        while (!ops.isEmpty()\n            && ops.peek() != '('\n            && (priority(ops.peek()) > p || priority(ops.peek()) == p && c != '^'))\n          out.append(ops.pop());\n        ops.push(c);\n      }\n    }\n    while (!ops.isEmpty()) {\n      if (ops.peek() == '(') throw new IllegalArgumentException();\n      out.append(ops.pop());\n    }\n    return out.toString();\n  }\n\n  static String convert(String s, boolean prefixInput, boolean infixOutput, boolean prefixOutput) {\n    Deque<String> stack = new ArrayDeque<>();\n    int n = s.length();\n    for (int step = 0; step < n; step++) {\n      char c = s.charAt(prefixInput ? n - 1 - step : step);\n      if (Character.isWhitespace(c)) continue;\n      if (operand(c)) stack.push(String.valueOf(c));\n      else {\n        priority(c);\n        if (stack.size() < 2) throw new IllegalArgumentException();\n        String first = stack.pop(),\n            second = stack.pop(),\n            left = prefixInput ? first : second,\n            right = prefixInput ? second : first;\n        stack.push(\n            infixOutput\n                ? \"(\" + left + c + right + \")\"\n                : prefixOutput ? c + left + right : left + right + c);\n      }\n    }\n    if (stack.size() != 1) throw new IllegalArgumentException();\n    return stack.pop();\n  }\n\n  public static String solve(String s) {\n    return postfix(s);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"a+b*c\"));\n  }\n}\n"
+  },
+  "Infix to Prefix Conversion": {
+    "expected": "+a*bc",
+    "problem": "Convert valid binary expressions with SINGLE-character operands, operators +,-,*,/,^ and parentheses where applicable. ^ denotes right-associative exponentiation for this parser, not Java XOR.",
+    "approach": "Infix uses an operator stack by precedence, popping equal precedence except for right-associative ^. Prefix/postfix conversion scans in the appropriate direction and combines the two operand expressions in their original left/right order.",
+    "complexity": "Infix-to-postfix O(n) time/space; string-building conversions can be O(n²) worst time/storage due to immutable intermediate concatenations. Expression trees/StringBuilder traversals can improve output construction.",
+    "trace": "a+b*c groups multiplication before addition: postfix abc*+, prefix +a*bc, fully parenthesized infix (a+(b*c)).",
+    "pitfalls": "Unary minus and multi-character tokens are outside the grammar. The parser assumes a valid infix token sequence; it checks mismatched parentheses and conversion stack underflow.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static boolean operand(char c) {\n    return Character.isLetterOrDigit(c);\n  }\n\n  static int priority(char c) {\n    if (c == '^') return 3;\n    if (c == '*' || c == '/') return 2;\n    if (c == '+' || c == '-') return 1;\n    throw new IllegalArgumentException();\n  }\n\n  static String postfix(String infix) {\n    StringBuilder out = new StringBuilder();\n    Deque<Character> ops = new ArrayDeque<>();\n    for (char c : infix.toCharArray()) {\n      if (Character.isWhitespace(c)) continue;\n      if (operand(c)) out.append(c);\n      else if (c == '(') ops.push(c);\n      else if (c == ')') {\n        while (!ops.isEmpty() && ops.peek() != '(') out.append(ops.pop());\n        if (ops.isEmpty()) throw new IllegalArgumentException();\n        ops.pop();\n      } else {\n        int p = priority(c);\n        while (!ops.isEmpty()\n            && ops.peek() != '('\n            && (priority(ops.peek()) > p || priority(ops.peek()) == p && c != '^'))\n          out.append(ops.pop());\n        ops.push(c);\n      }\n    }\n    while (!ops.isEmpty()) {\n      if (ops.peek() == '(') throw new IllegalArgumentException();\n      out.append(ops.pop());\n    }\n    return out.toString();\n  }\n\n  static String convert(String s, boolean prefixInput, boolean infixOutput, boolean prefixOutput) {\n    Deque<String> stack = new ArrayDeque<>();\n    int n = s.length();\n    for (int step = 0; step < n; step++) {\n      char c = s.charAt(prefixInput ? n - 1 - step : step);\n      if (Character.isWhitespace(c)) continue;\n      if (operand(c)) stack.push(String.valueOf(c));\n      else {\n        priority(c);\n        if (stack.size() < 2) throw new IllegalArgumentException();\n        String first = stack.pop(),\n            second = stack.pop(),\n            left = prefixInput ? first : second,\n            right = prefixInput ? second : first;\n        stack.push(\n            infixOutput\n                ? \"(\" + left + c + right + \")\"\n                : prefixOutput ? c + left + right : left + right + c);\n      }\n    }\n    if (stack.size() != 1) throw new IllegalArgumentException();\n    return stack.pop();\n  }\n\n  public static String solve(String s) {\n    return convert(postfix(s), false, false, true);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"a+b*c\"));\n  }\n}\n"
+  },
+  "Prefix to Infix Conversion": {
+    "expected": "(a+(b*c))",
+    "problem": "Convert valid binary expressions with SINGLE-character operands, operators +,-,*,/,^ and parentheses where applicable. ^ denotes right-associative exponentiation for this parser, not Java XOR.",
+    "approach": "Infix uses an operator stack by precedence, popping equal precedence except for right-associative ^. Prefix/postfix conversion scans in the appropriate direction and combines the two operand expressions in their original left/right order.",
+    "complexity": "Infix-to-postfix O(n) time/space; string-building conversions can be O(n²) worst time/storage due to immutable intermediate concatenations. Expression trees/StringBuilder traversals can improve output construction.",
+    "trace": "a+b*c groups multiplication before addition: postfix abc*+, prefix +a*bc, fully parenthesized infix (a+(b*c)).",
+    "pitfalls": "Unary minus and multi-character tokens are outside the grammar. The parser assumes a valid infix token sequence; it checks mismatched parentheses and conversion stack underflow.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static boolean operand(char c) {\n    return Character.isLetterOrDigit(c);\n  }\n\n  static int priority(char c) {\n    if (c == '^') return 3;\n    if (c == '*' || c == '/') return 2;\n    if (c == '+' || c == '-') return 1;\n    throw new IllegalArgumentException();\n  }\n\n  static String postfix(String infix) {\n    StringBuilder out = new StringBuilder();\n    Deque<Character> ops = new ArrayDeque<>();\n    for (char c : infix.toCharArray()) {\n      if (Character.isWhitespace(c)) continue;\n      if (operand(c)) out.append(c);\n      else if (c == '(') ops.push(c);\n      else if (c == ')') {\n        while (!ops.isEmpty() && ops.peek() != '(') out.append(ops.pop());\n        if (ops.isEmpty()) throw new IllegalArgumentException();\n        ops.pop();\n      } else {\n        int p = priority(c);\n        while (!ops.isEmpty()\n            && ops.peek() != '('\n            && (priority(ops.peek()) > p || priority(ops.peek()) == p && c != '^'))\n          out.append(ops.pop());\n        ops.push(c);\n      }\n    }\n    while (!ops.isEmpty()) {\n      if (ops.peek() == '(') throw new IllegalArgumentException();\n      out.append(ops.pop());\n    }\n    return out.toString();\n  }\n\n  static String convert(String s, boolean prefixInput, boolean infixOutput, boolean prefixOutput) {\n    Deque<String> stack = new ArrayDeque<>();\n    int n = s.length();\n    for (int step = 0; step < n; step++) {\n      char c = s.charAt(prefixInput ? n - 1 - step : step);\n      if (Character.isWhitespace(c)) continue;\n      if (operand(c)) stack.push(String.valueOf(c));\n      else {\n        priority(c);\n        if (stack.size() < 2) throw new IllegalArgumentException();\n        String first = stack.pop(),\n            second = stack.pop(),\n            left = prefixInput ? first : second,\n            right = prefixInput ? second : first;\n        stack.push(\n            infixOutput\n                ? \"(\" + left + c + right + \")\"\n                : prefixOutput ? c + left + right : left + right + c);\n      }\n    }\n    if (stack.size() != 1) throw new IllegalArgumentException();\n    return stack.pop();\n  }\n\n  public static String solve(String s) {\n    return convert(s, true, true, false);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"+a*bc\"));\n  }\n}\n"
+  },
+  "Prefix to Postfix Conversion": {
+    "expected": "abc*+",
+    "problem": "Convert valid binary expressions with SINGLE-character operands, operators +,-,*,/,^ and parentheses where applicable. ^ denotes right-associative exponentiation for this parser, not Java XOR.",
+    "approach": "Infix uses an operator stack by precedence, popping equal precedence except for right-associative ^. Prefix/postfix conversion scans in the appropriate direction and combines the two operand expressions in their original left/right order.",
+    "complexity": "Infix-to-postfix O(n) time/space; string-building conversions can be O(n²) worst time/storage due to immutable intermediate concatenations. Expression trees/StringBuilder traversals can improve output construction.",
+    "trace": "a+b*c groups multiplication before addition: postfix abc*+, prefix +a*bc, fully parenthesized infix (a+(b*c)).",
+    "pitfalls": "Unary minus and multi-character tokens are outside the grammar. The parser assumes a valid infix token sequence; it checks mismatched parentheses and conversion stack underflow.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static boolean operand(char c) {\n    return Character.isLetterOrDigit(c);\n  }\n\n  static int priority(char c) {\n    if (c == '^') return 3;\n    if (c == '*' || c == '/') return 2;\n    if (c == '+' || c == '-') return 1;\n    throw new IllegalArgumentException();\n  }\n\n  static String postfix(String infix) {\n    StringBuilder out = new StringBuilder();\n    Deque<Character> ops = new ArrayDeque<>();\n    for (char c : infix.toCharArray()) {\n      if (Character.isWhitespace(c)) continue;\n      if (operand(c)) out.append(c);\n      else if (c == '(') ops.push(c);\n      else if (c == ')') {\n        while (!ops.isEmpty() && ops.peek() != '(') out.append(ops.pop());\n        if (ops.isEmpty()) throw new IllegalArgumentException();\n        ops.pop();\n      } else {\n        int p = priority(c);\n        while (!ops.isEmpty()\n            && ops.peek() != '('\n            && (priority(ops.peek()) > p || priority(ops.peek()) == p && c != '^'))\n          out.append(ops.pop());\n        ops.push(c);\n      }\n    }\n    while (!ops.isEmpty()) {\n      if (ops.peek() == '(') throw new IllegalArgumentException();\n      out.append(ops.pop());\n    }\n    return out.toString();\n  }\n\n  static String convert(String s, boolean prefixInput, boolean infixOutput, boolean prefixOutput) {\n    Deque<String> stack = new ArrayDeque<>();\n    int n = s.length();\n    for (int step = 0; step < n; step++) {\n      char c = s.charAt(prefixInput ? n - 1 - step : step);\n      if (Character.isWhitespace(c)) continue;\n      if (operand(c)) stack.push(String.valueOf(c));\n      else {\n        priority(c);\n        if (stack.size() < 2) throw new IllegalArgumentException();\n        String first = stack.pop(),\n            second = stack.pop(),\n            left = prefixInput ? first : second,\n            right = prefixInput ? second : first;\n        stack.push(\n            infixOutput\n                ? \"(\" + left + c + right + \")\"\n                : prefixOutput ? c + left + right : left + right + c);\n      }\n    }\n    if (stack.size() != 1) throw new IllegalArgumentException();\n    return stack.pop();\n  }\n\n  public static String solve(String s) {\n    return convert(s, true, false, false);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"+a*bc\"));\n  }\n}\n"
+  },
+  "Postfix to Infix Conversion": {
+    "expected": "(a+(b*c))",
+    "problem": "Convert valid binary expressions with SINGLE-character operands, operators +,-,*,/,^ and parentheses where applicable. ^ denotes right-associative exponentiation for this parser, not Java XOR.",
+    "approach": "Infix uses an operator stack by precedence, popping equal precedence except for right-associative ^. Prefix/postfix conversion scans in the appropriate direction and combines the two operand expressions in their original left/right order.",
+    "complexity": "Infix-to-postfix O(n) time/space; string-building conversions can be O(n²) worst time/storage due to immutable intermediate concatenations. Expression trees/StringBuilder traversals can improve output construction.",
+    "trace": "a+b*c groups multiplication before addition: postfix abc*+, prefix +a*bc, fully parenthesized infix (a+(b*c)).",
+    "pitfalls": "Unary minus and multi-character tokens are outside the grammar. The parser assumes a valid infix token sequence; it checks mismatched parentheses and conversion stack underflow.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static boolean operand(char c) {\n    return Character.isLetterOrDigit(c);\n  }\n\n  static int priority(char c) {\n    if (c == '^') return 3;\n    if (c == '*' || c == '/') return 2;\n    if (c == '+' || c == '-') return 1;\n    throw new IllegalArgumentException();\n  }\n\n  static String postfix(String infix) {\n    StringBuilder out = new StringBuilder();\n    Deque<Character> ops = new ArrayDeque<>();\n    for (char c : infix.toCharArray()) {\n      if (Character.isWhitespace(c)) continue;\n      if (operand(c)) out.append(c);\n      else if (c == '(') ops.push(c);\n      else if (c == ')') {\n        while (!ops.isEmpty() && ops.peek() != '(') out.append(ops.pop());\n        if (ops.isEmpty()) throw new IllegalArgumentException();\n        ops.pop();\n      } else {\n        int p = priority(c);\n        while (!ops.isEmpty()\n            && ops.peek() != '('\n            && (priority(ops.peek()) > p || priority(ops.peek()) == p && c != '^'))\n          out.append(ops.pop());\n        ops.push(c);\n      }\n    }\n    while (!ops.isEmpty()) {\n      if (ops.peek() == '(') throw new IllegalArgumentException();\n      out.append(ops.pop());\n    }\n    return out.toString();\n  }\n\n  static String convert(String s, boolean prefixInput, boolean infixOutput, boolean prefixOutput) {\n    Deque<String> stack = new ArrayDeque<>();\n    int n = s.length();\n    for (int step = 0; step < n; step++) {\n      char c = s.charAt(prefixInput ? n - 1 - step : step);\n      if (Character.isWhitespace(c)) continue;\n      if (operand(c)) stack.push(String.valueOf(c));\n      else {\n        priority(c);\n        if (stack.size() < 2) throw new IllegalArgumentException();\n        String first = stack.pop(),\n            second = stack.pop(),\n            left = prefixInput ? first : second,\n            right = prefixInput ? second : first;\n        stack.push(\n            infixOutput\n                ? \"(\" + left + c + right + \")\"\n                : prefixOutput ? c + left + right : left + right + c);\n      }\n    }\n    if (stack.size() != 1) throw new IllegalArgumentException();\n    return stack.pop();\n  }\n\n  public static String solve(String s) {\n    return convert(s, false, true, false);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"abc*+\"));\n  }\n}\n"
+  },
+  "Postfix to Prefix Conversion": {
+    "expected": "+a*bc",
+    "problem": "Convert valid binary expressions with SINGLE-character operands, operators +,-,*,/,^ and parentheses where applicable. ^ denotes right-associative exponentiation for this parser, not Java XOR.",
+    "approach": "Infix uses an operator stack by precedence, popping equal precedence except for right-associative ^. Prefix/postfix conversion scans in the appropriate direction and combines the two operand expressions in their original left/right order.",
+    "complexity": "Infix-to-postfix O(n) time/space; string-building conversions can be O(n²) worst time/storage due to immutable intermediate concatenations. Expression trees/StringBuilder traversals can improve output construction.",
+    "trace": "a+b*c groups multiplication before addition: postfix abc*+, prefix +a*bc, fully parenthesized infix (a+(b*c)).",
+    "pitfalls": "Unary minus and multi-character tokens are outside the grammar. The parser assumes a valid infix token sequence; it checks mismatched parentheses and conversion stack underflow.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static boolean operand(char c) {\n    return Character.isLetterOrDigit(c);\n  }\n\n  static int priority(char c) {\n    if (c == '^') return 3;\n    if (c == '*' || c == '/') return 2;\n    if (c == '+' || c == '-') return 1;\n    throw new IllegalArgumentException();\n  }\n\n  static String postfix(String infix) {\n    StringBuilder out = new StringBuilder();\n    Deque<Character> ops = new ArrayDeque<>();\n    for (char c : infix.toCharArray()) {\n      if (Character.isWhitespace(c)) continue;\n      if (operand(c)) out.append(c);\n      else if (c == '(') ops.push(c);\n      else if (c == ')') {\n        while (!ops.isEmpty() && ops.peek() != '(') out.append(ops.pop());\n        if (ops.isEmpty()) throw new IllegalArgumentException();\n        ops.pop();\n      } else {\n        int p = priority(c);\n        while (!ops.isEmpty()\n            && ops.peek() != '('\n            && (priority(ops.peek()) > p || priority(ops.peek()) == p && c != '^'))\n          out.append(ops.pop());\n        ops.push(c);\n      }\n    }\n    while (!ops.isEmpty()) {\n      if (ops.peek() == '(') throw new IllegalArgumentException();\n      out.append(ops.pop());\n    }\n    return out.toString();\n  }\n\n  static String convert(String s, boolean prefixInput, boolean infixOutput, boolean prefixOutput) {\n    Deque<String> stack = new ArrayDeque<>();\n    int n = s.length();\n    for (int step = 0; step < n; step++) {\n      char c = s.charAt(prefixInput ? n - 1 - step : step);\n      if (Character.isWhitespace(c)) continue;\n      if (operand(c)) stack.push(String.valueOf(c));\n      else {\n        priority(c);\n        if (stack.size() < 2) throw new IllegalArgumentException();\n        String first = stack.pop(),\n            second = stack.pop(),\n            left = prefixInput ? first : second,\n            right = prefixInput ? second : first;\n        stack.push(\n            infixOutput\n                ? \"(\" + left + c + right + \")\"\n                : prefixOutput ? c + left + right : left + right + c);\n      }\n    }\n    if (stack.size() != 1) throw new IllegalArgumentException();\n    return stack.pop();\n  }\n\n  public static String solve(String s) {\n    return convert(s, false, false, true);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"abc*+\"));\n  }\n}\n"
+  },
+  "Next Greater Element": {
+    "expected": "[3, 3, -1]",
+    "problem": "For each entry return nearest strictly greater value to its right; absent=-1. Return values, not indices.",
+    "approach": "Scan backwards; pop candidates that cannot beat the current value. Each popped candidate is also hidden for any future earlier position by the closer current value. A double scan makes one full circular suffix visible.",
+    "complexity": "O(n) time/space because each pushed entry pops at most once.",
+    "trace": "For [2,1,3], next greater values are 3,3,none; next smaller are 1,none,none.",
+    "pitfalls": "Strict comparison requires popping equals. The value -1 is ambiguous for arbitrary signed arrays; indices or OptionalInt can represent absence unambiguously.",
+    "alternatives": "Scanning each suffix separately takes O(n²) time.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] a) {\n    int n = a.length;\n    int[] out = new int[n];\n    Arrays.fill(out, -1);\n    Deque<Integer> stack = new ArrayDeque<>();\n    for (int i = n - 1; i >= 0; i--) {\n      int x = a[i % n];\n      while (!stack.isEmpty() && stack.peek() <= x) stack.pop();\n      if (i < n && !stack.isEmpty()) out[i] = stack.peek();\n      stack.push(x);\n    }\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {2, 1, 3})));\n  }\n}\n"
+  },
+  "Next Greater Element - 2": {
+    "expected": "[3, 3, -1]",
+    "problem": "For each entry return nearest strictly greater value to its right with wraparound; absent=-1. Return values, not indices.",
+    "approach": "Scan backwards; pop candidates that cannot beat the current value. Each popped candidate is also hidden for any future earlier position by the closer current value. A double scan makes one full circular suffix visible.",
+    "complexity": "O(n) time/space because each pushed entry pops at most once.",
+    "trace": "For [2,1,3], next greater values are 3,3,none; next smaller are 1,none,none.",
+    "pitfalls": "Strict comparison requires popping equals. The value -1 is ambiguous for arbitrary signed arrays; indices or OptionalInt can represent absence unambiguously.",
+    "alternatives": "Scanning each suffix separately takes O(n²) time.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] a) {\n    int n = a.length;\n    int[] out = new int[n];\n    Arrays.fill(out, -1);\n    Deque<Integer> stack = new ArrayDeque<>();\n    for (int i = 2 * n - 1; i >= 0; i--) {\n      int x = a[i % n];\n      while (!stack.isEmpty() && stack.peek() <= x) stack.pop();\n      if (i < n && !stack.isEmpty()) out[i] = stack.peek();\n      stack.push(x);\n    }\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {2, 1, 3})));\n  }\n}\n"
+  },
+  "Asteroid Collision": {
+    "expected": "[5, 10]",
+    "problem": "Nonzero signed asteroids move right if positive, left if negative. Colliding smaller magnitude disappears; equal magnitudes both disappear.",
+    "approach": "Only a positive survivor immediately before an incoming negative can collide. Pop smaller positives repeatedly; stop when the incoming asteroid dies or no collision pair remains.",
+    "complexity": "O(n) amortized time; O(n) space.",
+    "trace": "Incoming -5 meets 10 and dies; 5 and 10 stay in original order.",
+    "pitfalls": "Abs(MIN_VALUE) needs long. Negative followed by positive moves apart and never collides.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] a) {\n    Deque<Integer> stack = new ArrayDeque<>();\n    for (int x : a) {\n      if (x == 0) throw new IllegalArgumentException();\n      boolean alive = true;\n      while (alive && x < 0 && !stack.isEmpty() && stack.peek() > 0) {\n        long size = -(long) x;\n        if (stack.peek() < size) stack.pop();\n        else {\n          if (stack.peek() == size) stack.pop();\n          alive = false;\n        }\n      }\n      if (alive) stack.push(x);\n    }\n    int[] out = new int[stack.size()];\n    for (int i = out.length - 1; i >= 0; i--) out[i] = stack.pop();\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {5, 10, -5})));\n  }\n}\n"
+  },
+  "Sum of Subarray Minimums": {
+    "expected": "17",
+    "problem": "Sum every nonempty subarray's minimum, modulo 1e9+7. Values are nonnegative and aggregate contribution fits long under typical n<=30000,a[i]<=30000 bounds.",
+    "approach": "Monotone stack assigns each index a previous strictly-smaller boundary and next smaller-or-equal boundary. That asymmetric tie rule gives each subarray one owning minimum. Its contribution is value*(left choices)*(right choices).",
+    "complexity": "O(n) time/space.",
+    "trace": "For 1 at index 1 in [3,1,2,4], left choices 2 and right choices 3 give contribution 6; all indices sum to 17.",
+    "pitfalls": "Tie asymmetry prevents duplicate ownership. For unconstrained large values/lengths, reduce modular products during accumulation to avoid long overflow.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static long contribution(int[] a, boolean min) {\n    int n = a.length;\n    Deque<Integer> s = new ArrayDeque<>();\n    long sum = 0;\n    for (int i = 0; i <= n; i++) {\n      while (!s.isEmpty() && (i == n || (min ? a[s.peek()] >= a[i] : a[s.peek()] <= a[i]))) {\n        int j = s.pop(), left = s.isEmpty() ? -1 : s.peek();\n        sum += (long) a[j] * (j - left) * (i - j);\n      }\n      s.push(i);\n    }\n    return sum;\n  }\n\n  public static long solve(int[] a) {\n    long value = contribution(a, true) % 1000000007L;\n    return (value + 1000000007L) % 1000000007L;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {3, 1, 2, 4}));\n  }\n}\n"
+  },
+  "Sum of Subarray Ranges": {
+    "expected": "4",
+    "problem": "Sum max-min of every nonempty subarray, assuming total fits signed long.",
+    "approach": "Compute sum of maxima and sum of minima separately via contribution boundaries, then subtract. Linearity lets every subarray's range decompose this way.",
+    "complexity": "O(n) time/space.",
+    "trace": "[1,2] range1, [2,3] range1, [1,2,3] range2; singletons zero; total4.",
+    "pitfalls": "Use long before multiplying index spans; extreme unconstrained inputs can still exceed long.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static long contribution(int[] a, boolean min) {\n    int n = a.length;\n    Deque<Integer> s = new ArrayDeque<>();\n    long sum = 0;\n    for (int i = 0; i <= n; i++) {\n      while (!s.isEmpty() && (i == n || (min ? a[s.peek()] >= a[i] : a[s.peek()] <= a[i]))) {\n        int j = s.pop(), left = s.isEmpty() ? -1 : s.peek();\n        sum += (long) a[j] * (j - left) * (i - j);\n      }\n      s.push(i);\n    }\n    return sum;\n  }\n\n  public static long solve(int[] a) {\n    return contribution(a, false) - contribution(a, true);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2, 3}));\n  }\n}\n"
+  },
+  "Remove K Digits": {
+    "expected": "1219",
+    "problem": "Remove exactly k digits preserving order; return the smallest nonnegative decimal number with no leading zeros (zero as \"0\").",
+    "approach": "A larger preceding digit is worse than the smaller incoming digit at the earliest differing position, so remove it while deletions remain. If digits stay increasing, remaining deletions come from the end.",
+    "complexity": "O(n) time/space.",
+    "trace": "Remove 4 before 3, 3 before 2, and one 2 before 1; resulting 1219.",
+    "pitfalls": "Trim zeros after selecting the sequence, not before counting deletions. All digits removed returns zero.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(String s, int k) {\n    if (k < 0 || k > s.length()) throw new IllegalArgumentException();\n    StringBuilder stack = new StringBuilder();\n    for (char c : s.toCharArray()) {\n      if (c < '0' || c > '9') throw new IllegalArgumentException();\n      while (k > 0 && stack.length() > 0 && stack.charAt(stack.length() - 1) > c) {\n        stack.setLength(stack.length() - 1);\n        k--;\n      }\n      stack.append(c);\n    }\n    stack.setLength(stack.length() - k);\n    int first = 0;\n    while (first < stack.length() && stack.charAt(first) == '0') first++;\n    return first == stack.length() ? \"0\" : stack.substring(first);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"1432219\", 3));\n  }\n}\n"
+  },
+  "Next Smaller Element": {
+    "expected": "[1, -1, -1]",
+    "problem": "For each entry return nearest strictly smaller value to its right; absent=-1. Return values, not indices.",
+    "approach": "Scan backwards; pop candidates that cannot beat the current value. Each popped candidate is also hidden for any future earlier position by the closer current value. A double scan makes one full circular suffix visible.",
+    "complexity": "O(n) time/space because each pushed entry pops at most once.",
+    "trace": "For [2,1,3], next greater values are 3,3,none; next smaller are 1,none,none.",
+    "pitfalls": "Strict comparison requires popping equals. The value -1 is ambiguous for arbitrary signed arrays; indices or OptionalInt can represent absence unambiguously.",
+    "alternatives": "Scanning each suffix separately takes O(n²) time.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] a) {\n    int n = a.length;\n    int[] out = new int[n];\n    Arrays.fill(out, -1);\n    Deque<Integer> stack = new ArrayDeque<>();\n    for (int i = n - 1; i >= 0; i--) {\n      int x = a[i % n];\n      while (!stack.isEmpty() && stack.peek() >= x) stack.pop();\n      if (i < n && !stack.isEmpty()) out[i] = stack.peek();\n      stack.push(x);\n    }\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {2, 1, 3})));\n  }\n}\n"
+  },
+  "Implement Min Stack": {
+    "expected": "1\n3",
+    "problem": "Integer stack with O(1) minimum query; empty removal/minimum throws.",
+    "approach": "A parallel stack stores the minimum at each depth. Push derives the new prefix minimum; pop removes both depths simultaneously.",
+    "complexity": "O(1) each operation, O(n) storage.",
+    "trace": "Values 3,1,2 store prefix minima 3,1,1; after two pops minimum restores to 3.",
+    "pitfalls": "Duplicate minima need separate depth entries; this implementation handles them naturally.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class MinStack {\n    final Deque<Integer> values = new ArrayDeque<>(), mins = new ArrayDeque<>();\n\n    void push(int x) {\n      values.push(x);\n      mins.push(mins.isEmpty() ? x : Math.min(x, mins.peek()));\n    }\n\n    int pop() {\n      if (values.isEmpty()) throw new NoSuchElementException();\n      mins.pop();\n      return values.pop();\n    }\n\n    int min() {\n      return mins.element();\n    }\n  }\n\n  public static void main(String[] args) {\n    MinStack s = new MinStack();\n    s.push(3);\n    s.push(1);\n    s.push(2);\n    System.out.println(s.min());\n    s.pop();\n    s.pop();\n    System.out.println(s.min());\n  }\n}\n"
+  },
+  "Sliding Window Maximum": {
+    "expected": "[3, 3, 5, 5, 6, 7]",
+    "problem": "Return max for each full contiguous window of width k, 1<=k<=n.",
+    "approach": "Deque holds unexpired indices with strictly decreasing values. A newer value at least as large dominates the older one until expiration. Front is always the current maximum.",
+    "complexity": "O(n) time; O(k) deque plus output.",
+    "trace": "Initial window max3; once 5 enters it removes dominated suffix candidates and becomes max.",
+    "pitfalls": "Store indices to test expiration; storing values alone cannot distinguish equal old/new entries.",
+    "alternatives": "Scanning each window costs O(nk); a heap with lazy expiry costs O(n log n) and can grow beyond k.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] a, int k) {\n    if (k < 1 || k > a.length) throw new IllegalArgumentException();\n    int[] out = new int[a.length - k + 1];\n    Deque<Integer> q = new ArrayDeque<>();\n    for (int i = 0; i < a.length; i++) {\n      while (!q.isEmpty() && q.peekFirst() <= i - k) q.pollFirst();\n      while (!q.isEmpty() && a[q.peekLast()] <= a[i]) q.pollLast();\n      q.offerLast(i);\n      if (i >= k - 1) out[i - k + 1] = a[q.peekFirst()];\n    }\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {1, 3, -1, -3, 5, 3, 6, 7}, 3)));\n  }\n}\n"
+  },
+  "Trapping Rainwater": {
+    "expected": "6",
+    "problem": "Nonnegative bar heights of unit width; compute total trapped water.",
+    "approach": "Process the side with the smaller established boundary maximum. Its water level is already limited by that side regardless of unknown interior heights; add max-height and advance.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "Valleys between left/right barriers accumulate six units in the standard example.",
+    "pitfalls": "Return long. Empty input holds zero water.",
+    "alternatives": "Prefix/suffix maxima use O(n) space; checking boundaries per bar uses O(n²) time.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(int[] a) {\n    int l = 0, r = a.length - 1, left = 0, right = 0;\n    long water = 0;\n    while (l <= r) {\n      if (left <= right) {\n        if (a[l] < 0) throw new IllegalArgumentException();\n        left = Math.max(left, a[l]);\n        water += left - a[l++];\n      } else {\n        if (a[r] < 0) throw new IllegalArgumentException();\n        right = Math.max(right, a[r]);\n        water += right - a[r--];\n      }\n    }\n    return water;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}));\n  }\n}\n"
+  },
+  "Largest rectangle in a histogram": {
+    "expected": "10",
+    "problem": "Nonnegative unit-width bars; return largest rectangular area fitting below the histogram.",
+    "approach": "When a lower/equal bar arrives, pop bars whose right boundary is now known. The new stack top is the nearest smaller left boundary; popped height spans i-left-1 bars.",
+    "complexity": "O(n) time/space.",
+    "trace": "Height 5 covers bars 5 and 6, area 10.",
+    "pitfalls": "Flush at virtual index n without dereferencing a[n]. Area multiplication must be long.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long histogram(int[] a) {\n    Deque<Integer> s = new ArrayDeque<>();\n    long best = 0;\n    for (int i = 0; i <= a.length; i++) {\n      while (!s.isEmpty() && (i == a.length || a[s.peek()] >= a[i])) {\n        int j = s.pop(), left = s.isEmpty() ? -1 : s.peek();\n        best = Math.max(best, (long) a[j] * (i - left - 1));\n      }\n      s.push(i);\n    }\n    return best;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(histogram(new int[] {2, 1, 5, 6, 2, 3}));\n  }\n}\n"
+  },
+  "Maximum Rectangles": {
+    "expected": "6",
+    "problem": "Largest all-one rectangle area in a rectangular binary matrix.",
+    "approach": "Each row is a histogram of consecutive ones ending there. Every all-one rectangle has a bottom row, so maximizing the histogram rectangle at every row considers all candidates.",
+    "complexity": "O(rows*cols) time; O(cols) heights/stack.",
+    "trace": "At row 2, columns 2..4 each have height at least 2, yielding area 6.",
+    "pitfalls": "Reset height to zero on a zero cell; do not sum ones across gaps.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long histogram(int[] a) {\n    Deque<Integer> s = new ArrayDeque<>();\n    long best = 0;\n    for (int i = 0; i <= a.length; i++) {\n      while (!s.isEmpty() && (i == a.length || a[s.peek()] >= a[i])) {\n        int j = s.pop(), left = s.isEmpty() ? -1 : s.peek();\n        best = Math.max(best, (long) a[j] * (i - left - 1));\n      }\n      s.push(i);\n    }\n    return best;\n  }\n\n  public static long solve(int[][] a) {\n    if (a.length == 0) return 0;\n    int[] heights = new int[a[0].length];\n    long best = 0;\n    for (int[] row : a) {\n      for (int c = 0; c < heights.length; c++) {\n        if (row[c] != 0 && row[c] != 1) throw new IllegalArgumentException();\n        heights[c] = row[c] == 0 ? 0 : heights[c] + 1;\n      }\n      best = Math.max(best, histogram(heights));\n    }\n    return best;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(\n        solve(new int[][] {{1, 0, 1, 0, 0}, {1, 0, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 0, 0, 1, 0}}));\n  }\n}\n"
+  },
+  "Stock span problem": {
+    "expected": "[1, 1, 1, 2, 1, 4, 6]",
+    "problem": "Online span counts consecutive days ending today whose price<=today, including today.",
+    "approach": "Maintain decreasing prices with compressed span counts. Every popped block is entirely dominated by the incoming price, so add its span to the new block.",
+    "complexity": "O(1) amortized per next, O(n) worst single call; O(n) storage.",
+    "trace": "75 absorbs 60,70 and their prior covered 60 to get span four.",
+    "pitfalls": "Equal prices are included and must pop with <=, not <.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class StockSpanner {\n    final Deque<int[]> stack = new ArrayDeque<>();\n\n    int next(int price) {\n      int span = 1;\n      while (!stack.isEmpty() && stack.peek()[0] <= price) span += stack.pop()[1];\n      stack.push(new int[] {price, span});\n      return span;\n    }\n  }\n\n  public static void main(String[] args) {\n    StockSpanner s = new StockSpanner();\n    List<Integer> out = new ArrayList<>();\n    for (int x : new int[] {100, 80, 60, 70, 60, 75, 85}) out.add(s.next(x));\n    System.out.println(out);\n  }\n}\n"
+  },
+  "Celebrity Problem": {
+    "expected": "1",
+    "problem": "A celebrity knows nobody else and is known by everybody else; return index or -1.",
+    "approach": "If candidate knows i, candidate cannot be celebrity, so replace with i. Otherwise i cannot be celebrity. One candidate survives; verify both defining conditions.",
+    "complexity": "O(n) matrix queries and O(1) space excluding input.",
+    "trace": "Candidate 0 knows 1 -> candidate becomes 1; all others know 1, and 1 knows none.",
+    "pitfalls": "Elimination alone is insufficient; the verification pass is mandatory. Diagonal values are ignored.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(boolean[][] knows) {\n    int n = knows.length;\n    if (n == 0) return -1;\n    int candidate = 0;\n    for (int i = 1; i < n; i++) if (knows[candidate][i]) candidate = i;\n    for (int i = 0; i < n; i++)\n      if (i != candidate && (knows[candidate][i] || !knows[i][candidate])) return -1;\n    return candidate;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(\n        solve(new boolean[][] {{false, true, false}, {false, false, false}, {false, true, false}}));\n  }\n}\n"
+  },
+  "LRU Cache": {
+    "expected": "false\n10",
+    "problem": "Least-recently-used eviction; successful get and put refresh recency. OptionalInt means missing.",
+    "approach": "Access-order LinkedHashMap maintains oldest at the front and newest at the back; remove its first key when capacity is exceeded.",
+    "complexity": "Expected O(1) get/put; O(capacity) storage.",
+    "trace": "After put1,put2,get1 recency is [2,1]; put3 evicts 2.",
+    "pitfalls": "Capacity zero stores nothing. This cache is not thread-safe. A handwritten hashmap+doubly-list implementation follows the same recency invariant.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class LRUCache {\n    final int capacity;\n    final LinkedHashMap<Integer, Integer> map = new LinkedHashMap<>(16, 0.75f, true);\n\n    LRUCache(int capacity) {\n      if (capacity < 0) throw new IllegalArgumentException();\n      this.capacity = capacity;\n    }\n\n    OptionalInt get(int key) {\n      Integer value = map.get(key);\n      return value == null ? OptionalInt.empty() : OptionalInt.of(value);\n    }\n\n    void put(int key, int value) {\n      if (capacity == 0) return;\n      map.put(key, value);\n      if (map.size() > capacity) {\n        Iterator<Integer> it = map.keySet().iterator();\n        it.next();\n        it.remove();\n      }\n    }\n  }\n\n  public static void main(String[] args) {\n    LRUCache c = new LRUCache(2);\n    c.put(1, 10);\n    c.put(2, 20);\n    c.get(1);\n    c.put(3, 30);\n    System.out.println(c.get(2).isPresent());\n    System.out.println(c.get(1).getAsInt());\n  }\n}\n"
+  },
+  "LFU Cache": {
+    "expected": "false\n10",
+    "problem": "Least-frequently-used eviction; ties choose least recently used among that frequency. Get and update put increase frequency; new entries start at one.",
+    "approach": "Map keys to entries; map each frequency to an insertion-ordered set. Touch moves key to the next frequency group's newest end. minimum tracks the smallest live frequency; evict its oldest key.",
+    "complexity": "Expected O(1) get/put, O(capacity) live storage.",
+    "trace": "get1 raises its frequency to two; put3 evicts key2 at frequency one.",
+    "pitfalls": "Empty groups are removed to bound metadata. Frequency int overflow after billions of accesses is outside this teaching contract; production implementations need an aging/overflow policy.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class LFUCache {\n    static class Entry {\n      int value, freq = 1;\n\n      Entry(int v) {\n        value = v;\n      }\n    }\n\n    final int capacity;\n    int minimum;\n    final Map<Integer, Entry> entries = new HashMap<>();\n    final Map<Integer, LinkedHashSet<Integer>> groups = new HashMap<>();\n\n    LFUCache(int capacity) {\n      if (capacity < 0) throw new IllegalArgumentException();\n      this.capacity = capacity;\n    }\n\n    void touch(int key, Entry e) {\n      LinkedHashSet<Integer> old = groups.get(e.freq);\n      old.remove(key);\n      if (old.isEmpty()) {\n        groups.remove(e.freq);\n        if (minimum == e.freq) minimum++;\n      }\n      e.freq++;\n      groups.computeIfAbsent(e.freq, k -> new LinkedHashSet<>()).add(key);\n    }\n\n    OptionalInt get(int key) {\n      Entry e = entries.get(key);\n      if (e == null) return OptionalInt.empty();\n      touch(key, e);\n      return OptionalInt.of(e.value);\n    }\n\n    void put(int key, int value) {\n      if (capacity == 0) return;\n      Entry e = entries.get(key);\n      if (e != null) {\n        e.value = value;\n        touch(key, e);\n        return;\n      }\n      if (entries.size() == capacity) {\n        LinkedHashSet<Integer> group = groups.get(minimum);\n        int victim = group.iterator().next();\n        group.remove(victim);\n        if (group.isEmpty()) groups.remove(minimum);\n        entries.remove(victim);\n      }\n      entries.put(key, new Entry(value));\n      groups.computeIfAbsent(1, k -> new LinkedHashSet<>()).add(key);\n      minimum = 1;\n    }\n  }\n\n  public static void main(String[] args) {\n    LFUCache c = new LFUCache(2);\n    c.put(1, 10);\n    c.put(2, 20);\n    c.get(1);\n    c.put(3, 30);\n    System.out.println(c.get(2).isPresent());\n    System.out.println(c.get(1).getAsInt());\n  }\n}\n"
+  },
+  "Number of Greater Elements to the Right": {
+    "expected": "[2, 1, 1, 0]",
+    "problem": "For each index count ALL strictly greater values to its right, not just the next greater.",
+    "approach": "Scan right-to-left, storing seen counts in a Fenwick tree over compressed ranks. Greater count is total seen minus count at ranks<=current.",
+    "complexity": "O(n log n) time, O(n) space, including sorted copy and Fenwick tree.",
+    "trace": "For 3, values 4 and 7 are greater; for 4 only 7; for 2 only 7.",
+    "pitfalls": "Strictly greater excludes equal ranks. Coordinate lookup uses lower bound, so duplicates do not cause a linear rank-search scan.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] a) {\n    int[] sorted = a.clone();\n    Arrays.sort(sorted);\n    int[] bit = new int[a.length + 1], out = new int[a.length];\n    for (int i = a.length - 1; i >= 0; i--) {\n      int lo = 0, hi = sorted.length;\n      while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (sorted[mid] < a[i]) lo = mid + 1;\n        else hi = mid;\n      }\n      int rank = lo;\n      int count = 0;\n      for (int x = rank + 1; x > 0; x -= x & -x) count += bit[x];\n      out[i] = a.length - 1 - i - count;\n      for (int x = rank + 1; x < bit.length; x += x & -x) bit[x]++;\n    }\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {3, 4, 2, 7})));\n  }\n}\n"
+  }
+}

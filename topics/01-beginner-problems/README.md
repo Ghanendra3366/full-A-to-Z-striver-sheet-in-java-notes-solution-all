@@ -109,3 +109,10 @@ Follow the section order below. Pending items are listed in the [full coverage i
 - [Check if the Array is Sorted II](basic-recursion/check-if-the-array-is-sorted-ii/README.md) — implemented
 - [Sum of Digits in a Given Number](basic-recursion/sum-of-digits-in-a-given-number/README.md) — implemented
 - [Fibonacci Number](basic-recursion/fibonacci-number/README.md) — implemented
+## Reference supplements
+
+- [Print Something N Times](reference-supplements/print-something-n-times/README.md) — implemented
+- [Print Name N Times](reference-supplements/print-name-n-times/README.md) — implemented
+- [Print 1 to N](reference-supplements/print-1-to-n/README.md) — implemented
+- [Print N to 1](reference-supplements/print-n-to-1/README.md) — implemented
+- [Counting Frequencies of Array Elements](reference-supplements/counting-frequencies-of-array-elements/README.md) — implemented

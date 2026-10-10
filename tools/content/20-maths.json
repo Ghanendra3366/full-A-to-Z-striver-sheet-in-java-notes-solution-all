@@ -1,0 +1,32 @@
+{
+  "Print all primes till N": {
+    "expected": "[2, 3, 5, 7, 11, 13, 17, 19]",
+    "problem": "Return primes <=n, n>=0.",
+    "approach": "Sieve composite multiples starting at p² for every unmarked p. Any composite has a prime factor <=sqrt(n), so it is eventually marked.",
+    "complexity": "O(n log log n) time; O(n) sieve plus output space.",
+    "trace": "2 marks evens above 2, 3 marks 9,15, then remaining values are prime.",
+    "pitfalls": "n=0/1 returns empty. This uses an array of n+1 entries; huge ranges need segmentation.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean[] sieve(int n) {\n    if (n < 0) throw new IllegalArgumentException(\"n must be nonnegative\");\n    boolean[] prime = new boolean[n + 1];\n    Arrays.fill(prime, true);\n    prime[0] = false;\n    if (n >= 1) prime[1] = false;\n    for (int p = 2; p <= n / p; p++)\n      if (prime[p]) for (long j = (long) p * p; j <= n; j += p) prime[(int) j] = false;\n    return prime;\n  }\n\n  public static int solve(int n) {\n    boolean[] p = sieve(n);\n    int count = 0;\n    for (boolean x : p) if (x) count++;\n    return count;\n  }\n\n  public static List<Integer> primes(int n) {\n    boolean[] p = sieve(n);\n    List<Integer> out = new ArrayList<>();\n    for (int i = 2; i < p.length; i++) if (p[i]) out.add(i);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(primes(20));\n  }\n}\n"
+  },
+  "Prime factorisation of a Number": {
+    "expected": "[2, 2, 2, 3, 3, 5]",
+    "problem": "Return prime factors with multiplicity for positive n; 1 has an empty factorization.",
+    "approach": "Repeatedly divide by the smallest divisor. After exhausting smaller factors, the current divisor must be prime if it divides. Any leftover >1 after sqrt(current n) is prime.",
+    "complexity": "O(sqrt(original n)) worst time; O(log n) output entries.",
+    "trace": "360 -> divide 2 three times leaves 45 -> divide 3 twice leaves 5 -> append 5.",
+    "pitfalls": "Loop bound uses the shrinking n. Reject zero, whose factorization is not finite.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static List<Integer> solve(int n) {\n    if (n < 1) throw new IllegalArgumentException();\n    List<Integer> out = new ArrayList<>();\n    for (int p = 2; p <= n / p; p++)\n      while (n % p == 0) {\n        out.add(p);\n        n /= p;\n      }\n    if (n > 1) out.add(n);\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(360));\n  }\n}\n"
+  },
+  "Count primes in range L to R": {
+    "expected": "4",
+    "problem": "Count primes in inclusive [l,r] for nonnegative int endpoints. Segment length is limited to ten million to bound memory.",
+    "approach": "Sieve primes through sqrt(r), then mark only their multiples inside the segment, starting no earlier than p² so p is not marked composite.",
+    "complexity": "O(sqrt(r) log log r + segmentLength*log log r + sqrt(r)) approximate sieve time; O(sqrt(r)+segmentLength) space.",
+    "trace": "10..20 keeps 11,13,17,19.",
+    "pitfalls": "Exclude 0 and 1 separately. Use long for first multiple and marking positions to avoid endpoint overflow.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int l, int r) {\n    if (l < 0 || r < l) throw new IllegalArgumentException();\n    if ((long) r - l + 1 > 10000000) throw new IllegalArgumentException(\"segment too large\");\n    int root = (int) Math.sqrt(r);\n    while ((long) (root + 1) * (root + 1) <= r) root++;\n    boolean[] base = new boolean[root + 1];\n    Arrays.fill(base, true);\n    if (root >= 0) base[0] = false;\n    if (root >= 1) base[1] = false;\n    for (int p = 2; p <= root / p; p++)\n      if (base[p]) for (int j = p * p; j <= root; j += p) base[j] = false;\n    boolean[] composite = new boolean[r - l + 1];\n    for (int p = 2; p <= root; p++)\n      if (base[p]) {\n        long start = Math.max((long) p * p, ((long) l + p - 1) / p * p);\n        for (long x = start; x <= r; x += p) composite[(int) (x - l)] = true;\n      }\n    int count = 0;\n    for (int i = 0; i < composite.length; i++) if ((long) l + i >= 2 && !composite[i]) count++;\n    return count;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(10, 20));\n  }\n}\n"
+  }
+}

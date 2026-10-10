@@ -1,0 +1,72 @@
+{
+  "Remove Outermost Parentheses": {
+    "expected": "()()()",
+    "problem": "Remove the outer pair of each primitive component of a balanced parentheses string.",
+    "approach": "Opening at depth zero and closing to depth zero delimit a primitive and are omitted; interior characters are kept.",
+    "complexity": "O(n) time, O(n) result space.",
+    "trace": "(()()) contributes ()(); (()) contributes ().",
+    "pitfalls": "A primitive has no proper nonempty balanced prefix. Reject malformed input rather than returning a misleading partial string.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static String solve(String s) {\n    StringBuilder out = new StringBuilder();\n    int depth = 0;\n    for (char c : s.toCharArray()) {\n      if (c == '(') {\n        if (depth++ > 0) out.append(c);\n      } else if (c == ')') {\n        if (--depth > 0) out.append(c);\n      } else throw new IllegalArgumentException();\n      if (depth < 0) throw new IllegalArgumentException();\n    }\n    if (depth != 0) throw new IllegalArgumentException();\n    return out.toString();\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"(()())(())\"));\n  }\n}\n"
+  },
+  "Maximum Nesting Depth of the Parentheses": {
+    "expected": "3",
+    "problem": "Return maximum parentheses nesting in an otherwise arbitrary balanced expression.",
+    "approach": "Track current open parentheses and maximum depth reached. Nonparenthesis characters do not change depth.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "The ((8)/4) segment sits inside an outer pair, reaching depth 3.",
+    "pitfalls": "Malformed parentheses are rejected; an expression without parentheses has depth zero.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(String s) {\n    int depth = 0, best = 0;\n    for (char c : s.toCharArray()) {\n      if (c == '(') best = Math.max(best, ++depth);\n      else if (c == ')') depth--;\n      if (depth < 0) throw new IllegalArgumentException();\n    }\n    if (depth != 0) throw new IllegalArgumentException();\n    return best;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"(1+(2*3)+((8)/4))+1\"));\n  }\n}\n"
+  },
+  "Roman to Integer": {
+    "expected": "1994",
+    "problem": "Convert a valid canonical Roman numeral (normally 1..3999) to integer.",
+    "approach": "A smaller symbol before a larger one is subtractive; all other symbols are additive.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "M + (-C+M) + (-X+C) + (-I+V) = 1000+900+90+4.",
+    "pitfalls": "This converter assumes valid Roman syntax; it rejects unknown symbols but does not validate canonical repetition rules.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static int value(char c) {\n    switch (c) {\n      case 'I':\n        return 1;\n      case 'V':\n        return 5;\n      case 'X':\n        return 10;\n      case 'L':\n        return 50;\n      case 'C':\n        return 100;\n      case 'D':\n        return 500;\n      case 'M':\n        return 1000;\n      default:\n        throw new IllegalArgumentException();\n    }\n  }\n\n  public static int solve(String s) {\n    int ans = 0;\n    for (int i = 0; i < s.length(); i++) {\n      int x = value(s.charAt(i));\n      ans += i + 1 < s.length() && x < value(s.charAt(i + 1)) ? -x : x;\n    }\n    return ans;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"MCMXCIV\"));\n  }\n}\n"
+  },
+  "String to Integer (atoi)": {
+    "expected": "-42",
+    "problem": "Skip leading ASCII spaces, accept one optional sign, read consecutive decimal digits, and clamp to signed int range. No digits yields zero.",
+    "approach": "Accumulate magnitude. Before multiplying by ten, compare with (limit-digit)/10 so even very long strings cannot overflow the accumulator.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "Skip spaces, read -, accumulate 4 then 42, stop at the following space.",
+    "pitfalls": "Negative magnitude permits 2147483648; positive permits only 2147483647. Two signs or a nondigit before digits produce zero.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(String s) {\n    int i = 0, sign = 1;\n    while (i < s.length() && s.charAt(i) == ' ') i++;\n    if (i < s.length() && (s.charAt(i) == '+' || s.charAt(i) == '-'))\n      sign = s.charAt(i++) == '-' ? -1 : 1;\n    long v = 0, limit = sign == 1 ? Integer.MAX_VALUE : 2147483648L;\n    while (i < s.length() && s.charAt(i) >= '0' && s.charAt(i) <= '9') {\n      int d = s.charAt(i++) - '0';\n      if (v > (limit - d) / 10) return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;\n      v = v * 10 + d;\n    }\n    return (int) (sign * v);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"   -42 words\"));\n  }\n}\n"
+  },
+  "Count Number of Substrings": {
+    "expected": "7",
+    "problem": "Count substrings with exactly k distinct UTF-16 characters.",
+    "approach": "Exactly k = atMost(k)-atMost(k-1). Each valid at-most window ending at r contributes r-l+1 suffixes.",
+    "complexity": "Expected O(n) time; O(u) space.",
+    "trace": "pqpqs has six valid substrings in pqpq with exactly two distinct, plus qs, totaling seven.",
+    "pitfalls": "The source title does not specify a variant; this lesson explicitly chooses exactly k distinct. k<=0 returns zero for nonempty substrings.",
+    "alternatives": "Directly enumerate substrings and update counts in O(n²) time.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static long atMost(String s, int k) {\n    if (k < 0) return 0;\n    Map<Character, Integer> count = new HashMap<>();\n    int l = 0;\n    long ans = 0;\n    for (int r = 0; r < s.length(); r++) {\n      char c = s.charAt(r);\n      count.put(c, count.getOrDefault(c, 0) + 1);\n      while (count.size() > k) {\n        char x = s.charAt(l++);\n        int f = count.get(x) - 1;\n        if (f == 0) count.remove(x);\n        else count.put(x, f);\n      }\n      ans += r - l + 1;\n    }\n    return ans;\n  }\n\n  public static long solve(String s, int k) {\n    return atMost(s, k) - atMost(s, k - 1);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"pqpqs\", 2));\n  }\n}\n"
+  },
+  "Longest Palindromic Substring": {
+    "expected": "bab",
+    "problem": "Return a longest contiguous palindrome; ties keep the earliest center discovered.",
+    "approach": "Every palindrome has an odd center or an even center between characters. Expand both kinds at every index, retaining the longest.",
+    "complexity": "O(n²) worst time; O(1) auxiliary state plus O(answer length) substring output.",
+    "trace": "At center a in babad expand b-a-b; later aba ties length 3 and does not replace bab.",
+    "pitfalls": "Empty input returns empty. Substring and subsequence are different problems.",
+    "alternatives": "Checking each substring character-by-character costs O(n³). DP takes O(n²) time/space; Manacher can achieve O(n) time.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static int expand(String s, int l, int r) {\n    while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {\n      l--;\n      r++;\n    }\n    return r - l - 1;\n  }\n\n  public static String solve(String s) {\n    int start = 0, best = 0;\n    for (int i = 0; i < s.length(); i++) {\n      int len = Math.max(expand(s, i, i), expand(s, i, i + 1));\n      if (len > best) {\n        best = len;\n        start = i - (len - 1) / 2;\n      }\n    }\n    return s.substring(start, start + best);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"babad\"));\n  }\n}\n"
+  },
+  "Sum of Beauty of All Substrings": {
+    "expected": "5",
+    "problem": "For lowercase a..z, beauty of a substring is largest minus smallest POSITIVE frequency. Sum over all nonempty substrings.",
+    "approach": "For each left boundary extend right, updating counts. Scan the fixed alphabet for frequency extrema; this avoids recounting the substring from scratch.",
+    "complexity": "O(26*n²) time; O(26) auxiliary space.",
+    "trace": "Zero-frequency letters do not affect the minimum; otherwise even a single-character string would incorrectly have positive beauty.",
+    "pitfalls": "Use long total. Nonlowercase input is rejected.",
+    "alternatives": "Recounting every substring from scratch takes O(n³) time.",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static long solve(String s) {\n    long total = 0;\n    for (int l = 0; l < s.length(); l++) {\n      int[] count = new int[26];\n      for (int r = l; r < s.length(); r++) {\n        int x = s.charAt(r) - 'a';\n        if (x < 0 || x >= 26) throw new IllegalArgumentException();\n        count[x]++;\n        int hi = 0, lo = Integer.MAX_VALUE;\n        for (int f : count)\n          if (f > 0) {\n            hi = Math.max(hi, f);\n            lo = Math.min(lo, f);\n          }\n        total += hi - lo;\n      }\n    }\n    return total;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(\"aabcb\"));\n  }\n}\n"
+  }
+}

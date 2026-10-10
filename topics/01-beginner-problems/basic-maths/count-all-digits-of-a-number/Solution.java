@@ -1,14 +1,16 @@
 import java.util.*;
-import java.math.BigInteger;
 
 public class Solution {
-    public static int solve(int n) {
-        int count = 0;
-        do { count++; n /= 10; } while (n != 0);
-        return count;
-    }
+  public static int solve(int n) {
+    int count = 0;
+    do {
+      count++;
+      n /= 10;
+    } while (n != 0);
+    return count;
+  }
 
-    public static void main(String[] args) {
-        System.out.println(solve(Integer.MIN_VALUE));
-    }
+  public static void main(String[] args) {
+    System.out.println(solve(Integer.MIN_VALUE));
+  }
 }

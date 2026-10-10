@@ -1,0 +1,165 @@
+{
+  "Introduction to Bits and Tricks": {
+    "theory": "An int has 32 bits in two's-complement form. `&` keeps common set bits, `|` combines bits, `^` differs bits, `~` flips bits. `1 << i` addresses bit i for 0<=i<32. Java masks shift distances modulo 32 for int and modulo 64 for long, so validate indices. `>>` sign-extends; `>>>` fills with zero. `n & (n-1)` clears the lowest set bit; `n & -n` isolates it. int bit patterns may be negative; interpret unsigned values with `Integer.toUnsignedLong` when needed."
+  },
+  "Check if the i-th bit is Set or Not": {
+    "expected": "true",
+    "problem": "Use zero-based bit indices from the least-significant bit.",
+    "approach": "Mask only bit i; a nonzero intersection means it was set.",
+    "complexity": "O(1) for one fixed-width int; O(n) for array XOR/state scans. O(1) space.",
+    "trace": "10 is binary 1010; bit 1 is one.",
+    "pitfalls": "Java int overflow and shifts operate on fixed 32-bit patterns here. Never shift by an unchecked index of 32; it would shift by zero.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(int n, int i) {\n    if (i < 0 || i >= 32) throw new IllegalArgumentException();\n    return (n & (1 << i)) != 0;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(10, 1));\n  }\n}\n"
+  },
+  "Check if a Number is Odd or Not": {
+    "expected": "true",
+    "problem": "Check parity of a signed int.",
+    "approach": "The least significant bit determines odd/even parity, including negatives.",
+    "complexity": "O(1) for one fixed-width int; O(n) for array XOR/state scans. O(1) space.",
+    "trace": "-3 has its least-significant bit set.",
+    "pitfalls": "Java int overflow and shifts operate on fixed 32-bit patterns here. Never shift by an unchecked index of 32; it would shift by zero.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(int n) {\n    return (n & 1) != 0;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(-3));\n  }\n}\n"
+  },
+  "Check if a Number is Power of 2 or Not": {
+    "expected": "true",
+    "problem": "Check whether a positive int is an integral power of two.",
+    "approach": "A positive power of two has exactly one set bit; clearing the lowest bit leaves zero.",
+    "complexity": "O(1) for one fixed-width int; O(n) for array XOR/state scans. O(1) space.",
+    "trace": "10000 & 01111 = 00000.",
+    "pitfalls": "Java int overflow and shifts operate on fixed 32-bit patterns here. Never shift by an unchecked index of 32; it would shift by zero.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static boolean solve(int n) {\n    return n > 0 && (n & (n - 1)) == 0;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(16));\n  }\n}\n"
+  },
+  "Count the Number of Set Bits": {
+    "expected": "32",
+    "problem": "Count set bits in the complete 32-bit pattern.",
+    "approach": "Brian Kernighan clears one set bit per iteration.",
+    "complexity": "O(1) for one fixed-width int; O(n) for array XOR/state scans. O(1) space.",
+    "trace": "-1 contains 32 one bits, so 32 iterations clear them.",
+    "pitfalls": "Java int overflow and shifts operate on fixed 32-bit patterns here. Never shift by an unchecked index of 32; it would shift by zero.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int n) {\n    int count = 0;\n    while (n != 0) {\n      n &= n - 1;\n      count++;\n    }\n    return count;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(-1));\n  }\n}\n"
+  },
+  "Set the Rightmost Unset Bit": {
+    "expected": "11",
+    "problem": "Set the least-significant zero bit within a 32-bit pattern. All-ones stays unchanged.",
+    "approach": "n+1 carries through trailing ones; OR retains the original ones and sets the first zero.",
+    "complexity": "O(1) for one fixed-width int; O(n) for array XOR/state scans. O(1) space.",
+    "trace": "1010 | 1011 = 1011.",
+    "pitfalls": "Java int overflow and shifts operate on fixed 32-bit patterns here. Never shift by an unchecked index of 32; it would shift by zero.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int n) {\n    return n | (n + 1);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(10));\n  }\n}\n"
+  },
+  "Swap Two Numbers": {
+    "expected": "[7, 3]",
+    "problem": "Return swapped values; primitive caller variables cannot be mutated through method arguments.",
+    "approach": "XOR swaps local copies without an extra integer temporary; returning an array communicates both results.",
+    "complexity": "O(1) time/space.",
+    "trace": "a=3^7; b=(3^7)^7=3; a=(3^7)^3=7.",
+    "pitfalls": "Prefer a temporary variable in normal Java code for readability. XOR-swapping an array entry with itself would zero it.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int a, int b) {\n    a ^= b;\n    b ^= a;\n    a ^= b;\n    return new int[] {a, b};\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(3, 7)));\n  }\n}\n"
+  },
+  "Minimum Bit Flips to Convert Number": {
+    "expected": "3",
+    "problem": "Count differing bits of two int patterns.",
+    "approach": "XOR is one exactly at differing positions; each needs one flip.",
+    "complexity": "O(1) for one fixed-width int; O(n) for array XOR/state scans. O(1) space.",
+    "trace": "1010 XOR 0111 = 1101 has three set bits.",
+    "pitfalls": "Java int overflow and shifts operate on fixed 32-bit patterns here. Never shift by an unchecked index of 32; it would shift by zero.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int a, int b) {\n    return Integer.bitCount(a ^ b);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(10, 7));\n  }\n}\n"
+  },
+  "Single Number - I": {
+    "expected": "4",
+    "problem": "Exactly one value occurs once and every other value twice.",
+    "approach": "Equal values cancel under XOR; order does not matter.",
+    "complexity": "O(1) for one fixed-width int; O(n) for array XOR/state scans. O(1) space.",
+    "trace": "1^1 and 2^2 cancel, leaving 4.",
+    "pitfalls": "Java int overflow and shifts operate on fixed 32-bit patterns here. Never shift by an unchecked index of 32; it would shift by zero.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a) {\n    int ans = 0;\n    for (int x : a) ans ^= x;\n    return ans;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {4, 1, 2, 1, 2}));\n  }\n}\n"
+  },
+  "Single Number - II": {
+    "expected": "3",
+    "problem": "Exactly one value occurs once; every other value occurs three times.",
+    "approach": "Each bit has a finite-state count modulo three, represented by once/twice. Third occurrence clears the bit.",
+    "complexity": "O(1) for one fixed-width int; O(n) for array XOR/state scans. O(1) space.",
+    "trace": "For 2 its bit cycles once -> twice -> neither; 3 remains once.",
+    "pitfalls": "Java int overflow and shifts operate on fixed 32-bit patterns here. Never shift by an unchecked index of 32; it would shift by zero.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int[] a) {\n    int once = 0, twice = 0;\n    for (int x : a) {\n      once = (once ^ x) & ~twice;\n      twice = (twice ^ x) & ~once;\n    }\n    return once;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {2, 2, 3, 2}));\n  }\n}\n"
+  },
+  "Single Number - III": {
+    "expected": "[3, 5]",
+    "problem": "Exactly two distinct values occur once; every other value occurs twice. Return the two singletons sorted.",
+    "approach": "XOR all gives p^q, which is nonzero. A set bit differs between p and q; partition on that bit so repeated values cancel within each group.",
+    "complexity": "O(n) time; O(1) space.",
+    "trace": "3^5=6 (110); isolated bit 2 separates 3 from 5.",
+    "pitfalls": "Signed MIN_VALUE can be an isolated bit; `(x&bit)!=0` remains correct. The input multiplicity contract is essential.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int[] solve(int[] a) {\n    int xor = 0;\n    for (int x : a) xor ^= x;\n    int bit = xor & -xor, p = 0, q = 0;\n    for (int x : a)\n      if ((x & bit) == 0) p ^= x;\n      else q ^= x;\n    return p < q ? new int[] {p, q} : new int[] {q, p};\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(new int[] {1, 2, 1, 3, 2, 5})));\n  }\n}\n"
+  },
+  "Divide two numbers without multiplication and division": {
+    "expected": "-5",
+    "problem": "Compute quotient truncating toward zero without multiplication, division or remainder. Clamp the sole int-overflow quotient to MAX_VALUE.",
+    "approach": "Subtract the largest fitting power-of-two multiple of divisor at each bit from high to low; set that quotient bit. The remainder decreases while the reconstructed quotient accounts for every subtraction.",
+    "complexity": "32 iterations: O(1) for fixed-width inputs, O(1) space.",
+    "trace": "43-32 leaves 11 and sets quotient bit 2; 11-8 leaves 3 and sets bit 0; quotient 5, sign makes -5.",
+    "pitfalls": "Cast before abs to handle MIN_VALUE. b<<31 fits long for int magnitudes.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int dividend, int divisor) {\n    if (divisor == 0) throw new ArithmeticException(\"division by zero\");\n    if (dividend == Integer.MIN_VALUE && divisor == -1) return Integer.MAX_VALUE;\n    long a = Math.abs((long) dividend), b = Math.abs((long) divisor), q = 0;\n    for (int bit = 31; bit >= 0; bit--)\n      if ((a >> bit) >= b) {\n        a -= b << bit;\n        q |= 1L << bit;\n      }\n    return (int) ((dividend < 0) ^ (divisor < 0) ? -q : q);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(43, -8));\n  }\n}\n"
+  },
+  "Power Set Bit Manipulation": {
+    "expected": "[[], [1], [2], [1, 2]]",
+    "problem": "Enumerate positional subsets, including empty. Duplicate input values can create equal value lists.",
+    "approach": "A mask chooses each index independently. Every subset corresponds to exactly one n-bit mask.",
+    "complexity": "O(n*2^n) time and output storage; O(n) working subset.",
+    "trace": "Masks 00,01,10,11 select {},{1},{2},{1,2}.",
+    "pitfalls": "Java shifts mask counts; constrain n explicitly, and respect exponential memory. This teaching implementation limits n to 20.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static List<List<Integer>> solve(int[] a) {\n    if (a.length > 20) throw new IllegalArgumentException(\"output is exponential; demo limit 20\");\n    List<List<Integer>> out = new ArrayList<>();\n    for (int mask = 0; mask < (1 << a.length); mask++) {\n      List<Integer> row = new ArrayList<>();\n      for (int i = 0; i < a.length; i++) if ((mask & (1 << i)) != 0) row.add(a[i]);\n      out.add(row);\n    }\n    return out;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(new int[] {1, 2}));\n  }\n}\n"
+  },
+  "XOR of numbers in a given range": {
+    "expected": "2",
+    "problem": "XOR all nonnegative integers in the inclusive range [l,r].",
+    "approach": "Prefix XOR from 0 repeats a four-case cycle according to n mod 4. XOR two prefixes cancels all positions before l.",
+    "complexity": "O(1) time/space.",
+    "trace": "prefix(9)=1 and prefix(2)=3; 1^3=2.",
+    "pitfalls": "The formula is for nonnegative ordered bounds, not arbitrary signed intervals.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  private static int prefix(int n) {\n    switch (n & 3) {\n      case 0:\n        return n;\n      case 1:\n        return 1;\n      case 2:\n        return n + 1;\n      default:\n        return 0;\n    }\n  }\n\n  public static int solve(int l, int r) {\n    if (l < 0 || r < l) throw new IllegalArgumentException();\n    return prefix(r) ^ (l == 0 ? 0 : prefix(l - 1));\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(3, 9));\n  }\n}\n"
+  },
+  "Set the i-th Bit": {
+    "expected": "14",
+    "problem": "Modify one zero-based bit in the signed 32-bit pattern and return the new pattern.",
+    "approach": "OR sets, AND with an inverted mask clears, XOR toggles the addressed bit, leaving all others unchanged.",
+    "complexity": "O(1) time/space.",
+    "trace": "10 is1010; set bit2 ->1110; clear/toggle bit1 ->1000.",
+    "pitfalls": "Validate index because Java shifts mask counts modulo32; bit31 may make the returned int negative.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int n, int i) {\n    if (i < 0 || i >= 32) throw new IllegalArgumentException();\n    return n | (1 << i);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(10, 2));\n  }\n}\n"
+  },
+  "Clear the i-th Bit": {
+    "expected": "8",
+    "problem": "Modify one zero-based bit in the signed 32-bit pattern and return the new pattern.",
+    "approach": "OR sets, AND with an inverted mask clears, XOR toggles the addressed bit, leaving all others unchanged.",
+    "complexity": "O(1) time/space.",
+    "trace": "10 is1010; set bit2 ->1110; clear/toggle bit1 ->1000.",
+    "pitfalls": "Validate index because Java shifts mask counts modulo32; bit31 may make the returned int negative.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int n, int i) {\n    if (i < 0 || i >= 32) throw new IllegalArgumentException();\n    return n & ~(1 << i);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(10, 1));\n  }\n}\n"
+  },
+  "Toggle the i-th Bit": {
+    "expected": "8",
+    "problem": "Modify one zero-based bit in the signed 32-bit pattern and return the new pattern.",
+    "approach": "OR sets, AND with an inverted mask clears, XOR toggles the addressed bit, leaving all others unchanged.",
+    "complexity": "O(1) time/space.",
+    "trace": "10 is1010; set bit2 ->1110; clear/toggle bit1 ->1000.",
+    "pitfalls": "Validate index because Java shifts mask counts modulo32; bit31 may make the returned int negative.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  public static int solve(int n, int i) {\n    if (i < 0 || i >= 32) throw new IllegalArgumentException();\n    return n ^ (1 << i);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(10, 1));\n  }\n}\n"
+  }
+}

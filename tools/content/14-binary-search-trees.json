@@ -1,0 +1,155 @@
+{
+  "Introduction to BST": {
+    "theory": "A strict BST has every left-subtree value smaller than its root and every right-subtree value larger. This repository uses distinct keys. Inorder traversal is therefore strictly increasing. Search descends only one branch, taking O(h) time where h is height; a skewed tree has h=n, so ordinary BST operations are not automatically logarithmic. Balanced search trees such as TreeMap maintain logarithmic height. Null means an empty tree. Checking only immediate children is insufficient: every descendant must respect all ancestor bounds."
+  },
+  "Search in BST": {
+    "expected": "true",
+    "problem": "Operate on a strict BST with distinct int keys. OptionalInt represents missing bounds; node-returning operations mutate links and return the new root.",
+    "approach": "Follow the sole possible subtree by comparing the target with each root.",
+    "complexity": "O(h) time; O(1) auxiliary state for iterative searches, O(h) stack for recursive insertion. h can be n.",
+    "trace": "Sample BST: root 4; children 2,6; leaves 1,3,5,7. Trace comparisons from root until equality or a null boundary.",
+    "pitfalls": "The tree must satisfy the whole BST invariant. The LCA method requires both keys present. Do not assume h=log n without balance.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node left, right;\n\n    Node(int v) {\n      value = v;\n    }\n  }\n\n  static Node sample() {\n    Node r = new Node(4);\n    r.left = new Node(2);\n    r.right = new Node(6);\n    r.left.left = new Node(1);\n    r.left.right = new Node(3);\n    r.right.left = new Node(5);\n    r.right.right = new Node(7);\n    return r;\n  }\n\n  static void inorder(Node r, List<Integer> out) {\n    if (r != null) {\n      inorder(r.left, out);\n      out.add(r.value);\n      inorder(r.right, out);\n    }\n  }\n\n  static String view(Node r) {\n    List<Integer> a = new ArrayList<>();\n    inorder(r, a);\n    return a.toString();\n  }\n\n  public static boolean solve(Node r, int x) {\n    while (r != null) {\n      if (r.value == x) return true;\n      r = x < r.value ? r.left : r.right;\n    }\n    return false;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(sample(), 5));\n  }\n}\n"
+  },
+  "Floor and Ceil in a BST": {
+    "expected": "4 4",
+    "problem": "Operate on a strict BST with distinct int keys. OptionalInt represents missing bounds; node-returning operations mutate links and return the new root.",
+    "approach": "Track best smaller and larger values while descending; exact equality gives both answers.",
+    "complexity": "O(h) time; O(1) auxiliary state for iterative searches, O(h) stack for recursive insertion. h can be n.",
+    "trace": "Sample BST: root 4; children 2,6; leaves 1,3,5,7. Trace comparisons from root until equality or a null boundary.",
+    "pitfalls": "The tree must satisfy the whole BST invariant. The LCA method requires both keys present. Do not assume h=log n without balance.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node left, right;\n\n    Node(int v) {\n      value = v;\n    }\n  }\n\n  static Node sample() {\n    Node r = new Node(4);\n    r.left = new Node(2);\n    r.right = new Node(6);\n    r.left.left = new Node(1);\n    r.left.right = new Node(3);\n    r.right.left = new Node(5);\n    r.right.right = new Node(7);\n    return r;\n  }\n\n  static void inorder(Node r, List<Integer> out) {\n    if (r != null) {\n      inorder(r.left, out);\n      out.add(r.value);\n      inorder(r.right, out);\n    }\n  }\n\n  static String view(Node r) {\n    List<Integer> a = new ArrayList<>();\n    inorder(r, a);\n    return a.toString();\n  }\n\n  public static OptionalInt[] solve(Node r, int x) {\n    Integer floor = null, ceil = null;\n    while (r != null) {\n      if (r.value == x) {\n        floor = ceil = x;\n        break;\n      }\n      if (r.value < x) {\n        floor = r.value;\n        r = r.right;\n      } else {\n        ceil = r.value;\n        r = r.left;\n      }\n    }\n    return new OptionalInt[] {\n      floor == null ? OptionalInt.empty() : OptionalInt.of(floor),\n      ceil == null ? OptionalInt.empty() : OptionalInt.of(ceil)\n    };\n  }\n\n  public static void main(String[] args) {\n    OptionalInt[] a = solve(sample(), 4);\n    System.out.println(a[0].getAsInt() + \" \" + a[1].getAsInt());\n  }\n}\n"
+  },
+  "Minimum and Maximum in BST": {
+    "expected": "[1, 7]",
+    "problem": "Operate on a strict BST with distinct int keys. OptionalInt represents missing bounds; node-returning operations mutate links and return the new root.",
+    "approach": "The leftmost key is minimum and the rightmost key maximum by the BST ordering invariant.",
+    "complexity": "O(h) time; O(1) auxiliary state for iterative searches, O(h) stack for recursive insertion. h can be n.",
+    "trace": "Sample BST: root 4; children 2,6; leaves 1,3,5,7. Trace comparisons from root until equality or a null boundary.",
+    "pitfalls": "The tree must satisfy the whole BST invariant. The LCA method requires both keys present. Do not assume h=log n without balance.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node left, right;\n\n    Node(int v) {\n      value = v;\n    }\n  }\n\n  static Node sample() {\n    Node r = new Node(4);\n    r.left = new Node(2);\n    r.right = new Node(6);\n    r.left.left = new Node(1);\n    r.left.right = new Node(3);\n    r.right.left = new Node(5);\n    r.right.right = new Node(7);\n    return r;\n  }\n\n  static void inorder(Node r, List<Integer> out) {\n    if (r != null) {\n      inorder(r.left, out);\n      out.add(r.value);\n      inorder(r.right, out);\n    }\n  }\n\n  static String view(Node r) {\n    List<Integer> a = new ArrayList<>();\n    inorder(r, a);\n    return a.toString();\n  }\n\n  public static int[] solve(Node r) {\n    if (r == null) throw new IllegalArgumentException();\n    Node lo = r, hi = r;\n    while (lo.left != null) lo = lo.left;\n    while (hi.right != null) hi = hi.right;\n    return new int[] {lo.value, hi.value};\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(sample())));\n  }\n}\n"
+  },
+  "Insert a given node in BST": {
+    "expected": "[1, 2, 3, 4, 5, 6, 7, 8]",
+    "problem": "Operate on a strict BST with distinct int keys. OptionalInt represents missing bounds; node-returning operations mutate links and return the new root.",
+    "approach": "Descend like search; at null create a leaf. Equal keys are ignored under the distinct-key contract.",
+    "complexity": "O(h) time; O(1) auxiliary state for iterative searches, O(h) stack for recursive insertion. h can be n.",
+    "trace": "Sample BST: root 4; children 2,6; leaves 1,3,5,7. Trace comparisons from root until equality or a null boundary.",
+    "pitfalls": "The tree must satisfy the whole BST invariant. The LCA method requires both keys present. Do not assume h=log n without balance.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node left, right;\n\n    Node(int v) {\n      value = v;\n    }\n  }\n\n  static Node sample() {\n    Node r = new Node(4);\n    r.left = new Node(2);\n    r.right = new Node(6);\n    r.left.left = new Node(1);\n    r.left.right = new Node(3);\n    r.right.left = new Node(5);\n    r.right.right = new Node(7);\n    return r;\n  }\n\n  static void inorder(Node r, List<Integer> out) {\n    if (r != null) {\n      inorder(r.left, out);\n      out.add(r.value);\n      inorder(r.right, out);\n    }\n  }\n\n  static String view(Node r) {\n    List<Integer> a = new ArrayList<>();\n    inorder(r, a);\n    return a.toString();\n  }\n\n  public static Node solve(Node r, int x) {\n    if (r == null) return new Node(x);\n    if (x < r.value) r.left = solve(r.left, x);\n    else if (x > r.value) r.right = solve(r.right, x);\n    return r;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(view(solve(sample(), 8)));\n  }\n}\n"
+  },
+  "Delete a node in BST": {
+    "expected": "[1, 2, 3, 5, 6, 7]",
+    "problem": "Delete key x if present, returning the possibly changed root.",
+    "approach": "Zero/one-child deletion replaces root with its child. With two children, copy the smallest right-subtree value and delete that successor; it fits between every left and remaining right key.",
+    "complexity": "O(h) time/stack.",
+    "trace": "Delete 4: successor 5 replaces root, then the former leaf 5 is removed from the right subtree.",
+    "pitfalls": "This deletes by key while retaining the root object in the two-child case; external references may observe its changed value.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node left, right;\n\n    Node(int v) {\n      value = v;\n    }\n  }\n\n  static Node sample() {\n    Node r = new Node(4);\n    r.left = new Node(2);\n    r.right = new Node(6);\n    r.left.left = new Node(1);\n    r.left.right = new Node(3);\n    r.right.left = new Node(5);\n    r.right.right = new Node(7);\n    return r;\n  }\n\n  static void inorder(Node r, List<Integer> out) {\n    if (r != null) {\n      inorder(r.left, out);\n      out.add(r.value);\n      inorder(r.right, out);\n    }\n  }\n\n  static String view(Node r) {\n    List<Integer> a = new ArrayList<>();\n    inorder(r, a);\n    return a.toString();\n  }\n\n  public static Node solve(Node r, int x) {\n    if (r == null) return null;\n    if (x < r.value) r.left = solve(r.left, x);\n    else if (x > r.value) r.right = solve(r.right, x);\n    else {\n      if (r.left == null) return r.right;\n      if (r.right == null) return r.left;\n      Node successor = r.right;\n      while (successor.left != null) successor = successor.left;\n      r.value = successor.value;\n      r.right = solve(r.right, successor.value);\n    }\n    return r;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(view(solve(sample(), 4)));\n  }\n}\n"
+  },
+  "Kth Smallest and Largest element in BST": {
+    "expected": "[2, 6]",
+    "problem": "Return ONE-based kth smallest and kth largest values, requiring 1<=k<=node count.",
+    "approach": "Inorder gives all keys sorted. Select k-1 from the front and k from the end.",
+    "complexity": "O(n) time/space including inorder recursion.",
+    "trace": "Sorted sample 1..7 gives second smallest 2 and second largest 6.",
+    "pitfalls": "A stack iterator can stop early in O(h+k) time and O(h) space. Augment subtree sizes for repeated rank queries.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node left, right;\n\n    Node(int v) {\n      value = v;\n    }\n  }\n\n  static Node sample() {\n    Node r = new Node(4);\n    r.left = new Node(2);\n    r.right = new Node(6);\n    r.left.left = new Node(1);\n    r.left.right = new Node(3);\n    r.right.left = new Node(5);\n    r.right.right = new Node(7);\n    return r;\n  }\n\n  static void inorder(Node r, List<Integer> out) {\n    if (r != null) {\n      inorder(r.left, out);\n      out.add(r.value);\n      inorder(r.right, out);\n    }\n  }\n\n  static String view(Node r) {\n    List<Integer> a = new ArrayList<>();\n    inorder(r, a);\n    return a.toString();\n  }\n\n  public static int[] solve(Node r, int k) {\n    List<Integer> a = new ArrayList<>();\n    inorder(r, a);\n    if (k < 1 || k > a.size()) throw new IllegalArgumentException();\n    return new int[] {a.get(k - 1), a.get(a.size() - k)};\n  }\n\n  public static void main(String[] args) {\n    System.out.println(Arrays.toString(solve(sample(), 2)));\n  }\n}\n"
+  },
+  "Check if a tree is a BST or not": {
+    "expected": "true",
+    "problem": "Validate a strict distinct-key BST; empty is valid.",
+    "approach": "Pass open ancestor bounds recursively. Each node must lie inside both; left tightens upper, right tightens lower. This enforces all ancestor constraints.",
+    "complexity": "O(n) time, O(h) stack.",
+    "trace": "Left child 2 has bounds (-infinity,4), its right child 3 has (2,4).",
+    "pitfalls": "Use long bounds so int MIN_VALUE/MAX_VALUE remain valid keys. Immediate-child comparisons alone miss deeper violations.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node left, right;\n\n    Node(int v) {\n      value = v;\n    }\n  }\n\n  static Node sample() {\n    Node r = new Node(4);\n    r.left = new Node(2);\n    r.right = new Node(6);\n    r.left.left = new Node(1);\n    r.left.right = new Node(3);\n    r.right.left = new Node(5);\n    r.right.right = new Node(7);\n    return r;\n  }\n\n  static void inorder(Node r, List<Integer> out) {\n    if (r != null) {\n      inorder(r.left, out);\n      out.add(r.value);\n      inorder(r.right, out);\n    }\n  }\n\n  static String view(Node r) {\n    List<Integer> a = new ArrayList<>();\n    inorder(r, a);\n    return a.toString();\n  }\n\n  private static boolean valid(Node r, long low, long high) {\n    return r == null\n        || (low < r.value\n            && r.value < high\n            && valid(r.left, low, r.value)\n            && valid(r.right, r.value, high));\n  }\n\n  public static boolean solve(Node r) {\n    return valid(r, Long.MIN_VALUE, Long.MAX_VALUE);\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(sample()));\n  }\n}\n"
+  },
+  "LCA in BST": {
+    "expected": "2",
+    "problem": "Operate on a strict BST with distinct int keys. OptionalInt represents missing bounds; node-returning operations mutate links and return the new root.",
+    "approach": "Assuming both keys exist, their lowest common ancestor is the first root where their search paths split or one key equals the root.",
+    "complexity": "O(h) time; O(1) auxiliary state for iterative searches, O(h) stack for recursive insertion. h can be n.",
+    "trace": "Sample BST: root 4; children 2,6; leaves 1,3,5,7. Trace comparisons from root until equality or a null boundary.",
+    "pitfalls": "The tree must satisfy the whole BST invariant. The LCA method requires both keys present. Do not assume h=log n without balance.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node left, right;\n\n    Node(int v) {\n      value = v;\n    }\n  }\n\n  static Node sample() {\n    Node r = new Node(4);\n    r.left = new Node(2);\n    r.right = new Node(6);\n    r.left.left = new Node(1);\n    r.left.right = new Node(3);\n    r.right.left = new Node(5);\n    r.right.right = new Node(7);\n    return r;\n  }\n\n  static void inorder(Node r, List<Integer> out) {\n    if (r != null) {\n      inorder(r.left, out);\n      out.add(r.value);\n      inorder(r.right, out);\n    }\n  }\n\n  static String view(Node r) {\n    List<Integer> a = new ArrayList<>();\n    inorder(r, a);\n    return a.toString();\n  }\n\n  public static int solve(Node r, int a, int b) {\n    while (r != null) {\n      if (a < r.value && b < r.value) r = r.left;\n      else if (a > r.value && b > r.value) r = r.right;\n      else return r.value;\n    }\n    throw new IllegalArgumentException();\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(sample(), 1, 3));\n  }\n}\n"
+  },
+  "Construct a BST from a preorder traversal": {
+    "expected": "[1, 2, 3, 4, 5, 6, 7]",
+    "problem": "Build a strict BST from its preorder, rejecting invalid sequences or duplicates.",
+    "approach": "Consume the next preorder key only when inside the current bounds. After root, build left then right with tightened bounds. Each valid key is consumed once.",
+    "complexity": "O(n) time, O(h) stack and O(n) output nodes.",
+    "trace": "4 becomes root; 2,1,3 fill left; 6,5,7 fill right.",
+    "pitfalls": "Checking only an upper bound can accept some malformed input sequences; both bounds and final consumption validation are used.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node left, right;\n\n    Node(int v) {\n      value = v;\n    }\n  }\n\n  static Node sample() {\n    Node r = new Node(4);\n    r.left = new Node(2);\n    r.right = new Node(6);\n    r.left.left = new Node(1);\n    r.left.right = new Node(3);\n    r.right.left = new Node(5);\n    r.right.right = new Node(7);\n    return r;\n  }\n\n  static void inorder(Node r, List<Integer> out) {\n    if (r != null) {\n      inorder(r.left, out);\n      out.add(r.value);\n      inorder(r.right, out);\n    }\n  }\n\n  static String view(Node r) {\n    List<Integer> a = new ArrayList<>();\n    inorder(r, a);\n    return a.toString();\n  }\n\n  private static Node build(int[] a, int[] at, long low, long high) {\n    if (at[0] == a.length || a[at[0]] <= low || a[at[0]] >= high) return null;\n    Node r = new Node(a[at[0]++]);\n    r.left = build(a, at, low, r.value);\n    r.right = build(a, at, r.value, high);\n    return r;\n  }\n\n  public static Node solve(int[] a) {\n    int[] at = {0};\n    Node r = build(a, at, Long.MIN_VALUE, Long.MAX_VALUE);\n    if (at[0] != a.length) throw new IllegalArgumentException(\"invalid strict BST preorder\");\n    return r;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(view(solve(new int[] {4, 2, 1, 3, 6, 5, 7})));\n  }\n}\n"
+  },
+  "Inorder successor and predecessor in BST": {
+    "expected": "3 5",
+    "problem": "Operate on a strict BST with distinct int keys. OptionalInt represents missing bounds; node-returning operations mutate links and return the new root.",
+    "approach": "Find strict nearest smaller and strict nearest larger values with two directed searches; x itself need not exist.",
+    "complexity": "O(h) time; O(1) auxiliary state for iterative searches, O(h) stack for recursive insertion. h can be n.",
+    "trace": "Sample BST: root 4; children 2,6; leaves 1,3,5,7. Trace comparisons from root until equality or a null boundary.",
+    "pitfalls": "The tree must satisfy the whole BST invariant. The LCA method requires both keys present. Do not assume h=log n without balance.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node left, right;\n\n    Node(int v) {\n      value = v;\n    }\n  }\n\n  static Node sample() {\n    Node r = new Node(4);\n    r.left = new Node(2);\n    r.right = new Node(6);\n    r.left.left = new Node(1);\n    r.left.right = new Node(3);\n    r.right.left = new Node(5);\n    r.right.right = new Node(7);\n    return r;\n  }\n\n  static void inorder(Node r, List<Integer> out) {\n    if (r != null) {\n      inorder(r.left, out);\n      out.add(r.value);\n      inorder(r.right, out);\n    }\n  }\n\n  static String view(Node r) {\n    List<Integer> a = new ArrayList<>();\n    inorder(r, a);\n    return a.toString();\n  }\n\n  public static OptionalInt[] solve(Node r, int x) {\n    Integer before = null, after = null;\n    Node p = r;\n    while (p != null) {\n      if (p.value < x) {\n        before = p.value;\n        p = p.right;\n      } else p = p.left;\n    }\n    p = r;\n    while (p != null) {\n      if (p.value > x) {\n        after = p.value;\n        p = p.left;\n      } else p = p.right;\n    }\n    return new OptionalInt[] {\n      before == null ? OptionalInt.empty() : OptionalInt.of(before),\n      after == null ? OptionalInt.empty() : OptionalInt.of(after)\n    };\n  }\n\n  public static void main(String[] args) {\n    OptionalInt[] a = solve(sample(), 4);\n    System.out.println(a[0].getAsInt() + \" \" + a[1].getAsInt());\n  }\n}\n"
+  },
+  "BST iterator": {
+    "expected": "[1, 2, 3, 4, 5, 6, 7]",
+    "problem": "An ascending (or descending with reverse=true) lazy BST iterator; next requires hasNext.",
+    "approach": "Stack contains the path to the next unvisited inorder node. Pop that node and push the opposite subtree's boundary path.",
+    "complexity": "O(h) storage, O(h) worst per next but O(1) amortized over a full traversal; O(h) initialization.",
+    "trace": "Initially stack is 4,2,1 with 1 on top; pop 1, then 2 pushes 3.",
+    "pitfalls": "Modifying the tree during iteration invalidates the traversal invariant.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node left, right;\n\n    Node(int v) {\n      value = v;\n    }\n  }\n\n  static Node sample() {\n    Node r = new Node(4);\n    r.left = new Node(2);\n    r.right = new Node(6);\n    r.left.left = new Node(1);\n    r.left.right = new Node(3);\n    r.right.left = new Node(5);\n    r.right.right = new Node(7);\n    return r;\n  }\n\n  static void inorder(Node r, List<Integer> out) {\n    if (r != null) {\n      inorder(r.left, out);\n      out.add(r.value);\n      inorder(r.right, out);\n    }\n  }\n\n  static String view(Node r) {\n    List<Integer> a = new ArrayList<>();\n    inorder(r, a);\n    return a.toString();\n  }\n\n  static class BSTIterator {\n    final Deque<Node> stack = new ArrayDeque<>();\n    final boolean reverse;\n\n    BSTIterator(Node root, boolean reverse) {\n      this.reverse = reverse;\n      push(root);\n    }\n\n    void push(Node r) {\n      while (r != null) {\n        stack.push(r);\n        r = reverse ? r.right : r.left;\n      }\n    }\n\n    boolean hasNext() {\n      return !stack.isEmpty();\n    }\n\n    Node nextNode() {\n      Node r = stack.pop();\n      push(reverse ? r.left : r.right);\n      return r;\n    }\n\n    int next() {\n      return nextNode().value;\n    }\n  }\n\n  public static void main(String[] args) {\n    BSTIterator it = new BSTIterator(sample(), false);\n    List<Integer> a = new ArrayList<>();\n    while (it.hasNext()) a.add(it.next());\n    System.out.println(a);\n  }\n}\n"
+  },
+  "Two sum in BST": {
+    "expected": "true",
+    "problem": "Find two distinct nodes in a strict BST whose values sum to target.",
+    "approach": "Use ascending and descending iterators like two pointers on sorted values. Move the lower endpoint when sum is low and the upper when high. Stop when node identities meet.",
+    "complexity": "O(n) worst time and O(h) auxiliary stack space.",
+    "trace": "1+7=8<9, advance low to 2; 2+7=9 succeeds.",
+    "pitfalls": "Compare identities, not values, for distinct-node stopping; strict distinct keys are assumed. Use long sum.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node left, right;\n\n    Node(int v) {\n      value = v;\n    }\n  }\n\n  static Node sample() {\n    Node r = new Node(4);\n    r.left = new Node(2);\n    r.right = new Node(6);\n    r.left.left = new Node(1);\n    r.left.right = new Node(3);\n    r.right.left = new Node(5);\n    r.right.right = new Node(7);\n    return r;\n  }\n\n  static void inorder(Node r, List<Integer> out) {\n    if (r != null) {\n      inorder(r.left, out);\n      out.add(r.value);\n      inorder(r.right, out);\n    }\n  }\n\n  static String view(Node r) {\n    List<Integer> a = new ArrayList<>();\n    inorder(r, a);\n    return a.toString();\n  }\n\n  static class BSTIterator {\n    final Deque<Node> stack = new ArrayDeque<>();\n    final boolean reverse;\n\n    BSTIterator(Node root, boolean reverse) {\n      this.reverse = reverse;\n      push(root);\n    }\n\n    void push(Node r) {\n      while (r != null) {\n        stack.push(r);\n        r = reverse ? r.right : r.left;\n      }\n    }\n\n    boolean hasNext() {\n      return !stack.isEmpty();\n    }\n\n    Node nextNode() {\n      Node r = stack.pop();\n      push(reverse ? r.left : r.right);\n      return r;\n    }\n\n    int next() {\n      return nextNode().value;\n    }\n  }\n\n  public static boolean solve(Node r, long target) {\n    if (r == null) return false;\n    BSTIterator left = new BSTIterator(r, false), right = new BSTIterator(r, true);\n    Node a = left.nextNode(), b = right.nextNode();\n    while (a != b) {\n      long sum = (long) a.value + b.value;\n      if (sum == target) return true;\n      if (sum < target) {\n        if (!left.hasNext()) break;\n        a = left.nextNode();\n      } else {\n        if (!right.hasNext()) break;\n        b = right.nextNode();\n      }\n    }\n    return false;\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(sample(), 9));\n  }\n}\n"
+  },
+  "Correct BST with two nodes swapped": {
+    "expected": "[1, 2, 3, 4, 5, 6, 7]",
+    "problem": "Restore a strict BST whose values in exactly two nodes were swapped. Already-valid input is left unchanged.",
+    "approach": "In inorder, swapped values create one or two descents. Record the previous node at the first descent and the current node at the last descent, then swap them.",
+    "complexity": "O(n) time; O(h) stack.",
+    "trace": "Swap 2 and 6: inorder becomes 1,6,3,4,5,2,7; descents identify 6 and 2.",
+    "pitfalls": "This fixes exactly a two-value swap; it is not a general arbitrary-tree BST repair.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node left, right;\n\n    Node(int v) {\n      value = v;\n    }\n  }\n\n  static Node sample() {\n    Node r = new Node(4);\n    r.left = new Node(2);\n    r.right = new Node(6);\n    r.left.left = new Node(1);\n    r.left.right = new Node(3);\n    r.right.left = new Node(5);\n    r.right.right = new Node(7);\n    return r;\n  }\n\n  static void inorder(Node r, List<Integer> out) {\n    if (r != null) {\n      inorder(r.left, out);\n      out.add(r.value);\n      inorder(r.right, out);\n    }\n  }\n\n  static String view(Node r) {\n    List<Integer> a = new ArrayList<>();\n    inorder(r, a);\n    return a.toString();\n  }\n\n  private static void scan(Node r, Node[] state) {\n    if (r == null) return;\n    scan(r.left, state);\n    if (state[0] != null && state[0].value > r.value) {\n      if (state[1] == null) state[1] = state[0];\n      state[2] = r;\n    }\n    state[0] = r;\n    scan(r.right, state);\n  }\n\n  public static void solve(Node r) {\n    Node[] s = new Node[3];\n    scan(r, s);\n    if (s[1] != null) {\n      int t = s[1].value;\n      s[1].value = s[2].value;\n      s[2].value = t;\n    }\n  }\n\n  public static void main(String[] args) {\n    Node r = sample();\n    int t = r.left.value;\n    r.left.value = r.right.value;\n    r.right.value = t;\n    solve(r);\n    System.out.println(view(r));\n  }\n}\n"
+  },
+  "Largest BST in Binary Tree": {
+    "expected": "7",
+    "problem": "Return the number of nodes in the largest rooted subtree that is a strict BST.",
+    "approach": "Postorder returns valid flag, subtree size, minimum, maximum and largest BST size. A root forms a BST iff both children are BSTs and their extrema bracket its key.",
+    "complexity": "O(n) time, O(h) stack.",
+    "trace": "Each leaf is a BST size 1; children 2 and 6 each build size 3; root 4 builds size 7.",
+    "pitfalls": "The answer must be a whole rooted subtree, not an arbitrary node subset. Long sentinels preserve extreme int keys.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node left, right;\n\n    Node(int v) {\n      value = v;\n    }\n  }\n\n  static Node sample() {\n    Node r = new Node(4);\n    r.left = new Node(2);\n    r.right = new Node(6);\n    r.left.left = new Node(1);\n    r.left.right = new Node(3);\n    r.right.left = new Node(5);\n    r.right.right = new Node(7);\n    return r;\n  }\n\n  static void inorder(Node r, List<Integer> out) {\n    if (r != null) {\n      inorder(r.left, out);\n      out.add(r.value);\n      inorder(r.right, out);\n    }\n  }\n\n  static String view(Node r) {\n    List<Integer> a = new ArrayList<>();\n    inorder(r, a);\n    return a.toString();\n  }\n\n  private static long[] info(Node r) {\n    if (r == null) return new long[] {1, 0, Long.MAX_VALUE, Long.MIN_VALUE, 0};\n    long[] l = info(r.left), q = info(r.right);\n    if (l[0] == 1 && q[0] == 1 && l[3] < r.value && r.value < q[2]) {\n      long size = 1 + l[1] + q[1];\n      return new long[] {1, size, Math.min(l[2], r.value), Math.max(q[3], r.value), size};\n    }\n    return new long[] {0, 0, 0, 0, Math.max(l[4], q[4])};\n  }\n\n  public static long solve(Node r) {\n    return info(r)[4];\n  }\n\n  public static void main(String[] args) {\n    System.out.println(solve(sample()));\n  }\n}\n"
+  },
+  "Merge Two BSTs": {
+    "expected": "[1, 2, 3]",
+    "problem": "Return sorted multiset of both BSTs' values; preserve inputs. This does not build a new tree.",
+    "approach": "Inorder each BST yields sorted values; merge their fronts like two sorted arrays.",
+    "complexity": "O(n+m) time/space; dual iterators can reduce auxiliary state to O(h1+h2) excluding output.",
+    "trace": "First BST inorder1,2; second3 ->merged1,2,3.",
+    "pitfalls": "Keep equal values from both inputs; unique-key constraints apply within each BST, not across the two.",
+    "alternatives": "",
+    "source": "import java.util.*;\n\npublic class Solution {\n  static class Node {\n    int value;\n    Node left, right;\n\n    Node(int v) {\n      value = v;\n    }\n  }\n\n  static Node sample() {\n    Node r = new Node(4);\n    r.left = new Node(2);\n    r.right = new Node(6);\n    r.left.left = new Node(1);\n    r.left.right = new Node(3);\n    r.right.left = new Node(5);\n    r.right.right = new Node(7);\n    return r;\n  }\n\n  static void inorder(Node r, List<Integer> out) {\n    if (r != null) {\n      inorder(r.left, out);\n      out.add(r.value);\n      inorder(r.right, out);\n    }\n  }\n\n  static String view(Node r) {\n    List<Integer> a = new ArrayList<>();\n    inorder(r, a);\n    return a.toString();\n  }\n\n  public static List<Integer> solve(Node a, Node b) {\n    List<Integer> x = new ArrayList<>(), y = new ArrayList<>(), out = new ArrayList<>();\n    inorder(a, x);\n    inorder(b, y);\n    int i = 0, j = 0;\n    while (i < x.size() || j < y.size())\n      out.add(j == y.size() || (i < x.size() && x.get(i) <= y.get(j)) ? x.get(i++) : y.get(j++));\n    return out;\n  }\n\n  public static void main(String[] args) {\n    Node a = new Node(2);\n    a.left = new Node(1);\n    Node b = new Node(3);\n    System.out.println(solve(a, b));\n  }\n}\n"
+  }
+}
