@@ -87,14 +87,14 @@ Follow the section order below. Pending items are listed in the [full coverage i
 - [Sum of Highest and Lowest Frequency](basic-hashing/sum-of-highest-and-lowest-frequency/README.md) — implemented
 ## Basic Strings
 
-- Reverse a String II — pending
-- Palindrome Check — pending
-- Largest Odd Number in a String — pending
-- Longest Common Prefix — pending
-- Isomorphic Strings — pending
-- Rotate String — pending
-- Valid Anagram — pending
-- Sort Characters by Frequency — pending
+- [Reverse a String II](basic-strings/reverse-a-string-ii/README.md) — implemented
+- [Palindrome Check](basic-strings/palindrome-check/README.md) — implemented
+- [Largest Odd Number in a String](basic-strings/largest-odd-number-in-a-string/README.md) — implemented
+- [Longest Common Prefix](basic-strings/longest-common-prefix/README.md) — implemented
+- [Isomorphic Strings](basic-strings/isomorphic-strings/README.md) — implemented
+- [Rotate String](basic-strings/rotate-string/README.md) — implemented
+- [Valid Anagram](basic-strings/valid-anagram/README.md) — implemented
+- [Sort Characters by Frequency](basic-strings/sort-characters-by-frequency/README.md) — implemented
 ## Basic Recursion
 
 - [Recursion Theory](basic-recursion/recursion-theory/README.md) — theory

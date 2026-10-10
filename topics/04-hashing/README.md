@@ -7,8 +7,8 @@ Follow the section order below. Pending items are listed in the [full coverage i
 - [Basic Hashing](theory/basic-hashing/README.md) — theory
 ## FAQs
 
-- Longest Consecutive Sequence in an Array — pending
-- Longest subarray with sum K — pending
-- Largest Subarray with Sum 0 — pending
-- Count subarrays with given sum — pending
-- Count subarrays with given xor K — pending
+- [Longest Consecutive Sequence in an Array](faqs/longest-consecutive-sequence-in-an-array/README.md) — implemented
+- [Longest subarray with sum K](faqs/longest-subarray-with-sum-k/README.md) — implemented
+- [Largest Subarray with Sum 0](faqs/largest-subarray-with-sum-0/README.md) — implemented
+- [Count subarrays with given sum](faqs/count-subarrays-with-given-sum/README.md) — implemented
+- [Count subarrays with given xor K](faqs/count-subarrays-with-given-xor-k/README.md) — implemented
