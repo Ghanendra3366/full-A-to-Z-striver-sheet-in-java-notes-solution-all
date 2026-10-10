@@ -1,0 +1,66 @@
+import java.util.*;
+
+public class Solution {
+  static class Node {
+    int value;
+    Node left, right;
+
+    Node(int v) {
+      value = v;
+    }
+  }
+
+  static Node sample() {
+    Node r = new Node(4);
+    r.left = new Node(2);
+    r.right = new Node(6);
+    r.left.left = new Node(1);
+    r.left.right = new Node(3);
+    r.right.left = new Node(5);
+    r.right.right = new Node(7);
+    return r;
+  }
+
+  static void inorder(Node r, List<Integer> out) {
+    if (r != null) {
+      inorder(r.left, out);
+      out.add(r.value);
+      inorder(r.right, out);
+    }
+  }
+
+  static String view(Node r) {
+    List<Integer> a = new ArrayList<>();
+    inorder(r, a);
+    return a.toString();
+  }
+
+  public static List<List<Integer>> levels(Node r) {
+    List<List<Integer>> out = new ArrayList<>();
+    if (r == null) return out;
+    Queue<Node> q = new ArrayDeque<>();
+    q.offer(r);
+    while (!q.isEmpty()) {
+      int size = q.size();
+      List<Integer> row = new ArrayList<>();
+      for (int i = 0; i < size; i++) {
+        Node x = q.poll();
+        row.add(x.value);
+        if (x.left != null) q.offer(x.left);
+        if (x.right != null) q.offer(x.right);
+      }
+      out.add(row);
+    }
+    return out;
+  }
+
+  public static List<List<Integer>> solve(Node r) {
+    List<List<Integer>> out = levels(r);
+    for (int i = 1; i < out.size(); i += 2) Collections.reverse(out.get(i));
+    return out;
+  }
+
+  public static void main(String[] args) {
+    System.out.println(solve(sample()));
+  }
+}
